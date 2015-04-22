@@ -20,3 +20,4 @@ gradle.properties
 PowerImprove.iml
 gradlew
 gradlew.bat
+app/app.iml
