@@ -12,6 +12,8 @@ import java.util.List;
 
 /**
  * SharedPreference
+ * <p/>
+ * 大数据时，不要使用
  *
  * @author ----zhaoruyang----
  * @version: V1.0

@@ -7,26 +7,34 @@ package com.android.base.utils;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.ActivityManager;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.ComponentInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.ResolveInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 import android.os.storage.StorageManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 
 import com.android.base.ConstantValue;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -43,6 +51,7 @@ public class SysInfoUtil {
      * recommend default thread pool size according to system available processors, {@link #getDefaultThreadPoolSize()} *
      */
     public static final int DEFAULT_THREAD_POOL_SIZE = getDefaultThreadPoolSize();
+    private static final String TAG = "SystemInfoUtil";
 
     /**
      * get recommend default thread pool size
@@ -65,17 +74,6 @@ public class SysInfoUtil {
     public static int getDefaultThreadPoolSize(int max) {
         int availableProcessors = 2 * Runtime.getRuntime().availableProcessors() + 1;
         return availableProcessors > max ? max : availableProcessors;
-    }
-
-    public static String getScreenType(Context context) {
-        DisplayMetrics dm = context.getResources().getDisplayMetrics();
-        int screenWidth = dm.widthPixels;
-        if (screenWidth <= 320) {
-            return "s";
-        } else if (screenWidth >= 600) {
-            return "l";
-        }
-        return "m";
     }
 
     public static String currentVersion(Context context)
@@ -236,7 +234,7 @@ public class SysInfoUtil {
      *
      * @return
      */
-    private static String getCurProcessName(Context context) {
+    public static String getCurProcessName(Context context) {
         int pid = android.os.Process.myPid();
         ActivityManager mActivityManager = (ActivityManager) context
                 .getSystemService(Context.ACTIVITY_SERVICE);
@@ -248,5 +246,106 @@ public class SysInfoUtil {
             }
         }
         return null;
+    }
+
+    /**
+     * 获取最近运行的程序列表（近期任务），长按home键所示效果
+     *
+     * @param context
+     *
+     * @return
+     */
+    public static List<String> getTaskList(Context context) {
+
+        List<String> appsPackageName = new ArrayList<>();
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        PackageManager pm = context.getPackageManager();
+
+        List<ActivityManager.RecentTaskInfo> list = am.getRecentTasks(10, 0);
+        for (ActivityManager.RecentTaskInfo ti : list) {
+
+            //无法获取最后使用时间
+//            // 得到类对象
+//            try {
+//
+//                Class userCla =  ActivityManager.RecentTaskInfo.class;
+//                Field[] declaredFields = userCla.getDeclaredFields();
+//                for (Field field:declaredFields)
+//                {
+//                    field.setAccessible(true);
+//                    LogUtil.i(TAG,"field----"+field.getName());
+//                }
+//                Field lastActiveTime = userCla.getDeclaredField("lastActiveTime");
+//                lastActiveTime.setAccessible(true);
+//                long lastUsedTime = (long) lastActiveTime.get(ti);
+//                LogUtil.i(TAG, "lastUsedTime----" + lastUsedTime);
+//            } catch (NoSuchFieldException | IllegalAccessException e) {
+//                LogUtil.e(ConstantValue.TAG_EXCEPTION, "*****EXCEPTION*****\n", e);
+//            }
+
+
+            Intent intent = ti.baseIntent;
+            ResolveInfo resolveInfo = pm.resolveActivity(intent, 0);
+            if (resolveInfo != null) {
+                ComponentInfo ci = getComponentInfo(resolveInfo);
+                String resolvePackageName = ci.packageName;
+                LogUtil.i(TAG, "resolvePackageName----" + resolvePackageName);
+                appsPackageName.add(resolvePackageName);
+            }
+        }
+        return appsPackageName;
+
+    }
+
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public static ComponentInfo getComponentInfo(ResolveInfo resolveInfo) {
+        if (resolveInfo.activityInfo != null) return resolveInfo.activityInfo;
+        if (resolveInfo.serviceInfo != null) return resolveInfo.serviceInfo;
+        if (resolveInfo.providerInfo != null) return resolveInfo.providerInfo;
+        throw new IllegalStateException("Missing ComponentInfo!");
+    }
+
+    /**
+     * 判断自己的程序是否在前台
+     *
+     * @param context
+     *
+     * @return
+     */
+    public static boolean isRunningForeground(Context context) {
+        String packageName = context.getPackageName();
+        String topActivityClassName = getTopActivityName(context);
+        return packageName != null && topActivityClassName != null && topActivityClassName.startsWith(packageName);
+    }
+
+    /**
+     * 获取顶端activity名称
+     *
+     * @param context
+     *
+     * @return
+     */
+    public static String getTopActivityName(Context context) {
+        String topActivityClassName = null;
+        ActivityManager activityManager = (ActivityManager) (context.getSystemService(android.content.Context.ACTIVITY_SERVICE));
+        List<ActivityManager.RunningTaskInfo> runningTaskInfos = activityManager.getRunningTasks(1);
+        if (runningTaskInfos != null) {
+            ComponentName f = runningTaskInfos.get(0).topActivity;
+            topActivityClassName = f.getClassName();
+        }
+        return topActivityClassName;
+    }
+
+    /**
+     * 获取Wifi名称即SSID
+     *
+     * @param context
+     *
+     * @return
+     */
+    public static String getWifiSSID(Context context) {
+        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+        return wifiInfo.getSSID();
     }
 }

@@ -4,15 +4,20 @@ dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
     // 远程依赖json,格式: groupId:artifactId:version
     compile 'com.google.code.gson:gson:2.3.1'
+    compile 'com.android.support:appcompat-v7:22.1.0'
 }
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
     lintOptions {
         abortOnError false
     }
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 22
 
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7

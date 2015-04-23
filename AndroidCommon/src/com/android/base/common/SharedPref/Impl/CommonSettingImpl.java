@@ -13,7 +13,7 @@ import com.android.base.common.SharedPref.ISettingsField;
  * 共同拥有的属性配置 Created by Administrator on 2014/10/22.
  */
 public enum CommonSettingImpl implements ISettingsField {
-    FIRST_STRART;
+    FIRST_STRART, RECORD_WIFI_SSID;
     @Override
     public String getPreferenceName() {
         return ConstantValue.PREFERENCE_NAME_COMMON;
