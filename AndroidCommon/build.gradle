@@ -2,6 +2,8 @@ apply plugin: 'com.android.library'
 
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
+    // 远程依赖json,格式: groupId:artifactId:version
+    compile 'com.google.code.gson:gson:2.3.1'
 }
 
 android {
