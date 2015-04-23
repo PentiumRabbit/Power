@@ -9,7 +9,7 @@ import java.io.File;
  * @author ----zhaoruyang----
  * @data: 2014/12/8
  */
-public class AndroidFileUtil {
+public class IntentUtil {
     public static Intent openFile(String filePath) {
 
         File file = new File(filePath);

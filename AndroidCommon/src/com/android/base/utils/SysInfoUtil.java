@@ -37,7 +37,7 @@ import java.util.Locale;
  * @data: 2014年11月7日 下午3:25:49
  */
 
-public class SystemInfoUtil {
+public class SysInfoUtil {
 
     /**
      * recommend default thread pool size according to system available processors, {@link #getDefaultThreadPoolSize()} *

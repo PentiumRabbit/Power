@@ -35,12 +35,9 @@ import android.text.TextUtils;
 import com.android.base.ConstantValue;
 import com.android.base.utils.LogUtil;
 import com.android.netconnect.NetConstant;
-import com.android.netconnect.listener.HttpResultDeal;
+import com.android.netconnect.listener.IHttpResult;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -117,7 +114,7 @@ public class HttpUtils {
      *
      * @return 响应的数据
      */
-    public void sendGetRequest(String url, HttpResultDeal resultDeal) {
+    public void sendGetRequest(String url, IHttpResult resultDeal) {
 
         HttpGet httpGet = new HttpGet(url);
 
@@ -154,7 +151,7 @@ public class HttpUtils {
     }
 
 
-    public void sendPostRequest(String url, Map<String, String> params, HttpResultDeal resultDeal) {
+    public void sendPostRequest(String url, Map<String, String> params, IHttpResult resultDeal) {
         LogUtil.i(NetConstant.TAG_CONNECT_NET, "sendPostRequest");
 //        try {
 //            Thread.sleep(5000);

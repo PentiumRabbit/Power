@@ -143,10 +143,10 @@ public class CrashHandler implements UncaughtExceptionHandler {
 		StringBuilder sb = new StringBuilder();
 		sb.append(System.currentTimeMillis()).append("\n");
 
-		sb.append(SEP).append(SystemInfoUtil.getIMEI(mContext));
-		sb.append(SEP).append(SystemInfoUtil.getProductId());
-		sb.append(SEP).append(SystemInfoUtil.getSDKVersion());
-		sb.append(SEP).append(SystemInfoUtil.getSDKLevel());
+		sb.append(SEP).append(SysInfoUtil.getIMEI(mContext));
+		sb.append(SEP).append(SysInfoUtil.getProductId());
+		sb.append(SEP).append(SysInfoUtil.getSDKVersion());
+		sb.append(SEP).append(SysInfoUtil.getSDKLevel());
 		sb.append("\n");
 		return sb.toString();
 	}

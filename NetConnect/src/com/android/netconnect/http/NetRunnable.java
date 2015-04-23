@@ -6,7 +6,7 @@ import android.text.TextUtils;
 
 import com.android.netconnect.NetConstant;
 import com.android.netconnect.database.NetCacheDao;
-import com.android.netconnect.listener.HttpResultDeal;
+import com.android.netconnect.listener.IHttpResult;
 import com.google.gson.Gson;
 
 
@@ -14,7 +14,7 @@ import com.google.gson.Gson;
  * @author ----zhaoruyang----
  * @data: 2014/12/25
  */
-public class NetRequestRunnable implements Runnable, HttpResultDeal {
+public class NetRunnable implements Runnable, IHttpResult {
 
     public static final int REQUEST_SUCCESS = 0;
     public static final int REQUEST_FAIL = 1;
@@ -24,7 +24,7 @@ public class NetRequestRunnable implements Runnable, HttpResultDeal {
     private HttpUtils httpUtils;
     private NetCacheDao cacheDao;
 
-    public NetRequestRunnable(NetOptions options, IAsyncCallBack callback, NetCacheDao cacheDao) {
+    public NetRunnable(NetOptions options, IAsyncCallBack callback, NetCacheDao cacheDao) {
         this.options = options;
         if (callback != null) {
             handler = new NetHandler(callback, options);

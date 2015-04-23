@@ -21,7 +21,7 @@ import com.android.netconnect.NetConstant;
  * @data: 2014-7-24 下午5:48:53
  */
 
-public interface HttpResultDeal {
+public interface IHttpResult {
 
     /*网络请求成功*/
     void requestSuccess(NetConstant.RequestMethod method,String message);

@@ -24,7 +24,7 @@ import java.util.Locale;
  * @data: 2014年11月7日 下午3:28:34
  */
 
-public class SystemMethodUtil {
+public class SystemUtil {
     public static final String STATUS_BAR_SERVICE = "statusbar";
 
     /**

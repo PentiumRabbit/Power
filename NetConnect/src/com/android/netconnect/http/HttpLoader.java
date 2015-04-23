@@ -11,6 +11,10 @@
 
 package com.android.netconnect.http;
 
+import android.content.Context;
+
+import com.android.netconnect.database.NetCacheDao;
+
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
@@ -19,12 +23,6 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import android.content.Context;
-
-import com.android.base.utils.SystemInfoUtil;
-import com.android.netconnect.NetConstant;
-import com.android.netconnect.database.NetCacheDao;
 
 /**
  * AsyncHttpWraper
@@ -46,13 +44,14 @@ public class HttpLoader {
     private static final ThreadFactory sThreadFactory = new ThreadFactory() {
         private final AtomicInteger mCount = new AtomicInteger(1);
 
-        public Thread newThread( Runnable r) {
+        public Thread newThread(Runnable r) {
             return new Thread(r, "AsyncHttpWraper #" + mCount.getAndIncrement());
         }
     };
 
     private static final BlockingQueue<Runnable> sPoolWorkQueue =
             new LinkedBlockingQueue<>(128);
+    private Map<String, String> initParams;
 
 
     // private constructor suppresses
@@ -103,6 +102,13 @@ public class HttpLoader {
     }
 
     /**
+     * 初始化共享参数
+     */
+    public void initNetParams(Map<String, String> params) {
+        this.initParams = params;
+    }
+
+    /**
      * 执行请求
      *
      * @param options
@@ -115,14 +121,17 @@ public class HttpLoader {
             throw new NullPointerException("HttpLoader need ApplicationContext init");
         }
         Map<String, String> params = options.getParams();
-        params.put(NetConstant.PARAM_SCREEN, "l");
-        params.put(NetConstant.PARAM_VER, "1.6.4");
-        params.put(NetConstant.PARAM_PLATF, "android");
-        params.put(NetConstant.PARAM_IMEI, SystemInfoUtil.getIMEI(context));
+        if (initParams != null && params != null) {
+            params.putAll(initParams);
+        }
+//        params.put(NetConstant.PARAM_SCREEN, "l");
+//        params.put(NetConstant.PARAM_VER, "1.6.4");
+//        params.put(NetConstant.PARAM_PLATF, "android");
+//        params.put(NetConstant.PARAM_IMEI, SysInfoUtil.getIMEI(context));
         if (!options.isSync()) {
-            cachedThreadPool.execute(new NetRequestRunnable(options, callBack, netCacheDao));
-        }else {
-            new NetRequestRunnable(options, callBack, netCacheDao).run();
+            cachedThreadPool.execute(new NetRunnable(options, callBack, netCacheDao));
+        } else {
+            new NetRunnable(options, callBack, netCacheDao).run();
         }
 
     }

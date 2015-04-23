@@ -20,7 +20,7 @@ package com.android.netconnect.http;
  * @data: 2014-7-24 下午5:25:52
  */
 
-public class NetworkMessage {
+public class NetMessage {
 
     private int httpStatusCode;
 
