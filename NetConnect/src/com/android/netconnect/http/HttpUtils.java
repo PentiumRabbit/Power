@@ -35,6 +35,7 @@ import android.text.TextUtils;
 import com.android.base.ConstantValue;
 import com.android.base.utils.LogUtil;
 import com.android.netconnect.NetConstant;
+import com.android.netconnect.engine.NetWork.RequestMethod;
 import com.android.netconnect.listener.IHttpResult;
 
 import java.io.IOException;
@@ -132,7 +133,7 @@ public class HttpUtils {
                 String string = EntityUtils.toString(entity);
                 /** 返回响应数据 */
                 if (!TextUtils.isEmpty(string)) {
-                    resultDeal.requestSuccess(NetConstant.RequestMethod.GET, null);
+                    resultDeal.requestSuccess(RequestMethod.GET, null);
                 } else {
                     resultDeal.requestFail(NetConstant.ERROR_NO_MSG, null);
                 }
@@ -182,7 +183,7 @@ public class HttpUtils {
                 String string = EntityUtils.toString(entity);
                 /** 返回响应数据 */
                 if (!TextUtils.isEmpty(string)) {
-                    resultDeal.requestSuccess(NetConstant.RequestMethod.POST, string);
+                    resultDeal.requestSuccess(RequestMethod.POST, string);
 
                 } else {
                     resultDeal.requestFail(NetConstant.ERROR_NO_MSG, null);

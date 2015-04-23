@@ -8,11 +8,6 @@ public interface NetConstant {
 
     String TAG_CONNECT_NET = "storm.market.connect_net";
 
-    /*网络请求*/
-    enum RequestMethod {
-        POST, GET,
-    }
-
     /*网络请求参数*/
     String PARAM_SCREEN="screen";
 

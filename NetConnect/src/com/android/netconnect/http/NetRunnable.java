@@ -6,6 +6,7 @@ import android.text.TextUtils;
 
 import com.android.netconnect.NetConstant;
 import com.android.netconnect.database.NetCacheDao;
+import com.android.netconnect.engine.NetWork.RequestMethod;
 import com.android.netconnect.listener.IHttpResult;
 import com.google.gson.Gson;
 
@@ -47,11 +48,11 @@ public class NetRunnable implements Runnable, IHttpResult {
         }
 
         /*get请求*/
-        if (NetConstant.RequestMethod.GET == options.getMethod()) {
+        if (RequestMethod.GET == options.getMethod()) {
             httpUtils.sendGetRequest(options.getUrl(), this);
         }
         /*post请求*/
-        else if (NetConstant.RequestMethod.POST == options.getMethod()) {
+        else if (RequestMethod.POST == options.getMethod()) {
             httpUtils.sendPostRequest(options.getUrl(), options.getParams(), this);
         }
     }
@@ -71,7 +72,7 @@ public class NetRunnable implements Runnable, IHttpResult {
     }
 
     @Override
-    public void requestSuccess(NetConstant.RequestMethod method, String message) {
+    public void requestSuccess(RequestMethod method, String message) {
         handler.removeMessages(LOAD_DB_CACHE);
         Message msg = handler.obtainMessage(REQUEST_SUCCESS, dealMsg(message, options.getCastType()));
         handler.sendMessage(msg);

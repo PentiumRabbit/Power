@@ -1,6 +1,7 @@
 package com.android.netconnect.http;
 
 import com.android.netconnect.NetConstant;
+import com.android.netconnect.engine.NetWork.RequestMethod;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +13,7 @@ import java.util.Map;
 public final class NetOptions {
     private final int cacheId;
     private final int saveModel;
-    private final NetConstant.RequestMethod method;
+    private final RequestMethod method;
     private final Protocol.ProtocolType urlType;
     private final int threadPriority;
     private final Map<String, String> params;
@@ -62,7 +63,7 @@ public final class NetOptions {
         return saveModel != CACHE_TAG_NO_CACHE;
     }
 
-    public NetConstant.RequestMethod getMethod() {
+    public RequestMethod getMethod() {
         return method;
     }
 
@@ -85,7 +86,7 @@ public final class NetOptions {
     public static class Builder {
         private int cacheId = 0;
         private int saveModel = 0;
-        private NetConstant.RequestMethod method = NetConstant.RequestMethod.POST;
+        private RequestMethod method = RequestMethod.POST;
         public Protocol.ProtocolType urlType;
         private int threadPriority = android.os.Process.THREAD_PRIORITY_BACKGROUND;
         public Map<String, String> params = new HashMap<>();
@@ -107,7 +108,7 @@ public final class NetOptions {
             return this;
         }
 
-        public Builder setMethod(NetConstant.RequestMethod method) {
+        public Builder setMethod(RequestMethod method) {
             this.method = method;
             return this;
         }

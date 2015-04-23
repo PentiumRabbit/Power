@@ -5,7 +5,7 @@ import android.content.Context;
 import java.util.Map;
 
 /**
- * 初始化网络加载全局配置
+ * 鍒濆鍖栫綉缁滃姞杞藉叏灞�閰嶇疆
  *
  * @author ----zhaoruyang----
  * @data: 2015/4/23
