@@ -6,6 +6,7 @@ import android.text.TextUtils;
 
 import com.android.netconnect.NetConstant;
 import com.android.netconnect.database.NetCacheDao;
+import com.android.netconnect.engine.NetWork.NetFactory;
 import com.android.netconnect.engine.NetWork.RequestMethod;
 import com.android.netconnect.listener.IHttpResult;
 import com.google.gson.Gson;
@@ -22,7 +23,6 @@ public class NetRunnable implements Runnable, IHttpResult {
     public static final int LOAD_DB_CACHE = 2;
     private Handler handler;
     private NetOptions options;
-    private HttpUtils httpUtils;
     private NetCacheDao cacheDao;
 
     public NetRunnable(NetOptions options, IAsyncCallBack callback, NetCacheDao cacheDao) {
@@ -30,7 +30,6 @@ public class NetRunnable implements Runnable, IHttpResult {
         if (callback != null) {
             handler = new NetHandler(callback, options);
         }
-        httpUtils = HttpUtils.getInstance();
         this.cacheDao = cacheDao;
     }
 
@@ -47,14 +46,7 @@ public class NetRunnable implements Runnable, IHttpResult {
             }
         }
 
-        /*get请求*/
-        if (RequestMethod.GET == options.getMethod()) {
-            httpUtils.sendGetRequest(options.getUrl(), this);
-        }
-        /*post请求*/
-        else if (RequestMethod.POST == options.getMethod()) {
-            httpUtils.sendPostRequest(options.getUrl(), options.getParams(), this);
-        }
+        NetFactory.getInstance().exeConnect(options, this);
     }
 
     /**

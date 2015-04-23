@@ -54,18 +54,18 @@ import java.util.Map;
 public class ClientConnectImpl implements IRequest {
 
     private static volatile ClientConnectImpl instance = null;
-    private static Header[] headers;
+    private  Header[] headers;
     /**
      * 自定义Cookie值设置
      */
-    private static String cookie;
+    private String cookie;
 
     public String getCookie() {
         return cookie;
     }
 
     public void setCookie(String cookie) {
-        ClientConnectImpl.cookie = cookie;
+        this.cookie = cookie;
     }
 
     /**
@@ -154,22 +154,20 @@ public class ClientConnectImpl implements IRequest {
         }
     }
 
-    static {
-//        headers = new Header[10];
-//
+
+    // private constructor suppresses
+    public ClientConnectImpl() {
+        httpClient = getHttpClient();
+        headers = new Header[10];
+
 //        headers[0] = new BasicHeader("screen", "");
 //        headers[1] = new BasicHeader("ver", "");// 手机串号
 //        headers[2] = new BasicHeader("platf", "android");//
 //        headers[3] = new BasicHeader("imei", "");//
     }
 
-    // private constructor suppresses
-    public ClientConnectImpl() {
-        httpClient = getHttpClient();
-    }
 
-
-    public  HttpClient getHttpClient() {
+    public HttpClient getHttpClient() {
 
         HttpParams params = new BasicHttpParams();
         // 设置一些基本参数
