@@ -19,6 +19,7 @@ public final class NetOptions {
     private final Map<String, String> params;
     private final boolean isSync;
     private final Class castType;
+    private final int connectMode;
 
 
     /* 不缓存 */
@@ -37,6 +38,11 @@ public final class NetOptions {
         params = builder.params;
         isSync = builder.isSync;
         castType = builder.castType;
+        connectMode = builder.connectMode;
+    }
+
+    public int getConnectMode() {
+        return connectMode;
     }
 
     public Class getCastType() {
@@ -93,9 +99,16 @@ public final class NetOptions {
         public boolean isSync = false;
         /*默认强转的类型为String*/
         public Class castType = String.class;
+        /*默认HttpClient*/
+        public int connectMode = NetConstant.MODE_CONNECT_CLIENT;
 
         public Builder() {
 
+        }
+
+        public Builder setConnectMode(int connectMode) {
+            this.connectMode = connectMode;
+            return this;
         }
 
         public Builder setCacheId(int cacheId) {

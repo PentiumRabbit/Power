@@ -6,4 +6,6 @@ package com.android.netconnect.engine.NetWork;
  */
 public interface INetFactory {
 
+    void exeConnect(IRequest request);
+
 }

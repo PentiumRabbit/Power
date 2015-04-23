@@ -9,13 +9,13 @@ public interface NetConstant {
     String TAG_CONNECT_NET = "storm.market.connect_net";
 
     /*网络请求参数*/
-    String PARAM_SCREEN="screen";
+    String PARAM_SCREEN = "screen";
 
-    String PARAM_VER="ver";
+    String PARAM_VER = "ver";
 
-    String PARAM_PLATF="platf";
+    String PARAM_PLATF = "platf";
 
-    String PARAM_IMEI ="imei";
+    String PARAM_IMEI = "imei";
 
     /*网络错误码*/
 
@@ -24,4 +24,8 @@ public interface NetConstant {
 
     /*请求异常*/
     int ERROR_EXCEPTION = -2;
+
+    int MODE_CONNECT_URL = 1;
+
+    int MODE_CONNECT_CLIENT = 2;
 }
