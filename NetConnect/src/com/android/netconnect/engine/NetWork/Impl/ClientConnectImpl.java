@@ -45,16 +45,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 关于HTTP的操作
+ * 关于HTTPClient的操作
  *
- * @author ZRY
- * @ClassName: HttpUtils
- * @date 2014-3-28 下午4:57:03
+ * @author zhaoruyang
  */
 public class ClientConnectImpl implements IRequest {
 
-    private static volatile ClientConnectImpl instance = null;
-    private  Header[] headers;
+    private Header[] headers;
     /**
      * 自定义Cookie值设置
      */

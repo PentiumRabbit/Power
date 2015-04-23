@@ -116,7 +116,7 @@ public class HttpLoader {
      * @param callBack
      *         回调
      */
-    public void exeRequest(NetOptions options, IAsyncCallBack callBack) {
+    public void exeRequest(NetOptions options, INetCallBack callBack) {
         if (netCacheDao == null || context == null) {
             throw new NullPointerException("HttpLoader need ApplicationContext init");
         }
@@ -131,6 +131,7 @@ public class HttpLoader {
         if (!options.isSync()) {
             cachedThreadPool.execute(new NetRunnable(options, callBack, netCacheDao));
         } else {
+            /*在调用该方法的线程中执行*/
             new NetRunnable(options, callBack, netCacheDao).run();
         }
 

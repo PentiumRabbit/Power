@@ -158,6 +158,13 @@ public final class NetOptions {
             cacheId = options.cacheId;
             saveModel = options.saveModel;
             method = options.method;
+            urlType = options.urlType;
+            threadPriority = options.threadPriority;
+            params = options.params;
+            isSync = options.isSync;
+            castType = options.castType;
+            connectMode = options.connectMode;
+
             return this;
         }
 

@@ -26,7 +26,7 @@ public class NetMessage {
 
     private String httpResult;
 
-    private IAsyncCallBack callBack;
+    private INetCallBack callBack;
 
     private Exception exception;
 
@@ -77,14 +77,14 @@ public class NetMessage {
     /**
      * @return the callBack
      */
-    public IAsyncCallBack getCallBack() {
+    public INetCallBack getCallBack() {
         return this.callBack;
     }
 
     /**
      * @param callBack the callBack to set
      */
-    public void setCallBack(IAsyncCallBack callBack) {
+    public void setCallBack(INetCallBack callBack) {
         this.callBack = callBack;
     }
 

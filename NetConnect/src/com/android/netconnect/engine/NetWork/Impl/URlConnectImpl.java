@@ -6,6 +6,8 @@ import com.android.netconnect.listener.IHttpResult;
 import java.util.Map;
 
 /**
+ * HttpURLConnect
+ *
  * @author ----zhaoruyang----
  * @data: 2015/4/23
  */

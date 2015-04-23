@@ -43,6 +43,7 @@ public class NetFactory {
         int connectMode = options.getConnectMode();
         IRequest executor = getExecutor(connectMode);
         if (options.getMethod() == RequestMethod.GET) {
+            // TODO：　回调直接传入是不是影响了层层传递的规则？？？
             executor.doGet(options.getUrl(), result);
         } else if (options.getMethod() == RequestMethod.POST) {
             executor.doPost(options.getUrl(), options.getParams(), result);

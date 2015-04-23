@@ -4,7 +4,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 
-import com.android.netconnect.NetConstant;
 import com.android.netconnect.database.NetCacheDao;
 import com.android.netconnect.engine.NetWork.NetFactory;
 import com.android.netconnect.engine.NetWork.RequestMethod;
@@ -13,6 +12,8 @@ import com.google.gson.Gson;
 
 
 /**
+ * 将一条连接的数据库操作,网络请求操作,json解析操作写在同一个线程内,避免线程资源浪费
+ *
  * @author ----zhaoruyang----
  * @data: 2014/12/25
  */
@@ -25,7 +26,7 @@ public class NetRunnable implements Runnable, IHttpResult {
     private NetOptions options;
     private NetCacheDao cacheDao;
 
-    public NetRunnable(NetOptions options, IAsyncCallBack callback, NetCacheDao cacheDao) {
+    public NetRunnable(NetOptions options, INetCallBack callback, NetCacheDao cacheDao) {
         this.options = options;
         if (callback != null) {
             handler = new NetHandler(callback, options);
@@ -36,7 +37,9 @@ public class NetRunnable implements Runnable, IHttpResult {
 
     @Override
     public void run() {
-        android.os.Process.setThreadPriority(options.getThreadPriority());
+        if (!options.isSync()) {
+            android.os.Process.setThreadPriority(options.getThreadPriority());
+        }
         if (options.readCache()) {
             // 读取数据库
             String cacheStr = cacheDao.getCacheStr(options.getCacheId());
@@ -84,10 +87,10 @@ public class NetRunnable implements Runnable, IHttpResult {
      * 强制关联,防止上层不能获取结果,不需要使用弱引用,不会造成内存泄露,请求有超时时间
      */
     static class NetHandler extends Handler {
-        private IAsyncCallBack callBack;
+        private INetCallBack callBack;
         private NetOptions options;
 
-        public NetHandler(IAsyncCallBack callBack, NetOptions options) {
+        public NetHandler(INetCallBack callBack, NetOptions options) {
             this.callBack = callBack;
             this.options = options;
         }
@@ -107,7 +110,7 @@ public class NetRunnable implements Runnable, IHttpResult {
                     callBack.callback_error(options.getCacheId(), error_code);
                     break;
                 case LOAD_DB_CACHE:
-                    callBack.callback_pre_loadcache(options.getCacheId(), msg.obj);
+                    callBack.callback_loadcache(options.getCacheId(), msg.obj);
                     break;
                 default:
                     break;
