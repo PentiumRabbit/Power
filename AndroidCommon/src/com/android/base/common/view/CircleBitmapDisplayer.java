@@ -4,6 +4,7 @@
 
 package com.android.base.common.view;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.nostra13.universalimageloader.core.assist.LoadedFrom;
@@ -13,21 +14,22 @@ import com.nostra13.universalimageloader.core.imageaware.ImageViewAware;
 
 /**
  * Created With Android Studio
- * User @47
+ * zhaoruyang
  * Date 2014-07-27
  * Time 20:55
  * 显示原型图片的ImageLoader使用的显示器
- *
  */
 public class CircleBitmapDisplayer implements BitmapDisplayer {
 
-    protected  final int margin ;
+    protected int margin;
+    private Context context;
 
-    public CircleBitmapDisplayer() {
-        this(0);
+    public CircleBitmapDisplayer(Context context) {
+        this(0, context);
     }
 
-    public CircleBitmapDisplayer(int margin) {
+    public CircleBitmapDisplayer(int margin, Context context) {
+        this.context = context;
         this.margin = margin;
     }
 
@@ -37,7 +39,7 @@ public class CircleBitmapDisplayer implements BitmapDisplayer {
             throw new IllegalArgumentException("ImageAware should wrap ImageView. ImageViewAware is expected.");
         }
 
-        imageAware.setImageDrawable(new CircleDrawable(bitmap, margin));
+        imageAware.setImageDrawable(new CircleDrawable(bitmap, margin, context));
     }
 
 
