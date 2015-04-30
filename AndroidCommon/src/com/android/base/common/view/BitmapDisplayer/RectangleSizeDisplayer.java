@@ -1,4 +1,4 @@
-package com.android.base.common.view;
+package com.android.base.common.view.BitmapDisplayer;
 
 import android.graphics.Bitmap;
 

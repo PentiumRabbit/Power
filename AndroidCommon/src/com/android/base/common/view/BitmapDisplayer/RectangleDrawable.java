@@ -1,4 +1,4 @@
-package com.android.base.common.view;
+package com.android.base.common.view.BitmapDisplayer;
 
 import android.annotation.TargetApi;
 import android.content.res.ColorStateList;

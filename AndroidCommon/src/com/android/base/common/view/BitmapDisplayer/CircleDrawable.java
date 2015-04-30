@@ -2,7 +2,7 @@
  * Copyright:  Beijing BaoFeng Technology Co., Ltd. Copyright 2014-2114,  All rights reserved
  */
 
-package com.android.base.common.view;
+package com.android.base.common.view.BitmapDisplayer;
 
 import android.content.Context;
 import android.content.res.Resources;
