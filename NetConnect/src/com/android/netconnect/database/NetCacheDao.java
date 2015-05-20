@@ -5,17 +5,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.android.netconnect.http.NetOptions;
-
 /**
  * 网络缓存
  *
  * @author ----zhaoruyang----
  * @data: 2014/12/26
  */
-public class NetCacheDao implements INetCacheDao{
+public class NetCacheDao implements INetCacheDao {
 
-    private static volatile NetCacheDao instance = null;
     private final CacheOpenHelper helper;
 
     /**
@@ -25,23 +22,8 @@ public class NetCacheDao implements INetCacheDao{
      *         全局Context
      */
     // private constructor suppresses
-    private NetCacheDao(Context context) {
-
+    public NetCacheDao(Context context) {
         helper = CacheOpenHelper.getInstance(context);
-
-    }
-
-    public static NetCacheDao getInstance(Context context) {
-        // if already inited, no need to get lock everytime
-        if (instance == null) {
-            synchronized (NetCacheDao.class) {
-                if (instance == null) {
-                    instance = new NetCacheDao(context);
-                }
-            }
-        }
-
-        return instance;
     }
 
     /**
@@ -52,12 +34,12 @@ public class NetCacheDao implements INetCacheDao{
      * @param cache
      *         缓存
      */
-    public synchronized void saveCache(int field, String cache, int cache_tag) {
+    public synchronized void saveCache(int field, String cache, NetSaveModel cache_tag) {
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(CacheOpenHelper.CACHE_NAME, field);
         contentValues.put(CacheOpenHelper.CACHE_INFO, cache);
-        contentValues.put(CacheOpenHelper.CACHE_TAG, cache_tag);
+        contentValues.put(CacheOpenHelper.CACHE_TAG, cache_tag.ordinal());
         db.replace(CacheOpenHelper.APP_NET_CACHE, null, contentValues);
     }
 
@@ -89,14 +71,14 @@ public class NetCacheDao implements INetCacheDao{
     /**
      * 清除退出需要清除的缓存
      */
-    public void clearCache() {
+    public void clearCache(NetSaveModel tag) {
         SQLiteDatabase writableDatabase = helper.getWritableDatabase();
         String sql = "delete from "
                 + CacheOpenHelper.APP_NET_CACHE
                 + " where "
                 + CacheOpenHelper.CACHE_TAG
                 + " =="
-                + NetOptions.CACHE_TAG_CLEAR;
+                + tag.ordinal();
         writableDatabase.execSQL(sql);
     }
 }

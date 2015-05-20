@@ -4,25 +4,14 @@ import com.android.base.ConstantValue;
 
 public class Protocol {
 
-	public static enum ProtocolType {
-        XIAOBIAN_RECOMMEND {
-            @Override
-            public String toString() {
-                return "/columnTwo.php";
-            }
-        },
+    public enum ProtocolType {
+
         GET_APK_DETAILS {
             @Override
             public String toString() {
                 return "/pdetail.php";
             }
         },
-		CHECKUPDATE {
-			@Override
-			public String toString() {
-				return "/vercheck.php";
-			}
-		},
 
         POLLING_SERVICE {
             @Override
@@ -31,7 +20,7 @@ public class Protocol {
             }
         },
 
-	}
+    }
 
 
     public static String generateUrl(ProtocolType type) {

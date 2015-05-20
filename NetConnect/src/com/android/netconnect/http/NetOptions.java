@@ -1,6 +1,7 @@
 package com.android.netconnect.http;
 
 import com.android.netconnect.NetConstant;
+import com.android.netconnect.database.NetSaveModel;
 import com.android.netconnect.engine.NetWork.RequestMethod;
 
 import java.util.HashMap;
@@ -12,7 +13,7 @@ import java.util.Map;
  */
 public final class NetOptions {
     private final int cacheId;
-    private final int saveModel;
+    private final NetSaveModel saveModel;
     private final RequestMethod method;
     private final Protocol.ProtocolType urlType;
     private final int threadPriority;
@@ -60,7 +61,7 @@ public final class NetOptions {
     }
 
     public boolean saveCache() {
-        return saveModel != NetConstant.CACHE_TAG_NO_CACHE;
+        return saveModel != NetSaveModel.tag_no_cache;
     }
 
     public RequestMethod getMethod() {
@@ -76,16 +77,16 @@ public final class NetOptions {
     }
 
     public boolean readCache() {
-        return saveModel != NetConstant.CACHE_TAG_NO_CACHE;
+        return saveModel != NetSaveModel.tag_no_cache;
     }
 
-    public int getSaveModel() {
+    public NetSaveModel getSaveModel() {
         return saveModel;
     }
 
     public static class Builder {
         private int cacheId = 0;
-        private int saveModel = 0;
+        private NetSaveModel saveModel = NetSaveModel.tag_no_cache;
         private RequestMethod method = RequestMethod.POST;
         public Protocol.ProtocolType urlType;
         private int threadPriority = android.os.Process.THREAD_PRIORITY_BACKGROUND;
@@ -110,7 +111,7 @@ public final class NetOptions {
             return this;
         }
 
-        public Builder setSaveModel(int saveModel) {
+        public Builder setSaveModel(NetSaveModel saveModel) {
             this.saveModel = saveModel;
             return this;
         }

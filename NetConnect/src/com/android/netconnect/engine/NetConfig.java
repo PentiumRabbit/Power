@@ -55,7 +55,7 @@ public final class NetConfig {
 
         public Builder(Context context) {
             this.context = context.getApplicationContext();
-            netCacheDao = NetCacheDao.getInstance(context);
+            netCacheDao =new NetCacheDao(this.context);
         }
 
 

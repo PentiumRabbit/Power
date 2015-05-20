@@ -22,7 +22,7 @@ public class CacheOpenHelper extends SQLiteOpenHelper {
     private static final String TAG = "CacheOpenHelper";
 
     private CacheOpenHelper(Context context) {
-        super(context, DB_NAME, null, 2);
+        super(context, DB_NAME, null, 1);
     }
 
     private static volatile CacheOpenHelper instance = null;

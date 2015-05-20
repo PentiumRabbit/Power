@@ -64,11 +64,5 @@ public interface NetConstant {
      * *************************************************************************
      */
 
-    /* 不缓存 */
-    int CACHE_TAG_NO_CACHE = 0x00000001;
-    /* 退出清理 */
-    int CACHE_TAG_CLEAR = 0x00000002;
-    /* 一直保留 */
-    int CACHE_TAG_SAVE = 0x00000003;
 
 }

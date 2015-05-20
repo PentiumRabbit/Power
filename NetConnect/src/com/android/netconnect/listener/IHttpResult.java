@@ -11,7 +11,6 @@
 
 package com.android.netconnect.listener;
 
-import com.android.netconnect.NetConstant;
 import com.android.netconnect.engine.NetWork.RequestMethod;
 
 /**
