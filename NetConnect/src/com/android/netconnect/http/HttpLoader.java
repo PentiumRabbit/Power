@@ -11,18 +11,9 @@
 
 package com.android.netconnect.http;
 
-import android.content.Context;
-
-import com.android.netconnect.database.NetCacheDao;
+import com.android.netconnect.engine.NetConfig;
 
 import java.util.Map;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * AsyncHttpWraper
@@ -34,46 +25,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class HttpLoader {
     private static volatile HttpLoader instance = null;
-    private ExecutorService cachedThreadPool;
-    private NetCacheDao netCacheDao;
-    private Context context;
-    private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
-    private static final int CORE_POOL_SIZE = CPU_COUNT + 1;
-    private static final int MAXIMUM_POOL_SIZE = CPU_COUNT * 2 + 1;
-    private static final int KEEP_ALIVE = 1;
-    private static final ThreadFactory sThreadFactory = new ThreadFactory() {
-        private final AtomicInteger mCount = new AtomicInteger(1);
-
-        public Thread newThread(Runnable r) {
-            return new Thread(r, "AsyncHttpWraper #" + mCount.getAndIncrement());
-        }
-    };
-
-    private static final BlockingQueue<Runnable> sPoolWorkQueue =
-            new LinkedBlockingQueue<>(128);
-    private Map<String, String> initParams;
+    private NetConfig config;
 
 
     // private constructor suppresses
     private HttpLoader() {
-        //        corePoolSize - 池中所保存的线程数，包括空闲线程。
-        //        maximumPoolSize - 池中允许的最大线程数。
-        //        keepAliveTime - 当线程数大于核心时，此为终止前多余的空闲线程等待新任务的最长时间。
-        //        unit - keepAliveTime 参数的时间单位。
-        //        workQueue - 执行前用于保持任务的队列。此队列仅保持由 execute 方法提交的 Runnable 任务。
-        //        抛出：
-        //        IllegalArgumentException - 如果 corePoolSize 或 keepAliveTime 小于零，
-        //        或者 maximumPoolSize 小于或等于零，或者 corePoolSize 大于 maximumPoolSize。
-        //        NullPointerException - 如果 workQueue 为 null
-        cachedThreadPool = new ThreadPoolExecutor(
-                CORE_POOL_SIZE,
-                MAXIMUM_POOL_SIZE,
-                KEEP_ALIVE,
-                TimeUnit.SECONDS,
-                sPoolWorkQueue,
-                sThreadFactory,
-                new ThreadPoolExecutor.DiscardOldestPolicy()
-        );
+        //TODO 在全局配置中,可以自定义配置线程池
+
 
     }
 
@@ -92,21 +50,11 @@ public class HttpLoader {
 
     /**
      * 在Application中初始化
-     *
-     * @param context
-     *         全局的Context
      */
-    public void initAsyncHttp(Context context) {
-        this.context = context;
-        netCacheDao = NetCacheDao.getInstance(context);
+    public void init(NetConfig config) {
+        this.config = config;
     }
 
-    /**
-     * 初始化共享参数
-     */
-    public void initNetParams(Map<String, String> params) {
-        this.initParams = params;
-    }
 
     /**
      * 执行请求
@@ -117,22 +65,18 @@ public class HttpLoader {
      *         回调
      */
     public void exeRequest(NetOptions options, INetCallBack callBack) {
-        if (netCacheDao == null || context == null) {
+        if (config == null) {
             throw new NullPointerException("HttpLoader need ApplicationContext init");
         }
         Map<String, String> params = options.getParams();
-        if (initParams != null && params != null) {
-            params.putAll(initParams);
+        if (params != null) {
+            params.putAll(config.getNetParams());
         }
-//        params.put(NetConstant.PARAM_SCREEN, "l");
-//        params.put(NetConstant.PARAM_VER, "1.6.4");
-//        params.put(NetConstant.PARAM_PLATF, "android");
-//        params.put(NetConstant.PARAM_IMEI, SysInfoUtil.getIMEI(context));
         if (!options.isSync()) {
-            cachedThreadPool.execute(new NetRunnable(options, callBack, netCacheDao));
+            config.getThreadPool().execute(new NetRunnable(options, callBack, config.getNetCacheDao()));
         } else {
             /*在调用该方法的线程中执行*/
-            new NetRunnable(options, callBack, netCacheDao).run();
+            new NetRunnable(options, callBack, config.getNetCacheDao()).run();
         }
 
     }
@@ -142,7 +86,7 @@ public class HttpLoader {
      * 关闭所有任务
      */
     public void shutdownPool() {
-        cachedThreadPool.shutdown();
+        config.getThreadPool().shutdown();
     }
 
 }
