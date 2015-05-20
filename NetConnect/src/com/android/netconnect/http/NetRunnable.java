@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 
+import com.android.netconnect.database.INetCacheDao;
 import com.android.netconnect.database.NetCacheDao;
 import com.android.netconnect.engine.NetWork.NetFactory;
 import com.android.netconnect.engine.NetWork.RequestMethod;
@@ -24,9 +25,9 @@ public class NetRunnable implements Runnable, IHttpResult {
     public static final int LOAD_DB_CACHE = 2;
     private Handler handler;
     private NetOptions options;
-    private NetCacheDao cacheDao;
+    private INetCacheDao cacheDao;
 
-    public NetRunnable(NetOptions options, INetCallBack callback, NetCacheDao cacheDao) {
+    public NetRunnable(NetOptions options, INetCallBack callback, INetCacheDao cacheDao) {
         this.options = options;
         if (callback != null) {
             handler = new NetHandler(callback, options);

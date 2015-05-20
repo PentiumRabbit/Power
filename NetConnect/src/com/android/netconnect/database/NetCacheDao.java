@@ -13,7 +13,7 @@ import com.android.netconnect.http.NetOptions;
  * @author ----zhaoruyang----
  * @data: 2014/12/26
  */
-public class NetCacheDao {
+public class NetCacheDao implements INetCacheDao{
 
     private static volatile NetCacheDao instance = null;
     private final CacheOpenHelper helper;

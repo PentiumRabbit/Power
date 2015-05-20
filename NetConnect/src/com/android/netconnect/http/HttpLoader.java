@@ -1,5 +1,5 @@
 /*
- * @Title:  AsyncHttpWraper.java
+ * @Title:  HttpLoader.java
  * @package_name:  com.stormtv.market.network
  * @Copyright:  Beijing BaoFeng Technology Co., Ltd. Copyright 2014-2114,  All rights reserved
  * @Description:  TODO<请描述此文件是做什么的>
@@ -16,7 +16,7 @@ import com.android.netconnect.engine.NetConfig;
 import java.util.Map;
 
 /**
- * AsyncHttpWraper
+ * HttpLoader
  *
  * @author ----zhaoruyang----
  * @version: V1.0

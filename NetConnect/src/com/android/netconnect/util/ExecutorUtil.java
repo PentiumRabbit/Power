@@ -25,7 +25,7 @@ public class ExecutorUtil {
         private final AtomicInteger mCount = new AtomicInteger(1);
 
         public Thread newThread(Runnable r) {
-            return new Thread(r, "ExecutorUtil #" + mCount.getAndIncrement());
+            return new Thread(r, "HttpLoader #" + mCount.getAndIncrement());
         }
     };
     private static final BlockingQueue<Runnable> sPoolWorkQueue =

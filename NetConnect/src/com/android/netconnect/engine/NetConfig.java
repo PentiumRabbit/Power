@@ -2,6 +2,7 @@ package com.android.netconnect.engine;
 
 import android.content.Context;
 
+import com.android.netconnect.database.INetCacheDao;
 import com.android.netconnect.database.NetCacheDao;
 import com.android.netconnect.util.ExecutorUtil;
 
@@ -19,7 +20,7 @@ public final class NetConfig {
     private final Context context;
     private final Map<String, String> netParams;
     private final ExecutorService threadPool;
-    private final NetCacheDao netCacheDao;
+    private final INetCacheDao netCacheDao;
 
     private NetConfig(Builder builder) {
         context = builder.context;
@@ -32,7 +33,7 @@ public final class NetConfig {
         return threadPool;
     }
 
-    public NetCacheDao getNetCacheDao() {
+    public INetCacheDao getNetCacheDao() {
         return netCacheDao;
     }
 
@@ -50,7 +51,7 @@ public final class NetConfig {
         private Context context;
         public Map<String, String> netParams = new HashMap<>();
         public ExecutorService threadPool = ExecutorUtil.getDefultPool();
-        public NetCacheDao netCacheDao;
+        public INetCacheDao netCacheDao;
 
         public Builder(Context context) {
             this.context = context.getApplicationContext();
@@ -58,7 +59,7 @@ public final class NetConfig {
         }
 
 
-        public Builder setNetDao(NetCacheDao netCacheDao) {
+        public Builder setNetDao(INetCacheDao netCacheDao) {
             this.netCacheDao = netCacheDao;
             return this;
         }

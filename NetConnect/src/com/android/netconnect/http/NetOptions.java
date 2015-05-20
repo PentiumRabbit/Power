@@ -22,12 +22,6 @@ public final class NetOptions {
     private final int connectMode;
 
 
-    /* 不缓存 */
-    public static final int CACHE_TAG_NO_CACHE = 0x00000001;
-    /* 退出清理 */
-    public static final int CACHE_TAG_CLEAR = 0x00000002;
-    /* 一直保留 */
-    public static final int CACHE_TAG_SAVE = 0x00000003;
 
     private NetOptions(Builder builder) {
         cacheId = builder.cacheId;
@@ -66,7 +60,7 @@ public final class NetOptions {
     }
 
     public boolean saveCache() {
-        return saveModel != CACHE_TAG_NO_CACHE;
+        return saveModel != NetConstant.CACHE_TAG_NO_CACHE;
     }
 
     public RequestMethod getMethod() {
@@ -82,7 +76,7 @@ public final class NetOptions {
     }
 
     public boolean readCache() {
-        return saveModel != CACHE_TAG_NO_CACHE;
+        return saveModel != NetConstant.CACHE_TAG_NO_CACHE;
     }
 
     public int getSaveModel() {
