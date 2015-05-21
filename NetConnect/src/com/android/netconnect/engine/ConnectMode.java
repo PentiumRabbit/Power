@@ -6,6 +6,6 @@ package com.android.netconnect.engine;
  */
 public enum ConnectMode {
     connect_url,
-    connect_client
-
+    connect_client,
+    connect_ok,
 }

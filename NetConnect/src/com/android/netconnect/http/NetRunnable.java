@@ -60,6 +60,7 @@ public class NetRunnable implements Runnable, IHttpResult {
      *         字符串
      */
     private <T> T dealMsg(String msg, Class<T> tClass) {
+        //TODO 将 GSON 改成基于流的操作,更加偏于底程,效率更高,采取 TypeAdapters 和 TypeAdapterFactorys 方案来代替 JsonDeserializer
         if (String.class.equals(tClass)) {
             return (T) msg;
         } else {
