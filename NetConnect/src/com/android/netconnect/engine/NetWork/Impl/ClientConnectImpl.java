@@ -21,7 +21,6 @@ import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
-import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
@@ -145,7 +144,7 @@ public class ClientConnectImpl implements IRequest {
             resultDeal.requestFail(NetConstant.ERROR_EXCEPTION, e);
             LogUtil.e(ConstantValue.TAG_EXCEPTION, "*****EXCEPTION*****\n", e);
         } finally {
-            LogUtil.i(NetConstant.TAG_CONNECT_NET, "release");
+            LogUtil.i(NetConstant.TAG_NET_CONNECT, "release");
             httpPost.abort();
             httpClient.getConnectionManager().closeExpiredConnections();
         }

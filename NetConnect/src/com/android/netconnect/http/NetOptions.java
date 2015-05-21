@@ -1,7 +1,7 @@
 package com.android.netconnect.http;
 
-import com.android.netconnect.NetConstant;
 import com.android.netconnect.database.NetSaveModel;
+import com.android.netconnect.engine.ConnectMode;
 import com.android.netconnect.engine.NetWork.RequestMethod;
 
 import java.util.HashMap;
@@ -20,7 +20,7 @@ public final class NetOptions {
     private final Map<String, String> params;
     private final boolean isSync;
     private final Class castType;
-    private final int connectMode;
+    private final ConnectMode connectMode;
 
 
 
@@ -36,7 +36,7 @@ public final class NetOptions {
         connectMode = builder.connectMode;
     }
 
-    public int getConnectMode() {
+    public ConnectMode getConnectMode() {
         return connectMode;
     }
 
@@ -95,13 +95,13 @@ public final class NetOptions {
         /*默认强转的类型为String*/
         public Class castType = String.class;
         /*默认HttpClient*/
-        public int connectMode = NetConstant.MODE_CONNECT_CLIENT;
+        public ConnectMode connectMode = ConnectMode.connect_client;
 
         public Builder() {
 
         }
 
-        public Builder setConnectMode(int connectMode) {
+        public Builder setConnectMode(ConnectMode connectMode) {
             this.connectMode = connectMode;
             return this;
         }

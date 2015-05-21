@@ -3,6 +3,7 @@ package com.android.netconnect.engine.NetWork;
 import android.util.SparseArray;
 
 import com.android.netconnect.NetConstant;
+import com.android.netconnect.engine.ConnectMode;
 import com.android.netconnect.engine.NetWork.Impl.ClientConnectImpl;
 import com.android.netconnect.engine.NetWork.Impl.URlConnectImpl;
 import com.android.netconnect.http.NetOptions;
@@ -40,7 +41,7 @@ public class NetFactory {
 
     /*执行连接*/
     public void exeConnect(NetOptions options, IHttpResult result) {
-        int connectMode = options.getConnectMode();
+        ConnectMode connectMode = options.getConnectMode();
         IRequest executor = getExecutor(connectMode);
         if (options.getMethod() == RequestMethod.GET) {
             // TODO：　回调直接传入是不是影响了层层传递的规则？？？
@@ -53,23 +54,24 @@ public class NetFactory {
 
 
     /*获取执行器*/
-    private synchronized IRequest getExecutor(int mode) {
-        IRequest iRequest = connectModes.get(mode);
+    private synchronized IRequest getExecutor(ConnectMode mode) {
+        int ordinal = mode.ordinal();
+        IRequest iRequest = connectModes.get(ordinal);
         if (iRequest == null) {
             iRequest = createConnectMode(mode);
-            connectModes.put(mode, iRequest);
+            connectModes.put(ordinal, iRequest);
         }
         return iRequest;
     }
 
     /*创造执行器*/
-    private IRequest createConnectMode(int mode) {
+    private IRequest createConnectMode(ConnectMode mode) {
            /*获取HttpClient执行对象*/
-        if (mode == NetConstant.MODE_CONNECT_CLIENT) {
+        if (mode == ConnectMode.connect_client) {
             return new ClientConnectImpl();
         }
         /*获取URL执行对象*/
-        else if (mode == NetConstant.MODE_CONNECT_URL) {
+        else if (mode == ConnectMode.connect_url) {
             return new URlConnectImpl();
         }
         return null;

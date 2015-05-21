@@ -8,7 +8,7 @@ package com.android.netconnect;
  */
 public interface NetConstant {
 
-    String TAG_CONNECT_NET = "storm.market.connect_net";
+    String TAG_NET_CONNECT = "com.android.NetConnect";
 
 
     /**
@@ -42,19 +42,6 @@ public interface NetConstant {
 
     /*请求异常*/
     int ERROR_EXCEPTION = -2;
-
-
-    /**
-     * *************************************************************************
-     * <p/>
-     * ------------------------------Net连接模式-----------------------------------
-     * <p/>
-     * *************************************************************************
-     */
-    int MODE_CONNECT_URL = 1;
-
-    int MODE_CONNECT_CLIENT = 2;
-
 
     /**
      * *************************************************************************
