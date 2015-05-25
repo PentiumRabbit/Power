@@ -36,7 +36,7 @@ public class MainActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        setSupportActionBar((android.support.v7.widget.Toolbar) findViewById(R.id.toolbar));
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
@@ -71,10 +71,10 @@ public class MainActivity extends ActionBarActivity
     }
 
     public void restoreActionBar() {
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-        actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle(mTitle);
+//        ActionBar actionBar = getSupportActionBar();
+//        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+//        actionBar.setDisplayShowTitleEnabled(true);
+//        actionBar.setTitle(mTitle);
     }
 
 
