@@ -8,9 +8,11 @@ import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,10 +73,10 @@ public class MainActivity extends ActionBarActivity
     }
 
     public void restoreActionBar() {
-//        ActionBar actionBar = getSupportActionBar();
-//        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-//        actionBar.setDisplayShowTitleEnabled(true);
-//        actionBar.setTitle(mTitle);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+        actionBar.setDisplayShowTitleEnabled(true);
+        actionBar.setTitle(mTitle);
     }
 
 
@@ -115,6 +117,7 @@ public class MainActivity extends ActionBarActivity
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
+        private int postion;
 
         /**
          * Returns a new instance of this fragment for the given section
@@ -135,14 +138,36 @@ public class MainActivity extends ActionBarActivity
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+
             return rootView;
         }
 
         @Override
         public void onAttach(Activity activity) {
             super.onAttach(activity);
+            postion = getArguments().getInt(ARG_SECTION_NUMBER);
             ((MainActivity) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
+                    postion);
+        }
+
+
+        @Override
+        public void onViewCreated(View view, Bundle savedInstanceState) {
+            setHasOptionsMenu(true);
+            // On Lollipop, the action bar shadow is provided by default, so have to remove it explicitly
+//            ((ActionBarActivity) getActivity()).getSupportActionBar().setElevation(0);
+//            getActivity().supportInvalidateOptionsMenu();
+        }
+
+        @Override
+        public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+            if (postion == 2) {
+                inflater.inflate(R.menu.refresh, menu);
+            }else if (postion==3)
+            {
+                inflater.inflate(R.menu.issue_view,menu);
+            }
+//            super.onCreateOptionsMenu(menu, inflater);
         }
     }
 
