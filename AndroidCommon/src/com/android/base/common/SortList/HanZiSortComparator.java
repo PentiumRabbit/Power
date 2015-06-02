@@ -7,7 +7,7 @@ import com.android.base.common.SortList.HanZiSrot.HanziToPinyin;
 import java.util.Comparator;
 
 /**
- * 汉字排序排序
+ * 姹夊瓧鎺掑簭鎺掑簭
  *
  * @author ----zhaoruyang----
  * @data: 2015/6/2
@@ -18,7 +18,7 @@ public class HanZiSortComparator implements Comparator<String> {
 
     /**
      * @param asc
-     *         是否正序
+     *         鏄惁姝ｅ簭
      */
     public HanZiSortComparator(boolean asc) {
         sankCode = asc ? -1 : 1;
@@ -27,7 +27,7 @@ public class HanZiSortComparator implements Comparator<String> {
 
     @Override
     public int compare(String lhs, String rhs) {
-        // 比较的内容为null
+        // 姣旇緝鐨勫唴瀹逛负null
         if (lhs == null || rhs == null) {
             return 0;
         }
