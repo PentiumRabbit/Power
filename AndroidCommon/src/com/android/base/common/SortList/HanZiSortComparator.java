@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import com.android.base.common.SortList.HanZiSrot.HanziToPinyin;
 
 import java.util.Comparator;
-import java.util.List;
 
 /**
  * 汉字排序排序
@@ -17,6 +16,10 @@ public class HanZiSortComparator implements Comparator<String> {
     private static final String TAG = "HanZiSortComparator";
     private int sankCode;
 
+    /**
+     * @param asc
+     *         是否正序
+     */
     public HanZiSortComparator(boolean asc) {
         sankCode = asc ? -1 : 1;
     }
@@ -24,6 +27,7 @@ public class HanZiSortComparator implements Comparator<String> {
 
     @Override
     public int compare(String lhs, String rhs) {
+        // 比较的内容为null
         if (lhs == null || rhs == null) {
             return 0;
         }
