@@ -16,6 +16,7 @@ public class HanZiSortComparator implements Comparator<String> {
     private static final String TAG = "HanZiSortComparator";
     private int sankCode;
 
+
     /**
      * @param asc
      *         是否正序
