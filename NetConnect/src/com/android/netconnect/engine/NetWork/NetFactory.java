@@ -11,6 +11,8 @@ import com.android.netconnect.http.NetOptions;
 import com.android.netconnect.listener.IHttpResult;
 
 /**
+ * 请求连接工厂
+ *
  * @author ----zhaoruyang----
  * @data: 2015/4/23
  */
