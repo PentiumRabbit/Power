@@ -95,7 +95,7 @@ public final class NetOptions {
         /*默认强转的类型为String*/
         public Class castType = String.class;
         /*默认HttpClient*/
-        public ConnectMode connectMode = ConnectMode.connect_client;
+        public ConnectMode connectMode = ConnectMode.connect_ok;
 
         public Builder() {
 
