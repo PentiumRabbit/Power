@@ -18,16 +18,16 @@
 
     <style name="Theme.Power" parent="@style/Theme.AppCompat.NoActionBar">
 
-        <item name="colorPrimary">@color/yellow</item>
-        <item name="colorPrimaryDark">@color/fuchsia</item>
-        <item name="colorAccent">@color/tomato</item>
+        <item name="colorPrimary">@color/Yellow</item>
+        <item name="colorPrimaryDark">@color/Fuchsia</item>
+        <item name="colorAccent">@color/Tomato</item>
 
         <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
 
         <item name="actionBarStyle">@style/Widget.Styled.ActionBar</item>
         <item name="android:actionBarStyle">@style/Widget.Styled.ActionBar</item>
         <item name="windowActionBar">false</item>
-        <item name="android:windowBackground">@color/lightsalmon</item>
+        <item name="android:windowBackground">@color/LightSalmon</item>
 
     </style>
 
