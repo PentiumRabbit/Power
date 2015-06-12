@@ -2,7 +2,7 @@
  * Copyright:  Beijing BaoFeng Technology Co., Ltd. Copyright 2014-2114,  All rights reserved
  */
 
-package com.android.base;
+package com.storm.powerimprove;
 
 /**
  * ConstantValue
@@ -12,8 +12,10 @@ package com.android.base;
  * @data: 2014年11月7日 下午3:37:40
  */
 
-public interface ConstantValue {
+public interface AppConstant {
 
+    /*debug开关*/
+    boolean IS_DEBUG = true;
     /**
      * *************************************************************************
      * <p/>

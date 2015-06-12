@@ -4,7 +4,6 @@
     <style name="ActionBar" parent="Widget.AppCompat.ActionBar">
         <item name="indeterminateProgressStyle">@style/IndeterminateProgress</item>
         <!--<item name="android:textColorSecondary">@color/Orange</item>-->
-
         <item name="actionMenuTextColor">@color/CommonText</item>
         <item name="android:indeterminateProgressStyle">@style/IndeterminateProgress</item>
     </style>
@@ -24,8 +23,19 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowFrame">@android:color/transparent</item>
     </style>
-
-
+    <!--ListView样式-->
+    <style name="ListNeat">
+        <item name="android:cacheColorHint">@android:color/transparent</item>
+        <item name="android:divider">@color/DarkSlateGrey</item>
+        <item name="android:dividerHeight">1dp</item>
+        <item name="android:scrollbars">none</item>
+        <item name="android:background">@color/White</item>
+        <item name="android:layout_height">wrap_content</item>
+        <!--这样可以最后一条分界线不显示-->
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:listSelector">@drawable/selector_list_item_bg</item>
+        <item name="android:footerDividersEnabled">false</item>
+    </style>
 
 
 </resources>

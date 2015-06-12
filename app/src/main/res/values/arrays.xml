@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="home_menu_name">
+        <item>首页</item>
+        <item>建议</item>
+        <item>选项</item>
+    </string-array>
+
+    <array name="home_menu_icon">
+        <item>@drawable/icon_menu_video</item>
+        <item>@drawable/icon_menu_feedback</item>
+        <item>@drawable/icon_menu_set</item>
+    </array>
+</resources>

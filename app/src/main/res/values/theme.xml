@@ -60,7 +60,8 @@
 
     <!--PopMenuTheme-->
     <style name="ThemeOverlay.App" parent="@style/ThemeOverlay.AppCompat.Light">
-        <item name="android:colorBackground">@color/LightGreen</item>
+        <item name="android:colorBackground">@color/CommonPop</item>
+        <item name="android:background">@android:color/transparent</item>
         <item name="android:popupBackground">@color/CommonText</item>
         <item name="android:textColor">@color/CommonText</item>
     </style>
