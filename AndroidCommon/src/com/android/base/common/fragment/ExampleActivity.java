@@ -6,7 +6,7 @@ import android.os.Bundle;
  * @author ----zhaoruyang----
  * @data: 2015/2/6
  */
-public class ExampleActivity extends BaseNewActivity implements FragmentCallback {
+public class ExampleActivity extends BaseActivity implements FragmentCallback {
     private static final String TAG = "ExampleActivity";
 
     @Override

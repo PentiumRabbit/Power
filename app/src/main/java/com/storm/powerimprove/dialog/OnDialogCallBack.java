@@ -7,5 +7,5 @@ package com.storm.powerimprove.dialog;
  * @data: 2015/5/28
  */
 public interface OnDialogCallBack {
-    void onDialogMsg(int id, String msg, int fileTyper);
+    void onDialogMsg(int id, String msg, Class cls);
 }

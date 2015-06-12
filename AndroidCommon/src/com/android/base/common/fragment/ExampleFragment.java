@@ -11,7 +11,7 @@ import android.view.ViewGroup;
  * @author ----zhaoruyang----
  * @data: 2015/2/6
  */
-public class ExampleFragment extends BaseNewFragment {
+public class ExampleFragment extends BaseFragment {
     private static final String TAG = "ExampleFragment";
 
 

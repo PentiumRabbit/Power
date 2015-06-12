@@ -1,23 +1,25 @@
 package com.android.base.common.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 /**
+ * 新的基类,用于替换BaseFragment
+ *
  * @author ----zhaoruyang----
  * @data: 2015/2/6
  */
-public class BaseNewActivity extends FragmentActivity {
-    private static final String TAG = "BaseNewActivity";
-    protected FragmentManager supportFragmentManager;
+public class BaseFragment extends Fragment {
+    private static final String TAG = "BaseNewFragment";
+    private FragmentManager supportFragmentManager;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        supportFragmentManager = getSupportFragmentManager();
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        supportFragmentManager = getActivity().getSupportFragmentManager();
     }
 
     /**
@@ -32,8 +34,7 @@ public class BaseNewActivity extends FragmentActivity {
      */
     protected void replaceFragment(int layout_id, Fragment fragment, boolean needBack) {
         FragmentTransaction beginTransaction = supportFragmentManager.beginTransaction();
-
-        beginTransaction.replace(layout_id, fragment, fragment.getClass().getName());
+        beginTransaction.replace(layout_id, fragment);
         if (needBack) {
             beginTransaction.addToBackStack(fragment.getClass().getName());
         }

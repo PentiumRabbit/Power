@@ -16,7 +16,7 @@
 
     <!-- 对话框样式 -->
     <style name="DialogNoFullTheme" parent="@android:style/Theme.Dialog">
-        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
         <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:windowNoTitle">true</item>
@@ -37,5 +37,11 @@
         <item name="android:footerDividersEnabled">false</item>
     </style>
 
+
+    <!--对话框动画-->
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/dialog_modal_in</item>
+        <item name="android:windowExitAnimation">@anim/dialog_modal_out</item>
+    </style>
 
 </resources>

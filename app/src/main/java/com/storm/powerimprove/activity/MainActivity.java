@@ -1,25 +1,29 @@
 package com.storm.powerimprove.activity;
 
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.storm.powerimprove.R;
+import com.storm.powerimprove.dialog.ExitDialog;
+import com.storm.powerimprove.dialog.NoFrameDialog;
 import com.storm.powerimprove.fragment.MainFragment;
 import com.storm.powerimprove.fragment.NavigationDrawerFragment;
 
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends DialogActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
     private NavigationDrawerFragment mNavigationDrawerFragment;
+
+    private long[] hits = new long[2];
 
     /**
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
@@ -48,6 +52,26 @@ public class MainActivity extends AppCompatActivity
         fragmentManager.beginTransaction()
                 .replace(R.id.container, MainFragment.newInstance(position + 1))
                 .commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        doubleCliclkListen();
+    }
+
+    private void doubleCliclkListen() {
+        //实现数值的复制,查SE的api
+        System.arraycopy(hits, 1, hits, 0, hits.length - 1);
+        //获取系统开机时间
+        hits[hits.length - 1] = SystemClock.uptimeMillis();
+        if (hits[0] >= (SystemClock.uptimeMillis() - 500)) {
+            showDialog(ExitDialog.instance());
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     public void onSectionAttached(int number) {
@@ -100,5 +124,13 @@ public class MainActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDialogMsg(int id, String msg, Class cls) {
+        if (cls == ExitDialog.class) {
+            finish();
+        }
+
     }
 }

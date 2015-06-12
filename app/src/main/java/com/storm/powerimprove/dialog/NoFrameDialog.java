@@ -25,12 +25,7 @@ import com.storm.powerimprove.R;
 public abstract class NoFrameDialog extends DialogFragment {
     public static final String BUNDLE_MSG = "bundle_msg";
 
-    public static final int DIALOG_TYPE_RENAME = 1;
-
-    public static final int DIALOG_TYPE_DEL = 2;
-
-    public static final int DIALOG_TYPE_PASSWORD_SUCCESS = 3;
-
+    public static final int DIALOG_EXIT = 1;
     protected OnDialogCallBack onDialogCallback;
 
     @Override
@@ -65,6 +60,21 @@ public abstract class NoFrameDialog extends DialogFragment {
     protected void setNoCancel() {
         Dialog dialog = getDialog();
         dialog.setCanceledOnTouchOutside(false);
+    }
+
+    /**
+     * 设置回调消息
+     *
+     * @param id
+     *         消息的id
+     * @param msg
+     *         消息内容
+     */
+    protected void setDialogMsg(int id, String msg) {
+        if (onDialogCallback == null) {
+            return;
+        }
+        onDialogCallback.onDialogMsg(id, msg, this.getClass());
     }
 
     /**
