@@ -16,38 +16,53 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!--自己定义actionbar,不用系统的 ,如果用了系统的,并且自己还写了actionbar 会报错,不符合主题-->
     <style name="Theme.Power" parent="@style/Theme.AppCompat.NoActionBar">
 
-        <item name="colorPrimary">@color/Yellow</item>
-        <item name="colorPrimaryDark">@color/Fuchsia</item>
-        <item name="colorAccent">@color/Tomato</item>
+        <!-- 默认标题的颜色-->
+        <item name="android:textColorPrimary">@color/CommonText</item>
 
-        <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
 
-        <item name="actionBarStyle">@style/Widget.Styled.ActionBar</item>
-        <item name="android:actionBarStyle">@style/Widget.Styled.ActionBar</item>
-        <item name="windowActionBar">false</item>
-        <item name="android:windowBackground">@color/LightSalmon</item>
+        <!--  colorControlNormal则是应用在图标上-->
+        <item name="colorControlNormal">@color/CommonText</item>
+        <!-- 还可以设置 colorControlNormal, colorControlActivated colorControlHighlight, 和 colorSwitchThumbNormal 的值来控制控件的颜色. -->
+        <item name="colorControlHighlight">@color/LightSalmon</item>
+
+        <!--<item name="android:colorControlActivated">@color/PeachPuff</item>-->
+
+
+        <item name="android:textColorSecondary">@color/CommonText</item>
+        <!--actionbar颜色-->
+        <!--colorPrimary（原色）：它作为应用的主要色调，一般是操作栏和最近任务的背景色。-->
+        <item name="colorPrimary">@color/CommonTitle</item>
+        <!--状态栏颜色,仅在Lollipop以上机器生效-->
+        <!--color Primary Dark（色原变暗）：原色的变暗色调，应用在状态栏上。-->
+        <item name="colorPrimaryDark">@color/CommonTitle</item>
+        <!--按钮下划线颜色-->
+        <!--colorAccent（色彩突显）：它是原色的强调色彩，应用在框架控制上,CheckBox 选中等。-->
+        <item name="colorAccent">@color/CommonButton</item>
+        <!--屏幕背景色-->
+        <item name="android:windowBackground">@color/White</item>
+        <item name="actionBarStyle">@style/ActionBar</item>
+
+        <!--这里是定义系统默认actionbar的地方,自己写的需要在actionbar中自己声明,还有PopMenu-->
+        <!--<item name="android:actionBarStyle">@style/ActionBar</item>-->
+
+        <!--底部3个按键栏的颜色,5.1以上可用-->
+        <!--<item name="android:navigationBarColor">@color/Violet</item>-->
 
     </style>
 
-    <style name="Theme.Power.NavigationDrawer" parent="Theme.Power" >
-        <item name="colorControlHighlight">@color/ripple_material_light</item>
+    <style name="Theme.Power.NavigationDrawer" parent="Theme.Power">
+        <item name="colorControlHighlight">@color/CommonText</item>
     </style>
 
-    <style name="Widget.Styled.ActionBar" parent="Widget.AppCompat.ActionBar.Solid">
-        <item name="indeterminateProgressStyle">@style/IndeterminateProgress</item>
-        <item name="android:indeterminateProgressStyle">@style/IndeterminateProgress</item>
-    </style>
 
-    <style name="IndeterminateProgress" parent="@android:style/Widget.ProgressBar">
-        <item name="android:indeterminateDrawable">@drawable/actionbar_spinner</item>
-        <item name="android:minWidth">16dp</item>
-    </style>
-
-    <style name="ToolbarStyle">
-        <item name="colorControlNormal">@android:color/white</item>
-        <item name="colorControlHighlight">@color/ripple_material_dark</item>
+    <!--PopMenuTheme-->
+    <style name="ThemeOverlay.App" parent="@style/ThemeOverlay.AppCompat.Light">
+        <item name="android:colorBackground">@color/LightGreen</item>
+        <item name="android:popupBackground">@color/CommonText</item>
+        <item name="android:textColor">@color/CommonText</item>
     </style>
 
 

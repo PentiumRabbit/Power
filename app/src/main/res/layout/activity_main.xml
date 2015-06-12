@@ -20,10 +20,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="0dp"
-            app:theme="@style/ToolbarStyle"
+            app:theme="@style/ActionBar"
+            app:popupTheme="@style/ThemeOverlay.App"
             android:minHeight="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:id="@+id/toolbar" />
+            android:id="@+id/toolbar"
+            />
 
         <FrameLayout
             android:id="@+id/container"
