@@ -1,5 +1,6 @@
 package com.storm.powerimprove.activity;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.widget.DrawerLayout;
@@ -10,7 +11,7 @@ import android.view.MenuItem;
 
 import com.storm.powerimprove.R;
 import com.storm.powerimprove.dialog.ExitDialog;
-import com.storm.powerimprove.dialog.NoFrameDialog;
+import com.storm.powerimprove.fragment.HomeFragment;
 import com.storm.powerimprove.fragment.MainFragment;
 import com.storm.powerimprove.fragment.NavigationDrawerFragment;
 
@@ -49,17 +50,22 @@ public class MainActivity extends DialogActivity
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         android.app.FragmentManager fragmentManager = getFragmentManager();
+        Fragment fragment = MainFragment.newInstance(position + 1);
+        if (position == 2) {
+            fragment = HomeFragment.newInstance();
+        }
+
         fragmentManager.beginTransaction()
-                .replace(R.id.container, MainFragment.newInstance(position + 1))
+                .replace(R.id.container, fragment)
                 .commit();
     }
 
     @Override
     public void onBackPressed() {
-        doubleCliclkListen();
+        doubleClickListen();
     }
 
-    private void doubleCliclkListen() {
+    private void doubleClickListen() {
         //实现数值的复制,查SE的api
         System.arraycopy(hits, 1, hits, 0, hits.length - 1);
         //获取系统开机时间

@@ -18,6 +18,8 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.utils.L;
 
+import butterknife.ButterKnife;
+
 /**
  * App的全局Application
  *
@@ -43,10 +45,18 @@ public class App extends Application {
     // 初始化
     private void initConfig() {
         // 率先设置Debug开关
-        LogUtil.setDebug(AppConstant.IS_DEBUG);
+        initDebug();
         initImageLoader();
         initDebugModel();
         initHttpLoader();
+    }
+
+    /**
+     * 设置debug开关
+     */
+    private void initDebug() {
+        LogUtil.setDebug(AppConstant.IS_DEBUG);
+        ButterKnife.setDebug(AppConstant.IS_DEBUG);
     }
 
     /*初始化HttpLoader*/

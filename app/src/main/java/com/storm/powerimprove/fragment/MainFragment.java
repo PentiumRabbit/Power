@@ -2,6 +2,7 @@ package com.storm.powerimprove.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.pm.PackageInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,6 +12,8 @@ import android.view.ViewGroup;
 
 import com.storm.powerimprove.R;
 import com.storm.powerimprove.activity.MainActivity;
+
+import java.util.List;
 
 /**
  * @author ----zhaoruyang----
@@ -55,6 +58,11 @@ public class MainFragment extends Fragment {
                 postion);
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        List<PackageInfo> packages = getActivity().getPackageManager().getInstalledPackages(0);
+    }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {

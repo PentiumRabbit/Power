@@ -22,6 +22,8 @@
         <!-- 默认标题的颜色-->
         <item name="android:textColorPrimary">@color/CommonText</item>
 
+        <!--默认字体颜色-->
+        <item name="android:textColor">@color/Black</item>
 
         <!--  colorControlNormal则是应用在图标上-->
         <item name="colorControlNormal">@color/CommonText</item>
