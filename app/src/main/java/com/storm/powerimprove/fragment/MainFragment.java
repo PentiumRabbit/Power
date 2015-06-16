@@ -3,17 +3,27 @@ package com.storm.powerimprove.fragment;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.pm.PackageInfo;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.storm.powerimprove.R;
 import com.storm.powerimprove.activity.MainActivity;
 
 import java.util.List;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 /**
  * @author ----zhaoruyang----
@@ -26,6 +36,14 @@ public class MainFragment extends Fragment {
      * fragment.
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
+    @InjectView(R.id.section_label)
+    TextView sectionLabel;
+    @InjectView(R.id.til_name)
+    TextInputLayout tilName;
+    @InjectView(R.id.til_pwd)
+    TextInputLayout tilPwd;
+    @InjectView(R.id.fab_button)
+    FloatingActionButton fabButton;
     private int postion;
 
     /**
@@ -47,7 +65,9 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        ButterKnife.inject(this, view);
+        return view;
     }
 
     @Override
@@ -65,11 +85,44 @@ public class MainFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(final View view, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
+        ButterKnife.inject(this, view);
         // On Lollipop, the action bar shadow is provided by default, so have to remove it explicitly
 //            ((ActionBarActivity) getActivity()).getSupportActionBar().setElevation(0);
 //            getActivity().supportInvalidateOptionsMenu();
+
+        EditText et_content = tilName.getEditText();
+        tilName.setHint("请输入用户名");
+        tilName.setError("密码输入错啦！");
+        tilName.setErrorEnabled(true);//当设置成false的时候 错误信息不显示 反之显示
+
+
+        fabButton.setRippleColor(Color.GRAY);//设置按下去的波纹颜色
+        fabButton.setBackgroundDrawable(getResources().getDrawable(android.R.drawable.ic_menu_add));//背景色
+
+
+        fabButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar
+                        .make(view, "你好啊", Snackbar.LENGTH_LONG)
+                        .setAction("delete", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Toast.makeText(MainFragment.this.getActivity(), "delete", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .show();
+            }
+        });
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ButterKnife.reset(this);
     }
 
     @Override
@@ -80,5 +133,11 @@ public class MainFragment extends Fragment {
             inflater.inflate(R.menu.issue_view, menu);
         }
 //            super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.reset(this);
     }
 }
