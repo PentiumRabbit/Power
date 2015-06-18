@@ -11,23 +11,27 @@
 
     <TextView
         android:id="@+id/section_label"
-        android:elevation="5dp"
         android:layout_width="wrap_content"
-        android:text="测试"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:elevation="5dp"
+        android:text="测试"/>
 
+    <!--波纹有边界-->
+
+    <!--波纹超出边界-->
+    <!--android:background="?android:attr/selectableItemBackgroundBorderless"-->
     <Button
         android:layout_width="wrap_content"
-        android:elevation="30dp"
+        android:background="?android:attr/selectableItemBackground"
         android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:colorControlHighlight="@color/Red"
         android:text="按钮"
-
         />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
-
 
 
     <android.support.design.widget.TextInputLayout
@@ -59,4 +63,12 @@
         android:layout_height="wrap_content"
         />
 
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/switchcompat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tintcheckbox"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="20dp"/>
 </LinearLayout>

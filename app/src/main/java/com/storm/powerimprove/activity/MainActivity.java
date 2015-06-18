@@ -1,6 +1,9 @@
 package com.storm.powerimprove.activity;
 
+import android.app.ActivityOptions;
 import android.app.Fragment;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.widget.DrawerLayout;
@@ -53,6 +56,12 @@ public class MainActivity extends DialogActivity
         Fragment fragment = MainFragment.newInstance(position + 1);
         if (position == 2) {
             fragment = HomeFragment.newInstance();
+        } else if (position == 3) {
+            Intent intent = new Intent(this, SettingsActivity.class);
+
+            startActivity(intent,
+                    ActivityOptions
+                            .makeSceneTransitionAnimation(this).toBundle());
         }
 
         fragmentManager.beginTransaction()
