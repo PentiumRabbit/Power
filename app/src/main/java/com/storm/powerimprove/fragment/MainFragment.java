@@ -8,17 +8,21 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.storm.powerimprove.R;
 import com.storm.powerimprove.activity.MainActivity;
+import com.storm.powerimprove.widget.MaterialProgress;
 
 import java.util.List;
 
@@ -44,7 +48,16 @@ public class MainFragment extends Fragment {
     TextInputLayout tilPwd;
     @InjectView(R.id.fab_button)
     FloatingActionButton fabButton;
+    @InjectView(R.id.switchcompat)
+    SwitchCompat switchcompat;
+    @InjectView(R.id.iv_loading)
+    ImageView ivLoading;
     private int postion;
+
+
+    // Default background for the progress spinner
+    private static final int CIRCLE_BG_LIGHT = 0xFFFAFAFA;
+    private MaterialProgress materialProgress;
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -97,6 +110,25 @@ public class MainFragment extends Fragment {
         tilName.setError("密码输入错啦！");
         tilName.setErrorEnabled(true);//当设置成false的时候 错误信息不显示 反之显示
 
+
+        materialProgress = new MaterialProgress(getActivity(), ivLoading);
+        materialProgress.setBackgroundColor(CIRCLE_BG_LIGHT);
+        materialProgress.setColorSchemeColors(R.color.Tomato);
+        ivLoading.setImageDrawable(materialProgress);
+        materialProgress.setAlpha(255);
+        materialProgress.start();
+
+        switchcompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+               if (isChecked)
+               {
+                   materialProgress.start();
+               }else {
+                   materialProgress.stop();
+               }
+            }
+        });
 
         fabButton.setRippleColor(Color.GRAY);//设置按下去的波纹颜色
         fabButton.setBackgroundDrawable(getResources().getDrawable(android.R.drawable.ic_menu_add));//背景色

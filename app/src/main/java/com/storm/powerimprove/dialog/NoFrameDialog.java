@@ -7,6 +7,7 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +39,7 @@ public abstract class NoFrameDialog extends DialogFragment {
         int style = DialogFragment.STYLE_NO_TITLE;
         setStyle(style, R.style.DialogNoFullTheme);
 
+
     }
 
     @Override
@@ -52,6 +54,16 @@ public abstract class NoFrameDialog extends DialogFragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+    }
+
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        DisplayMetrics dm = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics( dm );
+        getDialog().getWindow().setLayout((int) (dm.widthPixels*0.8), getDialog().getWindow().getAttributes().height );
     }
 
     /**
