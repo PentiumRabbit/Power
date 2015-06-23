@@ -1,5 +1,6 @@
 package com.storm.powerimprove.activity;
 
+import android.annotation.TargetApi;
 import android.app.ActivityOptions;
 import android.app.Fragment;
 import android.content.Intent;
@@ -49,6 +50,7 @@ public class MainActivity extends DialogActivity
                 (DrawerLayout) findViewById(R.id.drawer_layout));
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
@@ -56,12 +58,21 @@ public class MainActivity extends DialogActivity
         Fragment fragment = MainFragment.newInstance(position + 1);
         if (position == 2) {
             fragment = HomeFragment.newInstance();
-        } else if (position == 3) {
+        } else if (position == 1) {
+
             Intent intent = new Intent(this, SettingsActivity.class);
 
-            startActivity(intent,
-                    ActivityOptions
-                            .makeSceneTransitionAnimation(this).toBundle());
+            /*获取当前系统的android版本号*/
+            int currentApiVersion=Build.VERSION.SDK_INT;
+            if (currentApiVersion>= Build.VERSION_CODES.LOLLIPOP){
+                startActivity(intent,
+                        ActivityOptions
+                                .makeSceneTransitionAnimation(this).toBundle());
+            }else {
+
+            }
+
+
         }
 
         fragmentManager.beginTransaction()
