@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.v4.util.Pair;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -60,18 +61,22 @@ public class MainActivity extends DialogActivity
             fragment = HomeFragment.newInstance();
         } else if (position == 1) {
 
-            Intent intent = new Intent(this, SettingsActivity.class);
+//            Intent intent = new Intent(this, SettingsActivity.class);
+//
+//            /*获取当前系统的android版本号*/
+//            int currentApiVersion=Build.VERSION.SDK_INT;
+//            if (currentApiVersion>= Build.VERSION_CODES.LOLLIPOP){
+//
+//                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this,
+//                        Pair.create(view1, "agreedName1"));
+//
+//                startActivity(intent,
+//                        options.toBundle());
+//            }else {
+//
+//            }
 
-            /*获取当前系统的android版本号*/
-            int currentApiVersion=Build.VERSION.SDK_INT;
-            if (currentApiVersion>= Build.VERSION_CODES.LOLLIPOP){
-                startActivity(intent,
-                        ActivityOptions
-                                .makeSceneTransitionAnimation(this).toBundle());
-            }else {
-
-            }
-
+//            如果不想使用transition可以设置options bundle为null。当需要结束当前Activity并回退这个动画时调用Activity.finishAfterTransition()方法。
 
         }
 
@@ -153,10 +158,9 @@ public class MainActivity extends DialogActivity
     }
 
     @Override
-    public void onDialogMsg(int id, String msg, Class cls) {
+    public void onDialogMsg(int id, Object msg, Class cls) {
         if (cls == ExitDialog.class) {
             finish();
         }
-
     }
 }

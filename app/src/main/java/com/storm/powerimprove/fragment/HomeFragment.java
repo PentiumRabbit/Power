@@ -1,10 +1,13 @@
 package com.storm.powerimprove.fragment;
 
 import android.annotation.TargetApi;
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +19,7 @@ import android.widget.TextView;
 
 import com.android.base.utils.LogUtil;
 import com.storm.powerimprove.R;
+import com.storm.powerimprove.activity.SettingsActivity;
 import com.storm.powerimprove.adapter.PackageAdapter;
 
 import java.util.List;
@@ -29,7 +33,7 @@ import butterknife.InjectView;
  * @author ----zhaoruyang----
  * @data: 2015/6/12
  */
-public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener {
     private static final String TAG = "HomeFragment";
     @InjectView(R.id.lv_packs)
     ListView lvPacks;
@@ -83,6 +87,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         packageAdapter = new PackageAdapter(getActivity());
         lvPacks.setAdapter(packageAdapter);
         packageAdapter.update(packages);
+        lvPacks.setOnItemClickListener(this);
 
     }
 
@@ -95,5 +100,24 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @Override
     public void onRefresh() {
         wrlRefresh.setRefreshing(false);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(getActivity(), SettingsActivity.class);
+
+            /*获取当前系统的android版本号*/
+        int currentApiVersion=Build.VERSION.SDK_INT;
+        if (currentApiVersion>= Build.VERSION_CODES.LOLLIPOP){
+//
+//            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this,
+//                    Pair.create(view1, "agreedName1"));
+//
+//            startActivity(intent,
+//                    options.toBundle());
+        }else {
+
+        }
+
     }
 }

@@ -19,6 +19,7 @@ import com.storm.powerimprove.R;
 
 /**
  * 无边框对话框
+ * (在调用线程回调show时,要先去判断activity是否finish)
  *
  * @author ----zhaoruyang----
  * @data: 2015/4/14
@@ -58,12 +59,11 @@ public abstract class NoFrameDialog extends DialogFragment {
 
 
     @Override
-    public void onStart()
-    {
+    public void onStart() {
         super.onStart();
         DisplayMetrics dm = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics( dm );
-        getDialog().getWindow().setLayout((int) (dm.widthPixels*0.8), getDialog().getWindow().getAttributes().height );
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        getDialog().getWindow().setLayout((int) (dm.widthPixels * 0.8), getDialog().getWindow().getAttributes().height);
     }
 
     /**
@@ -82,7 +82,7 @@ public abstract class NoFrameDialog extends DialogFragment {
      * @param msg
      *         消息内容
      */
-    protected void setDialogMsg(int id, String msg) {
+    protected void setDialogMsg(int id, Object msg) {
         if (onDialogCallback == null) {
             return;
         }

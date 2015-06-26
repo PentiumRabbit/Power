@@ -46,8 +46,8 @@ public class ExitDialog extends NoFrameDialog implements View.OnClickListener {
         int id = v.getId();
         switch (id) {
             case R.id.tv_btn_ok:
-                setDialogMsg(0, null);
                 dismiss();
+                setDialogMsg(0, null);
                 break;
             case R.id.tv_btn_cancel:
                 dismiss();
