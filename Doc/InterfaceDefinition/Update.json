@@ -1,0 +1,21 @@
+{
+    "status": 1,
+    "msg": "success !",
+    "apiVersion": 1,
+    "method": "people.get",
+    "context": "update",
+    "content": {
+        "minVersion": 1,
+        "maxVersion": 2,
+        "toVersion": 2,
+        "channel": "guanwang",
+        "type": 1,
+        "title": "2.0测试发布！~",
+        "content": [
+            "1、个性化页面焕然一新，猜出你的观影喜好，你想看的全在这里。",
+            "2、新剧排片表，新热跟播剧早知道~"
+        ],
+        "url": "http://dl.baofeng.com/mobile/BfLocalPlayer_20.apk",
+        "language": "zh_TW"
+    }
+}
