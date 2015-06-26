@@ -1,13 +1,10 @@
 package com.storm.powerimprove.activity;
 
 import android.annotation.TargetApi;
-import android.app.ActivityOptions;
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.support.v4.util.Pair;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -21,7 +18,7 @@ import com.storm.powerimprove.fragment.MainFragment;
 import com.storm.powerimprove.fragment.NavigationDrawerFragment;
 
 
-public class MainActivity extends DialogActivity
+public class MainActivity extends LocalDialogActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**

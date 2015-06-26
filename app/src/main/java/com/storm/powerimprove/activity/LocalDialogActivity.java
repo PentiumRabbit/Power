@@ -11,8 +11,8 @@ import com.storm.powerimprove.dialog.OnDialogCallBack;
  * @author ----zhaoruyang----
  * @data: 2015/6/12
  */
-public abstract class DialogActivity extends BaseActivity implements OnDialogCallBack {
-    private static final String TAG = "DialogActivity";
+public abstract class LocalDialogActivity extends BaseActivity implements OnDialogCallBack {
+    private static final String TAG = "LocalDialogActivity";
     private NoFrameDialog dialog;
 
 
@@ -27,8 +27,13 @@ public abstract class DialogActivity extends BaseActivity implements OnDialogCal
         if (newDialog == null) {
             return;
         }
+
+        if (this.isFinishing()) {
+            return;
+        }
+
         FragmentManager fragmentManager = getFragmentManager();
-        if (dialog!=null&&dialog.isVisible()) {
+        if (dialog != null && dialog.isVisible()) {
             dialog.dismiss();
         }
         dialog = newDialog;

@@ -24,9 +24,9 @@ public class LoadingDialog extends NoFrameDialog {
     private static final String VALUE_CANCLE = "value_cancle";
 
     private static final String VALUE_MSG = "value_msg";
-    @InjectView(R.id.iv_public_loading_view_rotate)
+    @InjectView(R.id.pb_loading_bar)
     ProgressBar ivPublicLoadingViewRotate;
-    @InjectView(R.id.tv_public_loading)
+    @InjectView(R.id.tv_loading)
     TextView tvPublicLoading;
     @InjectView(R.id.layout_loading)
     RelativeLayout layoutLoading;

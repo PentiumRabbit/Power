@@ -12,19 +12,19 @@
     <!--android:indeterminateDrawable=""-->
 
     <ProgressBar
-        android:id="@+id/iv_public_loading_view_rotate"
+        android:id="@+id/pb_loading_bar"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_centerVertical="true"
         />
 
     <TextView
-        android:id="@+id/tv_public_loading"
+        android:id="@+id/tv_loading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@id/iv_public_loading_view_rotate"
+        android:layout_toRightOf="@id/pb_loading_bar"
         android:paddingRight="10dp"
         android:singleLine="true"
         android:textColor="@color/CommonPop"
