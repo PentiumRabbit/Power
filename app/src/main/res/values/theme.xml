@@ -52,7 +52,7 @@
 
         <!--底部3个按键栏的颜色,5.1以上可用-->
         <!--<item name="android:navigationBarColor">@color/Violet</item>-->
-
+        <!-- translucent system bars -->
     </style>
 
     <style name="Theme.Power.NavigationDrawer" parent="Theme.Power">
