@@ -20,6 +20,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.base.utils.LogUtil;
+import com.android.base.utils.ScreenUtil;
 import com.storm.powerimprove.R;
 import com.storm.powerimprove.adapter.MenuAdapter;
 
@@ -97,6 +99,8 @@ public class NavigationDrawerFragment extends Fragment implements AdapterView.On
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        int statusBarHeight = ScreenUtil.getStatusBarHeight(getActivity());
+        view.setPadding(0, statusBarHeight, 0, 0);
         initView(view);
     }
 

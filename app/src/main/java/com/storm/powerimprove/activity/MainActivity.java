@@ -13,14 +13,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 
+import com.android.base.utils.LogUtil;
+import com.android.base.utils.ScreenUtil;
 import com.storm.powerimprove.R;
 import com.storm.powerimprove.dialog.ExitDialog;
 import com.storm.powerimprove.fragment.HomeFragment;
 import com.storm.powerimprove.fragment.MainFragment;
 import com.storm.powerimprove.fragment.NavigationDrawerFragment;
 
-import java.lang.reflect.Field;
-import java.util.IllegalFormatCodePointException;
 
 /**
  * 主界面
@@ -28,6 +28,7 @@ import java.util.IllegalFormatCodePointException;
 public class MainActivity extends LocalDialogActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
+    private static final String TAG =MainActivity.class.getSimpleName();
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -53,8 +54,17 @@ public class MainActivity extends LocalDialogActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+        int statusBarHeight = ScreenUtil.getStatusBarHeight(this.getBaseContext());
+        LogUtil.i(TAG,"statusBarHeight : "+statusBarHeight);
+        findViewById(R.id.toolbar).setPadding(0, statusBarHeight, 0, 0);
 
 //        showSystemUI();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
     }
 
     @Override
