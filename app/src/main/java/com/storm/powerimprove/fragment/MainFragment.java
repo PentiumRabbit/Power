@@ -8,12 +8,17 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.RotateAnimation;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -121,12 +126,11 @@ public class MainFragment extends Fragment {
         switchcompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-               if (isChecked)
-               {
-                   materialProgress.start();
-               }else {
-                   materialProgress.stop();
-               }
+                if (isChecked) {
+                    materialProgress.start();
+                } else {
+                    materialProgress.stop();
+                }
             }
         });
 
@@ -168,8 +172,34 @@ public class MainFragment extends Fragment {
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int itemId = item.getItemId();
+        switch (itemId) {
+            case R.id.m_refresh:
+                setRefreshActionButtonState(item, true);
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.reset(this);
     }
+
+
+    public void setRefreshActionButtonState(MenuItem item, boolean refreshing) {
+
+        if (item != null) {
+            if (refreshing) {
+                MenuItemCompat.setActionView(item, R.layout.item_progress);
+            } else {
+                MenuItemCompat.setActionView(item, null);
+            }
+        }
+    }
+
 }
