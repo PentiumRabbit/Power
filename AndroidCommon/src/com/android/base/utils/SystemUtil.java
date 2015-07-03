@@ -66,13 +66,9 @@ public class SystemUtil {
         Runtime runtime = Runtime.getRuntime();
         Process p = runtime.exec(command);
         int status = p.waitFor();
-        if (status == 0) {
-            // chmod succeed
-            return true;
-        } else {
-            // chmod failed
-            return false;
-        }
+        // chmod succeed
+// chmod failed
+        return status == 0;
     }
 
     /**

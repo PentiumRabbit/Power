@@ -1,30 +1,124 @@
 apply plugin: 'com.android.application'
 
+
+def versionMajor = 1;
+def versionMinor = 0;
+def versionPatch = 0;
+def versionBuild = 0;
+
+// 设置编码
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
 android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
-
+    // 默认的文件配置
     defaultConfig {
-        applicationId "com.storm.powerimprove"
+        applicationId "com.android.gradlecourse"
         minSdkVersion 15
         targetSdkVersion 22
-        versionCode 1
-        versionName "1.0"
+        // 版本名称
+        versionName "${versionMajor}.${versionMinor}.${versionPatch}.${versionBuild}"
+        // 版本号
+        versionCode versionMajor * 1000 + versionMinor * 100 + versionPatch * 10 + versionBuild
+
+        buildConfigField "boolean", "DEBUG_MODEL", "false"
+        // 字符串类型
+        buildConfigField "String", "FOO", "\"defaultConfig\""
+        // 增加资源文件的属性值
+        resValue "string", "gradle_app_name", "gradle_default"
+    }
+    // 构建时,忽略lint检查
+    lintOptions {
+        abortOnError false
+    }
+    //为不同的buildTypes配置签名
+    signingConfigs {
+        //release的keystore信息
+        release {
+            storeFile file('E:/MyWork/WorkSpace/GitCode/GradleCourse/KeyStore/KeyStore.jks')
+            storePassword "zoruyg"
+            keyAlias "baofeng"
+            keyPassword "zoruyg"
+        }
+        debug {
+            storeFile file('E:/MyWork/WorkSpace/GitCode/GradleCourse/KeyStore/KeyStore_Debug.jks')
+            storePassword "zoruyg"
+            keyAlias "baofeng"
+            keyPassword "zoruyg"
+        }
     }
     buildTypes {
         release {
-            minifyEnabled false
+            // 文件对齐压缩
+            zipAlignEnabled true
+            // 移除未使用的资源
+//            shrinkResources true
+            // 调用签名文件
+            signingConfig signingConfigs.release
+            // 是否使用混淆文件
+            minifyEnabled true
+            // 指定混淆文件的路径
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // 为该类型设置属性值
+            buildConfigField "boolean", "DEBUG_MODEL", "false"
+            // 字符串类型
+            buildConfigField "String", "FOO", "\"release\""
+            // 增加资源文件的属性值
+            resValue "string", "gradle_app_name", "gradle_release"
+        }
+        debug {
+            debuggable true
+            jniDebuggable false
+            signingConfig signingConfigs.debug
+            renderscriptDebuggable false
+            renderscriptOptimLevel 3
+            minifyEnabled false
+            pseudoLocalesEnabled true
+            applicationIdSuffix '.debug'
+            versionNameSuffix '.debug'
+            zipAlignEnabled false
+            // 字符串类型
+            buildConfigField "String", "FOO", "\"debug\""
+            // 增加资源文件的属性值
+            resValue "string", "gradle_app_name", "gradle_debug"
+            // 为该类型设置属性值
+            buildConfigField "boolean", "DEBUG_MODEL", "true"
         }
     }
-}
+    compileOptions {
+        // 配置jdk版本
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+    productFlavors {
+        baidu {
+            versionName 'baidu'
+            applicationId "com.android.gradlecourse.baidu"
+            // 对占位符进行替换
+            manifestPlaceholders = [umeng_channel: "baidu", baidu_channel: "baidu1"]
+        }
+    }
 
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':NetConnect')
-    compile project(':AndroidCommon')
-    compile 'com.android.support:appcompat-v7:22.2.0'
-    compile 'com.jakewharton:butterknife:6.1.0'
-    compile 'com.android.support:design:22.2.0'
-    compile 'com.android.support:support-v4:22.2.0'
+    // 为代码指定路径
+    sourceSets {
+        main {
+            //配置.so文件调用
+            jni.srcDirs = []
+            jniLibs.srcDir 'libs'
+
+        }
+    }
+
+    dependencies {
+        compile fileTree(dir: 'libs', include: ['*.jar'])
+        compile project(':NetConnect')
+        compile project(':AndroidCommon')
+        compile 'com.android.support:appcompat-v7:22.2.0'
+        compile 'com.jakewharton:butterknife:6.1.0'
+        compile 'com.android.support:design:22.2.0'
+        compile 'com.android.support:support-v4:22.2.0'
+    }
 }

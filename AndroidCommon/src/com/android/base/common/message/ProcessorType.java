@@ -7,7 +7,7 @@ package com.android.base.common.message;
 /**
  * 相应的线程等待标识
  * 
- * @author Administrator
+ * @author zhaoruyang
  *
  */
 public enum ProcessorType {

@@ -10,7 +10,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 /**
  * 报警阻塞队列
  * 
- * @author chongan.wangca
+ * @author zhaoruyang
  */
 public class MessageQueue {
 

@@ -11,57 +11,66 @@ import android.util.SparseArray;
 
 /**
  * 创建多线程异步共享队列消息发送工厂
- * 
- * @author Administrator
  *
+ * @author zhaoruyang
  */
 public class MessageProcessorFactory {
 
-	private MessageProcessorFactory factory = new MessageProcessorFactory();
-	ExecutorService pool = Executors.newCachedThreadPool();
-	private SparseArray<MessageQueue> queueMap;
-	private SparseArray<MessageLooper> runnableMap;
+    private MessageProcessorFactory factory = new MessageProcessorFactory();
+    ExecutorService pool = Executors.newCachedThreadPool();
+    private SparseArray<MessageQueue> queueMap;
+    private SparseArray<MessageLooper> runnableMap;
 
-	private MessageProcessorFactory() {
-		queueMap = new SparseArray<MessageQueue>();
-		runnableMap = new SparseArray<MessageLooper>();
-	}
+    private MessageProcessorFactory() {
+        queueMap = new SparseArray<MessageQueue>();
+        runnableMap = new SparseArray<MessageLooper>();
+    }
 
-	public MessageProcessorFactory getInstance() {
-		return factory;
-	}
+    public MessageProcessorFactory getInstance() {
+        return factory;
+    }
 
-	public boolean registerProcessor(ProcessorType type,
-			IMessageProcessor handout) {
-		int ordinal = type.ordinal();
+    /**
+     * 注册线程
+     *
+     * @param type
+     *         线程的类型
+     * @param handout
+     *         消息分发
+     *
+     * @return 是否成功
+     */
+    public boolean registerProcessor(ProcessorType type,
+                                     IMessageProcessor handout) {
+        int ordinal = type.ordinal();
 
-		if (queueMap.get(ordinal) != null) {
-			return false;
-		}
+        if (queueMap.get(ordinal) != null) {
+            return false;
+        }
 
-		MessageQueue queue = new MessageQueue();
-		MessageLooper loop = new MessageLooper(queue, handout);
-		pool.execute(loop);
-		runnableMap.put(ordinal, loop);
-		queueMap.put(ordinal, queue);
-		return true;
-	}
+        MessageQueue queue = new MessageQueue();
+        MessageLooper loop = new MessageLooper(queue, handout);
+        pool.execute(loop);
+        runnableMap.put(ordinal, loop);
+        queueMap.put(ordinal, queue);
+        return true;
+    }
 
-	public boolean addMessage(ProcessorType type, IMessage message) {
-		int ordinal = type.ordinal();
-		MessageQueue queue = queueMap.get(ordinal);
-		queue.push(message);
+    public boolean addMessage(ProcessorType type, IMessage message) {
+        int ordinal = type.ordinal();
+        MessageQueue queue = queueMap.get(ordinal);
+        queue.push(message);
 
-		return true;
-	}
+        return true;
+    }
 
-	public void unRegistProcessor(ProcessorType type) {
-		int ordinal = type.ordinal();
-		queueMap.remove(ordinal);
-		MessageLooper loop = runnableMap.get(ordinal);
-		loop.stop();
-		runnableMap.remove(ordinal);
+    public void unRegistProcessor(ProcessorType type) {
+        int ordinal = type.ordinal();
+        queueMap.remove(ordinal);
+        MessageLooper loop = runnableMap.get(ordinal);
+        loop.stop();
+        runnableMap.remove(ordinal);
 
-	}
+    }
 
 }

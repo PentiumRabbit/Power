@@ -375,13 +375,9 @@ public class ValidateUtil {
      */
     public static boolean IP4able(String value) {
 
-        if (TextUtils.equals("0.0.0.0", value)
-                || TextUtils.equals("127.0.0.1", value)
-                ) {
-            return false;
-        }
+        return !(TextUtils.equals("0.0.0.0", value)
+                || TextUtils.equals("127.0.0.1", value));
 
-        return true;
     }
 
     /**

@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 /**
  * 消息循环
  * 
- * @author Administrator
+ * @author zhaoruyang
  *
  */
 public class MessageLooper implements Runnable {

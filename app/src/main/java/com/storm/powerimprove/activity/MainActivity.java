@@ -11,7 +11,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 
 import com.android.base.utils.LogUtil;
 import com.android.base.utils.ScreenUtil;
@@ -72,9 +71,9 @@ public class MainActivity extends LocalDialogActivity
         // update the main content by replacing fragments
         android.app.FragmentManager fragmentManager = getFragmentManager();
         Fragment fragment = MainFragment.newInstance(position + 1);
-        if (position == 2) {
+        if (position == R.string.menu_suggest) {
             fragment = HomeFragment.newInstance();
-        } else if (position == 1) {
+        } else if (position == R.string.menu_home) {
 
 //            Intent intent = new Intent(this, SettingsActivity.class);
 //
@@ -123,13 +122,13 @@ public class MainActivity extends LocalDialogActivity
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:
-                mTitle = getString(R.string.title_section1);
+                mTitle = getString(R.string.menu_home);
                 break;
             case 2:
-                mTitle = getString(R.string.title_section2);
+                mTitle = getString(R.string.menu_suggest);
                 break;
             case 3:
-                mTitle = getString(R.string.title_section3);
+                mTitle = getString(R.string.menu_set);
                 break;
         }
     }

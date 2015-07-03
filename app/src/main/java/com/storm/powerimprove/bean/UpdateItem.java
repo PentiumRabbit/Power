@@ -23,4 +23,6 @@ public class UpdateItem extends BaseNetJson {
     public void setContent(UpdateContent content) {
         this.content = content;
     }
+
+
 }

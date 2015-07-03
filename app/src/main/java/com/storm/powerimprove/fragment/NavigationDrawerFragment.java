@@ -59,6 +59,7 @@ public class NavigationDrawerFragment extends Fragment implements AdapterView.On
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
     private android.support.v7.app.ActionBarDrawerToggle mDrawerToggle;
+    private MenuAdapter menuAdapter;
 
     public NavigationDrawerFragment() {
     }
@@ -106,7 +107,8 @@ public class NavigationDrawerFragment extends Fragment implements AdapterView.On
 
     private void initView(View view) {
         listView = (ListView) view.findViewById(R.id.navigation_drawer_list);
-        listView.setAdapter(new MenuAdapter(this.getActivity()));
+        menuAdapter = new MenuAdapter(this.getActivity());
+        listView.setAdapter(menuAdapter);
         listView.setOnItemClickListener(this);
 //        listView.setItemChecked(mCurrentSelectedPosition, true);
     }
@@ -195,7 +197,7 @@ public class NavigationDrawerFragment extends Fragment implements AdapterView.On
             mDrawerLayout.closeDrawer(mFragmentContainerView);
         }
         if (mCallbacks != null) {
-            mCallbacks.onNavigationDrawerItemSelected(position);
+            mCallbacks.onNavigationDrawerItemSelected((int) menuAdapter.getItemId(position));
         }
     }
 

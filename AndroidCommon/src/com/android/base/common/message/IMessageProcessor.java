@@ -7,7 +7,7 @@ package com.android.base.common.message;
 /**
  * 消息分发
  * 
- * @author Administrator
+ * @author zhaoruyang
  *
  */
 interface IMessageProcessor {

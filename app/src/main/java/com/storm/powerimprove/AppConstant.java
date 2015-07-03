@@ -15,7 +15,7 @@ package com.storm.powerimprove;
 public interface AppConstant {
 
     /*debug开关*/
-    boolean IS_DEBUG = true;
+    boolean IS_DEBUG = BuildConfig.DEBUG_MODEL;
     /**
      * *************************************************************************
      * <p/>

@@ -146,7 +146,7 @@ public class SysInfoUtil {
         String[] paths;
         ArrayList<String> result = new ArrayList<String>();
         try {
-            paths = (String[]) sm.getClass().getMethod("getVolumePaths", new Class[]{}).invoke(sm, new Object[]{});
+            paths = (String[]) sm.getClass().getMethod("getVolumePaths", new Class[]{}).invoke(sm);
             String esd = Environment.getExternalStorageDirectory().getAbsolutePath();
             for (String path : paths) {
                 if (!isContainESD && path.equals(esd)) {

@@ -19,33 +19,40 @@ import com.storm.powerimprove.R;
  */
 public class MenuAdapter extends BaseAdapter {
     private static final String TAG = "MenuAdapter";
-    private final String[] names;
-    private final TypedArray images;
+    private int menuArray[][];
     private Context context;
 
     public MenuAdapter(Context context) {
         this.context = context;
-        names = context.getResources().getStringArray(R.array.home_menu_name);
-        images = context.getResources().obtainTypedArray(R.array.home_menu_icon);
+        menuArray = new int[][]{
+                // 首页
+                {R.string.menu_home , R.drawable.icon_menu_video} ,
+                // 建议
+                {R.string.menu_suggest , R.drawable.icon_menu_feedback} ,
+                // 选项
+                {R.string.menu_set , R.drawable.icon_menu_set}
+        };
+
+
     }
 
 
     @Override
     public int getCount() {
-        if (names == null) {
+        if (menuArray == null) {
             return 0;
         }
-        return names.length;
+        return menuArray.length;
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return menuArray[position];
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return menuArray[position][0];
     }
 
     @Override
@@ -59,14 +66,14 @@ public class MenuAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        int visible = position == names.length - 1 ? View.VISIBLE : View.GONE;
+        int visible = position == menuArray.length - 1 ? View.VISIBLE : View.GONE;
 
-        Drawable drawable = images.getDrawable(position);
+        Drawable drawable = context.getResources().getDrawable(menuArray[position][1]);
         if (drawable != null) {
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             holder.tvName.setCompoundDrawables(drawable, null, null, null);
         }
-        holder.tvName.setText(names[position]);
+        holder.tvName.setText(menuArray[position][0]);
 
         return convertView;
     }
