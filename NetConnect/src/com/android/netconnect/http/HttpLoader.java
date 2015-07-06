@@ -2,7 +2,6 @@
  * @Title:  HttpLoader.java
  * @package_name:  com.stormtv.market.network
  * @Copyright:  Beijing BaoFeng Technology Co., Ltd. Copyright 2014-2114,  All rights reserved
- * @Description:  TODO<请描述此文件是做什么的>
  * @author:  ----zhaoruyang----
  * @data:  2014-7-24 下午2:35:02
  * @version:  V1.0

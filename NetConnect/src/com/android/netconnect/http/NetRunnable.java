@@ -70,6 +70,7 @@ public class NetRunnable implements Runnable, IHttpResult {
 
     @Override
     public void requestSuccess(RequestMethod method, String message) {
+        // TODO 将流引到这里,如果需要缓存,在转化成字符串,减少GSON转化资源
         handler.removeMessages(LOAD_DB_CACHE);
         Message msg = handler.obtainMessage(REQUEST_SUCCESS, dealMsg(message, options.getCastType()));
         handler.sendMessage(msg);
@@ -86,7 +87,7 @@ public class NetRunnable implements Runnable, IHttpResult {
     }
 
     /**
-     * 强制关联,防止上层不能获取结果,不需要使用弱引用,不会造成内存泄露,请求有超时时间
+     * 强制关联,防止上层不能获取结果,不需要使用弱引用,不会造成内存泄露
      */
     static class NetHandler extends Handler {
         private INetCallBack callBack;

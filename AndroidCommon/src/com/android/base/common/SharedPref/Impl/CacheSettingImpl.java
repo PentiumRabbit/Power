@@ -23,7 +23,6 @@ public enum CacheSettingImpl implements ISettingsField {
 
     @Override
     public String getPreferenceName() {
-        // TODO Auto-generated method stub
         return "cache";
     }
 
