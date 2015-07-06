@@ -3,6 +3,7 @@ package com.storm.powerimprove.fragment;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -95,13 +96,16 @@ public class NavigationDrawerFragment extends Fragment implements AdapterView.On
 
         return inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);
+
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        int statusBarHeight = ScreenUtil.getStatusBarHeight(getActivity());
-        view.setPadding(0, statusBarHeight, 0, 0);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            int statusBarHeight = ScreenUtil.getStatusBarHeight(getActivity());
+            view.setPadding(0, statusBarHeight, 0, 0);
+        }
         initView(view);
     }
 

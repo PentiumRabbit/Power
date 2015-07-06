@@ -39,6 +39,7 @@
                 <!-- translucent system bars -->
                 <item name="android:windowTranslucentStatus">true</item>
                 <item name="android:windowTranslucentNavigation">true</item>
+
         </style>
 
 

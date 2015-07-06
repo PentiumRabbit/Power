@@ -11,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.android.base.utils.LogUtil;
 import com.android.base.utils.ScreenUtil;
@@ -27,7 +29,7 @@ import com.storm.powerimprove.fragment.NavigationDrawerFragment;
 public class MainActivity extends LocalDialogActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
-    private static final String TAG =MainActivity.class.getSimpleName();
+    private static final String TAG = MainActivity.class.getSimpleName();
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -53,11 +55,27 @@ public class MainActivity extends LocalDialogActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
-        int statusBarHeight = ScreenUtil.getStatusBarHeight(this.getBaseContext());
-        LogUtil.i(TAG,"statusBarHeight : "+statusBarHeight);
-        findViewById(R.id.toolbar).setPadding(0, statusBarHeight, 0, 0);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setTranslucentStatus(true);
+            int statusBarHeight = ScreenUtil.getStatusBarHeight(this.getBaseContext());
+            LogUtil.i(TAG, "statusBarHeight : " + statusBarHeight);
+            findViewById(R.id.toolbar).setPadding(0, statusBarHeight, 0, 0);
+        }
 
 //        showSystemUI();
+    }
+
+    @TargetApi(19)
+    private void setTranslucentStatus(boolean on) {
+        Window win = getWindow();
+        WindowManager.LayoutParams winParams = win.getAttributes();
+        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        if (on) {
+            winParams.flags |= bits;
+        } else {
+            winParams.flags &= ~bits;
+        }
+        win.setAttributes(winParams);
     }
 
     @Override
