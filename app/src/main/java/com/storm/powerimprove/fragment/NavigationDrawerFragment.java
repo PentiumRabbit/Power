@@ -196,7 +196,7 @@ public class NavigationDrawerFragment extends Fragment implements AdapterView.On
         if (mDrawerLayout != null) {
             mDrawerLayout.closeDrawer(mFragmentContainerView);
         }
-        if (mCallbacks != null) {
+        if (mCallbacks != null && menuAdapter != null) {
             mCallbacks.onNavigationDrawerItemSelected((int) menuAdapter.getItemId(position));
         }
     }
