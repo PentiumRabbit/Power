@@ -88,7 +88,7 @@ public class ClientConnectImpl implements IRequest {
                 String string = EntityUtils.toString(entity);
                 /** 返回响应数据 */
                 if (!TextUtils.isEmpty(string)) {
-                    resultDeal.requestSuccess(RequestMethod.GET, null);
+                    resultDeal.requestSuccess(RequestMethod.GET, string);
                 } else {
                     resultDeal.requestFail(NetConstant.ERROR_NO_MSG, null);
                 }
