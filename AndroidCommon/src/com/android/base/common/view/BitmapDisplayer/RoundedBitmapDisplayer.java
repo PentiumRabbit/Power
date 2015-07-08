@@ -1,20 +1,4 @@
-/**
- * ****************************************************************************
- * Copyright 2011-2013 Sergey Tarasevich
- * <p/>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p/>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p/>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * *****************************************************************************
- */
+
 package com.android.base.common.view.BitmapDisplayer;
 
 import android.content.Context;
@@ -36,10 +20,11 @@ import com.nostra13.universalimageloader.core.imageaware.ImageAware;
 import com.nostra13.universalimageloader.core.imageaware.ImageViewAware;
 
 /**
+ * 图片居中的圆角矩形,根据imageview大小从中心裁切获取最适合的图片布局
  * zhaoruyang
  */
 public class RoundedBitmapDisplayer implements BitmapDisplayer {
-
+    private static final String TAG = "RoundedDrawable";
     protected final int cornerRadius;
     protected final int margin;
     protected Context context;
@@ -65,6 +50,7 @@ public class RoundedBitmapDisplayer implements BitmapDisplayer {
 
     public static class RoundedDrawable extends BitmapDrawable {
 
+
         protected final float cornerRadius;
         protected final int margin;
 
@@ -72,12 +58,13 @@ public class RoundedBitmapDisplayer implements BitmapDisplayer {
                 mBitmapRect;
         protected final BitmapShader bitmapShader;
         protected final Paint paint;
+        private final Bitmap bitmap;
 
         public RoundedDrawable(Bitmap bitmap, int cornerRadius, int margin, Context context) {
             super(context.getResources(), bitmap);
             this.cornerRadius = cornerRadius;
             this.margin = margin;
-
+            this.bitmap = bitmap;
             bitmapShader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
             mBitmapRect = new RectF(margin, margin, bitmap.getWidth() - margin, bitmap.getHeight() - margin);
 
@@ -90,13 +77,30 @@ public class RoundedBitmapDisplayer implements BitmapDisplayer {
         protected void onBoundsChange(Rect bounds) {
             super.onBoundsChange(bounds);
             mRect.set(margin, margin, bounds.width() - margin, bounds.height() - margin);
-
             // Resize the original bitmap to fit the new bound
+
             Matrix shaderMatrix = new Matrix();
-            shaderMatrix.setRectToRect(mBitmapRect, mRect, Matrix.ScaleToFit.FILL);
+            float scaleW = mRect.width() * 1.0f / bitmap.getWidth();
+            float scaleH = mRect.height() * 1.0f / bitmap.getHeight();
+
+            float scale = Math.max(scaleW, scaleH);
+
+            float w = bitmap.getWidth() * scale;
+            float h = bitmap.getHeight() * scale;
+
+            float translateW = -(w - bounds.width()) / 2;
+            float translateH = -(h - bounds.height()) / 2;
+
+            // 让你不好好学线性代数
+            /*后调用的pre操作先执行，而后调用的post操作则后执行。*/
+            shaderMatrix.preTranslate(translateW, translateH);
+            shaderMatrix.preScale(scale, scale);
+
+//            shaderMatrix.setRectToRect(mBitmapRect, mRect, Matrix.ScaleToFit.CENTER);
             bitmapShader.setLocalMatrix(shaderMatrix);
 
         }
+
 
         @Override
         public void draw(Canvas canvas) {
