@@ -2,6 +2,7 @@
     <string name="app_name">PowerImprove</string>
 
     <string name="menu_home">首页</string>
+    <string name="menu_log">日志工具</string>
     <string name="menu_suggest">建议</string>
     <string name="menu_set">选项</string>
 
@@ -23,4 +24,7 @@
     <string name="title_activity_settings">SettingsActivity</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="warm_tag">输入TAG</string>
+    <string name="log_type">需要过滤的TAG类型</string>
+    <string name="start">start</string>
 </resources>

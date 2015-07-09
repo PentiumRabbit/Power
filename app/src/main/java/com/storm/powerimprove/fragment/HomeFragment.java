@@ -47,8 +47,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
      * number.
      */
     public static HomeFragment newInstance() {
-        HomeFragment fragment = new HomeFragment();
-        return fragment;
+        return new HomeFragment();
     }
 
     @Nullable

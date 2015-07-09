@@ -19,6 +19,7 @@ import com.android.base.utils.ScreenUtil;
 import com.storm.powerimprove.R;
 import com.storm.powerimprove.dialog.ExitDialog;
 import com.storm.powerimprove.fragment.HomeFragment;
+import com.storm.powerimprove.fragment.LogRecordFragment;
 import com.storm.powerimprove.fragment.MainFragment;
 import com.storm.powerimprove.fragment.NavigationDrawerFragment;
 
@@ -110,6 +111,11 @@ public class MainActivity extends LocalDialogActivity
 
 //            如果不想使用transition可以设置options bundle为null。当需要结束当前Activity并回退这个动画时调用Activity.finishAfterTransition()方法。
 
+        }
+
+        else if (position==R.string.menu_log)
+        {
+            fragment = LogRecordFragment.newInstance();
         }
 
         fragmentManager.beginTransaction()

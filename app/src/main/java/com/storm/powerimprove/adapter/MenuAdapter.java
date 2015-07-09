@@ -27,6 +27,8 @@ public class MenuAdapter extends BaseAdapter {
         menuArray = new int[][]{
                 // 首页
                 {R.string.menu_home , R.drawable.icon_menu_video} ,
+                // 日志工具
+                {R.string.menu_log , R.drawable.icon_menu_video} ,
                 // 建议
                 {R.string.menu_suggest , R.drawable.icon_menu_feedback} ,
                 // 选项

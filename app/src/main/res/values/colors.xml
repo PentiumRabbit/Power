@@ -3,9 +3,9 @@
 
     <color name="CommonTitle">#2F4F4F</color>
     <color name="CommonButton">#008080</color>
-    <color name="CommonPop">#EE696969</color>
+    <color name="CommonButtonPress">#2F4F4F</color>
+    <color name="CommonPop">#EEEEEE</color>
     <color name="CommonText">#FFA500</color>
-
     <color name="CommonSelect">#008080</color>
 
 </resources>
