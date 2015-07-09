@@ -20,7 +20,7 @@ import com.nostra13.universalimageloader.core.imageaware.ImageAware;
 import com.nostra13.universalimageloader.core.imageaware.ImageViewAware;
 
 /**
- * Í¼Æ¬¾ÓÖĞµÄÔ²½Ç¾ØĞÎ,¸ù¾İimageview´óĞ¡´ÓÖĞĞÄ²ÃÇĞ»ñÈ¡×îÊÊºÏµÄÍ¼Æ¬²¼¾Ö
+ * å›¾ç‰‡å±…ä¸­çš„åœ†è§’çŸ©å½¢,æ ¹æ®imageviewå¤§å°ä»ä¸­å¿ƒè£åˆ‡è·å–æœ€é€‚åˆçš„å›¾ç‰‡å¸ƒå±€
  * zhaoruyang
  */
 public class RoundedBitmapDisplayer implements BitmapDisplayer {
@@ -91,8 +91,8 @@ public class RoundedBitmapDisplayer implements BitmapDisplayer {
             float translateW = -(w - bounds.width()) / 2;
             float translateH = -(h - bounds.height()) / 2;
 
-            // ÈÃÄã²»ºÃºÃÑ§ÏßĞÔ´úÊı
-            /*ºóµ÷ÓÃµÄpre²Ù×÷ÏÈÖ´ĞĞ£¬¶øºóµ÷ÓÃµÄpost²Ù×÷ÔòºóÖ´ĞĞ¡£*/
+            // è®©ä½ ä¸å¥½å¥½å­¦çº¿æ€§ä»£æ•°
+            /*åè°ƒç”¨çš„preæ“ä½œå…ˆæ‰§è¡Œï¼Œè€Œåè°ƒç”¨çš„postæ“ä½œåˆ™åæ‰§è¡Œã€‚*/
             shaderMatrix.preTranslate(translateW, translateH);
             shaderMatrix.preScale(scale, scale);
 
