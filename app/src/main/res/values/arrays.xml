@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="sp_log_type">
-        <item>V</item>
-        <item>D</item>
-        <item>I</item>
-        <item>W</item>
-        <item>E</item>
+        <item>级别 :   V</item>
+        <item>级别 :   D</item>
+        <item>级别 :   I</item>
+        <item>级别 :   W</item>
+        <item>级别 :   E</item>
     </string-array>
 </resources>
