@@ -30,8 +30,6 @@ public class HttpLoader {
     // private constructor suppresses
     private HttpLoader() {
         //TODO 在全局配置中,可以自定义配置线程池
-
-
     }
 
     public static HttpLoader getInstance() {

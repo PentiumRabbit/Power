@@ -101,8 +101,7 @@ public class OKHttpClientImpl implements IRequest {
             resultDeal.requestFail(response.code(), null);
             return;
         }
-        String msg = response.body().string();
-        resultDeal.requestSuccess(method, msg);
+        resultDeal.requestSuccess(method, response.body().charStream());
     }
 
 }

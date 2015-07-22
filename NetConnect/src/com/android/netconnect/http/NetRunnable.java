@@ -5,11 +5,14 @@ import android.os.Message;
 import android.text.TextUtils;
 
 import com.android.netconnect.database.INetCacheDao;
-import com.android.netconnect.database.NetCacheDao;
 import com.android.netconnect.engine.NetWork.NetFactory;
 import com.android.netconnect.engine.NetWork.RequestMethod;
 import com.android.netconnect.listener.IHttpResult;
 import com.google.gson.Gson;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.Reader;
 
 
 /**
@@ -68,7 +71,6 @@ public class NetRunnable implements Runnable, IHttpResult {
         }
     }
 
-    @Override
     public void requestSuccess(RequestMethod method, String message) {
         // TODO 将流引到这里,如果需要缓存,在转化成字符串,减少GSON转化资源
         handler.removeMessages(LOAD_DB_CACHE);
@@ -78,6 +80,47 @@ public class NetRunnable implements Runnable, IHttpResult {
         if (options.saveCache()) {
             cacheDao.saveCache(options.getCacheId(), message, options.getSaveModel());
         }
+    }
+
+    @Override
+    public void requestSuccess(RequestMethod method, Reader message) {
+        //  将流引到这里,如果需要缓存,在转化成字符串,减少GSON转化资源
+        handler.removeMessages(LOAD_DB_CACHE);
+        Message msg = handler.obtainMessage(REQUEST_SUCCESS, dealMsg(message, options.getCastType()));
+        handler.sendMessage(msg);
+        // 存入数据库
+        if (options.saveCache()) {
+            String str = reader2String(message);
+            if (TextUtils.isEmpty(str)) {
+                return;
+            }
+            cacheDao.saveCache(options.getCacheId(), str, options.getSaveModel());
+        }
+    }
+
+    private <T> T dealMsg(Reader msg, Class<T> tClass) {
+        if (msg == null) {
+            return null;
+        } else {
+            return new Gson().fromJson(msg, tClass);
+        }
+    }
+
+    private String reader2String(Reader reader) {
+        if (reader == null) {
+            return null;
+        }
+        BufferedReader bufferedReader = new BufferedReader(reader);
+        StringBuilder stringBuffer = new StringBuilder();
+        String line;
+        try {
+            while ((line = bufferedReader.readLine()) != null) {
+                stringBuffer.append(line);
+            }
+        } catch (IOException e) {
+            return null;
+        }
+        return stringBuffer.toString();
     }
 
     @Override

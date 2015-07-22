@@ -12,6 +12,8 @@ package com.android.netconnect.listener;
 
 import com.android.netconnect.engine.NetWork.RequestMethod;
 
+import java.io.Reader;
+
 /**
  * ResultDeal
  *
@@ -23,7 +25,7 @@ import com.android.netconnect.engine.NetWork.RequestMethod;
 public interface IHttpResult {
 
     /*网络请求成功*/
-    void requestSuccess(RequestMethod method,String message);
+    void requestSuccess(RequestMethod method,Reader message);
 
     /*网络请求失败*/
     void requestFail(int errorCode, Exception e);

@@ -39,6 +39,8 @@ import com.android.netconnect.engine.NetWork.RequestMethod;
 import com.android.netconnect.listener.IHttpResult;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -83,11 +85,8 @@ public class ClientConnectImpl implements IRequest {
             int statusCode = response.getStatusLine().getStatusCode();
             /** 判断响应的状态码: 200代表响应成功 */
             if (statusCode == HttpStatus.SC_OK) {
-                /** 服务器响应成功 , 获取响应实体 */
-                HttpEntity entity = response.getEntity();
-                String string = EntityUtils.toString(entity);
                 /** 返回响应数据 */
-                resultDeal.requestSuccess(RequestMethod.GET, string);
+                resultDeal.requestSuccess(RequestMethod.GET, new InputStreamReader(response.getEntity().getContent(), Charset.forName("UTF-8")));
             } else {
                 resultDeal.requestFail(statusCode, null);
             }
@@ -122,11 +121,8 @@ public class ClientConnectImpl implements IRequest {
             int statusCode = response.getStatusLine().getStatusCode();
             /** 对响应的状态做判断 */
             if (statusCode == HttpStatus.SC_OK) {
-                /** 服务器响应成功 , 获取响应实体 */
-                HttpEntity entity = response.getEntity();
-                String string = EntityUtils.toString(entity);
                 /** 返回响应数据 */
-                resultDeal.requestSuccess(RequestMethod.POST, string);
+                resultDeal.requestSuccess(RequestMethod.GET, new InputStreamReader(response.getEntity().getContent(), Charset.forName("UTF-8")));
             } else {
                 resultDeal.requestFail(statusCode, null);
             }
