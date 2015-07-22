@@ -102,12 +102,7 @@ public class OKHttpClientImpl implements IRequest {
             return;
         }
         String msg = response.body().string();
-        if (TextUtils.isEmpty(msg)) {
-            resultDeal.requestFail(NetConstant.ERROR_NO_MSG, null);
-        } else {
-            resultDeal.requestSuccess(method, msg);
-        }
-
+        resultDeal.requestSuccess(method, msg);
     }
 
 }

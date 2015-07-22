@@ -87,12 +87,7 @@ public class ClientConnectImpl implements IRequest {
                 HttpEntity entity = response.getEntity();
                 String string = EntityUtils.toString(entity);
                 /** 返回响应数据 */
-                if (!TextUtils.isEmpty(string)) {
-                    resultDeal.requestSuccess(RequestMethod.GET, string);
-                } else {
-                    resultDeal.requestFail(NetConstant.ERROR_NO_MSG, null);
-                }
-
+                resultDeal.requestSuccess(RequestMethod.GET, string);
             } else {
                 resultDeal.requestFail(statusCode, null);
             }
@@ -131,12 +126,7 @@ public class ClientConnectImpl implements IRequest {
                 HttpEntity entity = response.getEntity();
                 String string = EntityUtils.toString(entity);
                 /** 返回响应数据 */
-                if (!TextUtils.isEmpty(string)) {
-                    resultDeal.requestSuccess(RequestMethod.POST, string);
-
-                } else {
-                    resultDeal.requestFail(NetConstant.ERROR_NO_MSG, null);
-                }
+                resultDeal.requestSuccess(RequestMethod.POST, string);
             } else {
                 resultDeal.requestFail(statusCode, null);
             }

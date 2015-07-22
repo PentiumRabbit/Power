@@ -99,6 +99,8 @@ android {
             applicationId "com.android.gradlecourse.baidu"
             // 对占位符进行替换
             manifestPlaceholders = [umeng_channel: "baidu", baidu_channel: "baidu1"]
+
+            resValue "string", "gradle_app_name", "gradle_debug"
         }
     }
 
