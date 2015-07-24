@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">PowerImprove</string>
 
+    <!--侧滑栏列表-->
     <string name="menu_home">首页</string>
     <string name="menu_log">日志工具</string>
     <string name="menu_suggest">建议</string>

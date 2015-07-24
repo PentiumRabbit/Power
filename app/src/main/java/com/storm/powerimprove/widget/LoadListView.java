@@ -3,7 +3,9 @@ package com.storm.powerimprove.widget;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.Scroller;
 
@@ -16,6 +18,12 @@ import android.widget.Scroller;
  */
 public class LoadListView extends ListView {
     private static final String TAG = LoadListView.class.getSimpleName();
+    private View headerView;
+    private View footView;
+
+    private final static float OFFSET_RADIO = 1.8f; // support iOS like pull
+    private float mLastY;
+    // feature.
 
     public LoadListView(Context context) {
         super(context);
@@ -34,25 +42,51 @@ public class LoadListView extends ListView {
 
     private void init(Context context) {
         Scroller scroller = new Scroller(context, new DecelerateInterpolator());
-    }
-
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-        switch (ev.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                break;
-            case MotionEvent.ACTION_MOVE:
-                break;
-            case MotionEvent.ACTION_UP:
-                break;
-            default:
-                break;
-        }
-        return super.onInterceptTouchEvent(ev);
+        headerView = new View(context);
+        footView = new View(context);
+        addHeaderView(headerView);
+        addFooterView(footView);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
+        if (mLastY == -1) {
+            mLastY = ev.getRawY();
+        }
+
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                mLastY = ev.getRawY();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                final float deltaY = ev.getRawY() - mLastY;
+                mLastY = ev.getRawY();
+                if (getFirstVisiblePosition() == 0
+                        && (headerView.getHeight() > 0 || deltaY > 0)) {
+                    // the first item is showing, header has shown or pull down.
+                    updateHeaderHeight(deltaY / OFFSET_RADIO);
+                } else if (getLastVisiblePosition() == getChildCount() - 1
+                        && (footView.getHeight() > 0 || deltaY < 0)) {
+                    // last item, already pulled up or want to pull up.
+                    updateFooterHeight(-deltaY / OFFSET_RADIO);
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                break;
+            default:
+                mLastY = -1; // reset
+                break;
+        }
         return super.onTouchEvent(ev);
+
     }
+    
+    private void updateFooterHeight(float v) {
+
+    }
+    
+    private void updateHeaderHeight(float v) {
+
+    }
+
 }

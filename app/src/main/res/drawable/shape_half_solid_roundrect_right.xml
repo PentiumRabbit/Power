@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--娌＄洿鎺ョ敤shaper鏄洜涓�.0浠ヤ笅浼氭樉绀轰笉姝ｅ父-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape
+            android:shape="rectangle">
+            <solid android:color="@color/Yellow"/>
+            <corners
+                android:radius="30dp"
+                />
+            <size
+                android:width="60dp"
+                android:height="60dp"
+                />
+
+        </shape>
+    </item>
+
+    <item
+        android:right="30dp"
+        >
+        <shape
+            android:shape="rectangle">
+            <solid android:color="@color/Yellow"/>
+        </shape>
+    </item>
+
+</layer-list>

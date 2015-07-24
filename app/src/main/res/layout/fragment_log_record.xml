@@ -19,6 +19,7 @@
             android:layout_weight="1">
 
             <EditText
+                android:id="@+id/et_input_tag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/warm_tag"/>
@@ -38,7 +39,7 @@
 
 
     <Button
-        android:id="@+id/Button"
+        android:id="@+id/btn_start"
         style="@style/CommonButton"
         android:layout_gravity="right"
         android:text="@string/start"
