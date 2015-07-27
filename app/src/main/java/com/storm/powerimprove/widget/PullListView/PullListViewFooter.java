@@ -33,16 +33,7 @@ public class PullListViewFooter extends LinearLayout {
     }
 
     public void setState(int state) {
-        // mHintView.setVisibility(View.INVISIBLE);
-        // mHintView.setVisibility(View.INVISIBLE);
-        // if (state == STATE_READY) {
-        // mHintView.setVisibility(View.VISIBLE);
-        // mHintView.setText(R.string.about_desc_text);
-        // } else if (state == STATE_LOADING) {
-        // } else {
-        // mHintView.setVisibility(View.VISIBLE);
-        // mHintView.setText(R.string.about_desc_text);
-        // }
+
     }
 
     public void setBottomHeight(int height) {

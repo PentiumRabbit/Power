@@ -1,16 +1,12 @@
 apply plugin: 'com.android.application'
-
-
 def versionMajor = 1;
 def versionMinor = 0;
 def versionPatch = 0;
 def versionBuild = 0;
-
 // 设置编码
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
 }
-
 android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
@@ -38,13 +34,13 @@ android {
     signingConfigs {
         //release的keystore信息
         release {
-            storeFile file('E:/MyWork/WorkSpace/GitCode/GradleCourse/KeyStore/KeyStore.jks')
+            storeFile file('G:/WorkSpace/GitCode/GradleCourse/KeyStore/KeyStore.jks')
             storePassword "zoruyg"
             keyAlias "baofeng"
             keyPassword "zoruyg"
         }
         debug {
-            storeFile file('E:/MyWork/WorkSpace/GitCode/GradleCourse/KeyStore/KeyStore_Debug.jks')
+            storeFile file('G:/WorkSpace/GitCode/GradleCourse/KeyStore/KeyStore_Debug.jks')
             storePassword "zoruyg"
             keyAlias "baofeng"
             keyPassword "zoruyg"
@@ -123,4 +119,6 @@ android {
         compile 'com.android.support:design:22.2.0'
         compile 'com.android.support:support-v4:22.2.0'
     }
+}
+dependencies {
 }

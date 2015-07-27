@@ -22,45 +22,26 @@ import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
 public class PullListView extends ListView implements OnScrollListener {
 
     private float lastY = -1;
-
     private Scroller scroller;
-
     private OnScrollListener scrollListener;
-
     private PullListViewListener listViewListener;
-
     private PullListViewHeader headerView;
-
+    // 默认HeaderView的高德,这里没有设置,所以每次直接回来,可以参看resetHeaderHeight
     private int headerViewHeight;
-
     private boolean enablePullRefresh = true;
-
     private boolean pullRefreshing = false;
-
     private PullListViewFooter footerView;
-
     private boolean enablePullLoad;
-
     private boolean pullLoading;
-
     private int allItemCount;
-
     private int scrollBack;
-
-    private final static int SCROLLBACK_HEADER = 0;
-
-    private final static int SCROLLBACK_FOOTER = 1;
-
+    private final static int SCROLL_BACK_HEADER = 0;
+    private final static int SCROLL_BACK_FOOTER = 1;
     private final static int SCROLL_DURATION = 400;
-
     private final static int PULL_LOAD_MORE_DELTA = 50;
-
     private final static float OFFSET_RADIO = 1.8f;
     private boolean scrollNoFull = false;
 
-    /**
-     * @param context
-     */
     public PullListView(Context context) {
         super(context);
         initWithContext(context);
@@ -87,15 +68,31 @@ public class PullListView extends ListView implements OnScrollListener {
         addFooterView(footerView);
     }
 
+    public boolean isEnablePullLoad() {
+        return enablePullLoad;
+    }
+
+    public void setEnablePullLoad(boolean enablePullLoad) {
+        this.enablePullLoad = enablePullLoad;
+    }
+
+    public boolean isEnablePullRefresh() {
+        return enablePullRefresh;
+    }
+
+    public void setEnablePullRefresh(boolean enablePullRefresh) {
+        this.enablePullRefresh = enablePullRefresh;
+    }
+
     public void stopRefresh() {
-        if (pullRefreshing == true) {
+        if (pullRefreshing) {
             pullRefreshing = false;
             resetHeaderHeight();
         }
     }
 
     public void stopLoadMore() {
-        if (pullLoading == true) {
+        if (pullLoading) {
             pullLoading = false;
             footerView.setState(PullListViewFooter.STATE_NORMAL);
         }
@@ -115,12 +112,18 @@ public class PullListView extends ListView implements OnScrollListener {
             height = lvHeight;
         }
         headerView.setHeight(height);
-        if (enablePullRefresh && !pullRefreshing) {
-            if (headerView.getVisibleHeight() > headerViewHeight) {
-                headerView.setState(PullListViewHeader.STATE_READY);
-            } else {
-                headerView.setState(PullListViewHeader.STATE_NORMAL);
-            }
+
+        if (!enablePullRefresh) {
+            return;
+        }
+
+        if (pullRefreshing) {
+            return;
+        }
+        if (headerView.getVisibleHeight() > headerViewHeight) {
+            headerView.setState(PullListViewHeader.STATE_READY);
+        } else {
+            headerView.setState(PullListViewHeader.STATE_NORMAL);
         }
         setSelection(0);
     }
@@ -132,7 +135,7 @@ public class PullListView extends ListView implements OnScrollListener {
         int height = headerView.getVisibleHeight();
         if (height == 0)
             return;
-
+        // 当正在刷新,并且获取当前HeaderView小于默认HeaderView时,会有HeaderView露出停留(如果默认的headerViewHeight没有设置时,不会停留)
         if (pullRefreshing && height <= headerViewHeight) {
             return;
         }
@@ -141,9 +144,8 @@ public class PullListView extends ListView implements OnScrollListener {
         if (pullRefreshing && height > headerViewHeight) {
             finalHeight = headerViewHeight;
         }
-        scrollBack = SCROLLBACK_HEADER;
+        scrollBack = SCROLL_BACK_HEADER;
         scroller.startScroll(0, height, 0, finalHeight - height, SCROLL_DURATION);
-
         invalidate();
     }
 
@@ -156,7 +158,6 @@ public class PullListView extends ListView implements OnScrollListener {
 
         if (enablePullLoad && !pullLoading) {
             if (height > PULL_LOAD_MORE_DELTA) {
-
                 footerView.setState(PullListViewFooter.STATE_READY);
             } else {
                 footerView.setState(PullListViewFooter.STATE_NORMAL);
@@ -169,7 +170,7 @@ public class PullListView extends ListView implements OnScrollListener {
     private void resetFooterHeight() {
         int bottomMargin = footerView.getBottomHeight();
         if (bottomMargin > 0) {
-            scrollBack = SCROLLBACK_FOOTER;
+            scrollBack = SCROLL_BACK_FOOTER;
             scroller.startScroll(0, bottomMargin, 0, -bottomMargin, SCROLL_DURATION);
             invalidate();
         }
@@ -255,7 +256,7 @@ public class PullListView extends ListView implements OnScrollListener {
     @Override
     public void computeScroll() {
         if (scroller.computeScrollOffset()) {
-            if (scrollBack == SCROLLBACK_HEADER) {
+            if (scrollBack == SCROLL_BACK_HEADER) {
                 headerView.setHeight(scroller.getCurrY());
             } else {
                 footerView.setBottomHeight(scroller.getCurrY());
