@@ -28,4 +28,5 @@
     <string name="warm_tag">输入TAG</string>
     <string name="log_type">需要过滤的TAG类型</string>
     <string name="start">start</string>
+    <string name="app_support">由奔腾的兔子支持!</string>
 </resources>
