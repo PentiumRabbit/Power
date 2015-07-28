@@ -186,16 +186,25 @@ public class PullListView extends ListView implements OnScrollListener {
 
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
+        handleMotionEvent(ev);
+        return super.onTouchEvent(ev);
+    }
+
+    /**
+     * 处理收拾
+     *
+     * @param ev
+     */
+    private void handleMotionEvent(MotionEvent ev) {
         if (lastY == -1) {
             lastY = ev.getRawY();
         }
-
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 lastY = ev.getRawY();
                 break;
             case MotionEvent.ACTION_MOVE:
-                final float deltaY = ev.getRawY() - lastY;
+                float deltaY = ev.getRawY() - lastY;
                 lastY = ev.getRawY();
                 if (getFirstVisiblePosition() == 0
                         && (headerView.getVisibleHeight() > 0 || deltaY > 0)) {
@@ -226,7 +235,6 @@ public class PullListView extends ListView implements OnScrollListener {
                 }
                 break;
         }
-        return super.onTouchEvent(ev);
     }
 
 

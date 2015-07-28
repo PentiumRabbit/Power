@@ -5,6 +5,9 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -49,6 +52,22 @@ public class PullListViewHeader extends LinearLayout {
         tvHint = (TextView) findViewById(R.id.text);
         tvHint.setPadding(0, FormatUtil.dip2px(context, 10), 0, 0);
 
+    }
+
+    private void measureView(View view) {
+        AbsListView.LayoutParams lp = (AbsListView.LayoutParams) view.getLayoutParams();
+        if (lp == null) {
+            lp = new AbsListView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    AbsListView.LayoutParams.WRAP_CONTENT);
+        }
+        int childWidthSpec = AbsListView.getChildMeasureSpec(0, 0, lp.width);
+        int childHeightSpec;
+        if (lp.height > 0) {
+            childHeightSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.EXACTLY);
+        } else {
+            childHeightSpec = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
+        }
+        view.measure(childWidthSpec, childHeightSpec);
     }
 
     public void setState(int state) {

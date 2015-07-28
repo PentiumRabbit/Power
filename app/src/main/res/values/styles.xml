@@ -6,6 +6,12 @@
         <!--<item name="android:textColorSecondary">@color/Orange</item>-->
         <item name="actionMenuTextColor">@color/CommonText</item>
         <item name="android:indeterminateProgressStyle">@style/IndeterminateProgress</item>
+        <item name="actionButtonStyle">@style/ActionBarMenuBg</item>
+    </style>
+
+    <!--设置ActionBar中的Menu点击效果-->
+    <style name="ActionBarMenuBg" parent="Widget.AppCompat.ActionButton">
+        <item name="android:background">#00000000</item>
     </style>
 
     <style name="IndeterminateProgress" parent="Widget.AppCompat.ProgressBar">
@@ -55,5 +61,10 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/selector_button</item>
     </style>
+    <!-- 左边的箭头指示-->
+    <style name="AppTheme.DrawerArrowToggle" parent="Base.Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/Red</item>
+    </style>
+
 
 </resources>
