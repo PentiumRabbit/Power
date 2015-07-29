@@ -85,3 +85,8 @@
 #######
 # 其它第三方库
 #######
+
+# Umeng
+-keepclassmembers class * {
+   public <init>(org.json.JSONObject);
+}

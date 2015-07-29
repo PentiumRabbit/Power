@@ -81,7 +81,7 @@ android {
             manifestPlaceholders = [umeng_channel: "baidu"]
         }
         google {
-            applicationId "com.android.gradlecourse.international"
+            applicationId "com.storm.powerimprove.international"
             manifestPlaceholders = [umeng_channel: "google"]
         }
 
@@ -106,6 +106,4 @@ android {
         compile 'com.android.support:design:22.2.0'
         compile 'com.android.support:support-v4:22.2.0'
     }
-}
-dependencies {
 }

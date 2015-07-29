@@ -7,7 +7,7 @@ import android.view.MenuItem;
 
 import com.storm.powerimprove.R;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
