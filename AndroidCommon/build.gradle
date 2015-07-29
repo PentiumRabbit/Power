@@ -12,6 +12,9 @@ dependencies {
 
     compile 'com.android.support:cardview-v7:22.2.0'
     compile 'com.android.support:recyclerview-v7:22.2.0'
+
+    // Umeng 统计
+    compile 'com.umeng.analytics:analytics:latest.integration'
 }
 
 android {

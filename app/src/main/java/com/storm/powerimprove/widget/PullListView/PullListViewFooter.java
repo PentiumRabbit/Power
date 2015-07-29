@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.base.utils.FormatUtil;
-import com.android.common.R;
+import com.storm.powerimprove.R;
 
 public class PullListViewFooter extends LinearLayout {
     public final static int STATE_NORMAL = 0;
