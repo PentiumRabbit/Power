@@ -50,6 +50,10 @@
         <!--这里是定义系统默认actionbar的地方,自己写的需要在actionbar中自己声明,还有PopMenu-->
         <!--<item name="android:actionBarStyle">@style/ActionBar</item>-->
 
+        <!--取除左上角背景 Home区域-->
+        <item name="selectableItemBackground">@null</item>
+
+
         <!--底部3个按键栏的颜色,5.1以上可用-->
         <!--<item name="android:navigationBarColor">@color/Violet</item>-->
         <!-- translucent system bars -->
