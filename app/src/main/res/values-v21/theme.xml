@@ -37,9 +37,18 @@
         <!--底部3个按键栏的颜色,5.1以上可用-->
         <!--<item name="android:navigationBarColor">@color/Violet</item>-->
         <!-- translucent system bars -->
-        <item name="android:windowTranslucentStatus">true</item>
-        <!--底部状态栏,最好不要加透明,不然会覆盖在view上-->
-        <!--  <item name="android:windowTranslucentNavigation">true</item>-->
+
+        <!--V21 采用这种方式,会有黑条-->
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
+        <!--<item name="android:windowTranslucentNavigation">true</item>-->
+
+        <!--V21 处理沉浸式-->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowOverscan">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">#00000000</item>
+        <item name="android:navigationBarColor">#00000000</item>
 
         <!--取除左上角背景 Home区域-->
         <item name="selectableItemBackground">@null</item>
@@ -48,6 +57,4 @@
         <!-- 箭头 -->
         <item name="drawerArrowStyle">@style/AppTheme.DrawerArrowToggle</item>
     </style>
-
-
 </resources>
