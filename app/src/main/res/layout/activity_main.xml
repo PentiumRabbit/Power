@@ -23,6 +23,7 @@
             app:popupTheme="@style/ThemeOverlay.App"
             android:minHeight="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
             android:id="@+id/toolbar"
             />
 

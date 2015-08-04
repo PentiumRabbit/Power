@@ -7,6 +7,12 @@ def versionBuild = 0;
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
 }
+def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('MMdd')
+    return formattedDate
+};
+
 android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
@@ -64,7 +70,7 @@ android {
             minifyEnabled false
             pseudoLocalesEnabled true
             applicationIdSuffix '.debug'
-            versionNameSuffix '.debug'
+            versionNameSuffix '.debug.'+ getDate()
             zipAlignEnabled false
             // 为该类型设置属性值
             buildConfigField "boolean", "DEBUG_MODEL", "true"
