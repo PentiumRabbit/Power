@@ -92,7 +92,7 @@
 //            }
 //        } catch (IOException e) {
 //            resultDeal.requestFail(NetConstant.ERROR_EXCEPTION, e);
-//            LogUtil.e(ConstantValue.TAG_EXCEPTION, "*****EXCEPTION*****\n", e);
+//            LogUtil.e(ValueTAG.EXCEPTION, "*****EXCEPTION*****\n", e);
 //        } finally {
 //            httpGet.abort();
 //            /** 用于关闭所有过期的连接 */
@@ -128,7 +128,7 @@
 //            }
 //        } catch (IOException e) {
 //            resultDeal.requestFail(NetConstant.ERROR_EXCEPTION, e);
-//            LogUtil.e(ConstantValue.TAG_EXCEPTION, "*****EXCEPTION*****\n", e);
+//            LogUtil.e(ValueTAG.EXCEPTION, "*****EXCEPTION*****\n", e);
 //        } finally {
 //            LogUtil.i(NetConstant.TAG_NET_CONNECT, "release");
 //            httpPost.abort();

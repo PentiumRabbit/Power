@@ -4,6 +4,7 @@ import android.app.Application;
 import android.test.ApplicationTestCase;
 
 import com.android.base.ConstantValue;
+import com.android.base.common.value.ValueTAG;
 import com.android.base.utils.LogUtil;
 import com.storm.powerimprove.utils.LogRecondUtil;
 
@@ -25,7 +26,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         try {
             LogRecondUtil.logOutput();
         } catch (IOException e) {
-            LogUtil.e(ConstantValue.TAG_EXCEPTION, "*****EXCEPTION*****\n", e);
+            LogUtil.e(ValueTAG.EXCEPTION, "*****EXCEPTION*****\n", e);
         }
     }
 }

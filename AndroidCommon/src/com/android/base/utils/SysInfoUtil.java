@@ -26,6 +26,7 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
 import com.android.base.ConstantValue;
+import com.android.base.common.value.ValueTAG;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -160,7 +161,7 @@ public class SysInfoUtil {
         } catch (IllegalAccessException
                 | InvocationTargetException
                 | NoSuchMethodException e) {
-            LogUtil.e(ConstantValue.TAG_EXCEPTION, "*****EXCEPTION*****\n", e);
+            LogUtil.e(ValueTAG.EXCEPTION, "*****EXCEPTION*****\n", e);
         }
 
 
@@ -280,7 +281,7 @@ public class SysInfoUtil {
 //                long lastUsedTime = (long) lastActiveTime.get(ti);
 //                LogUtil.i(TAG, "lastUsedTime----" + lastUsedTime);
 //            } catch (NoSuchFieldException | IllegalAccessException e) {
-//                LogUtil.e(ConstantValue.TAG_EXCEPTION, "*****EXCEPTION*****\n", e);
+//                LogUtil.e(ValueTAG.EXCEPTION, "*****EXCEPTION*****\n", e);
 //            }
 
 

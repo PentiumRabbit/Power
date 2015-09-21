@@ -20,6 +20,7 @@ import android.os.Build;
 import android.provider.MediaStore;
 
 import com.android.base.ConstantValue;
+import com.android.base.common.value.ValueTAG;
 
 /**
  * 缩略图工具
@@ -214,7 +215,7 @@ public class ThumbUtil {
             bitmap = ThumbnailUtils.extractThumbnail(bitmap, width, height,
                     ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
         } catch (RuntimeException ex) {
-            LogUtil.e(ConstantValue.TAG_EXCEPTION, "", ex);
+            LogUtil.e(ValueTAG.EXCEPTION, "", ex);
         } finally {
             try {
                 retriever.release();

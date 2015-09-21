@@ -7,6 +7,7 @@ package com.android.base.utils;
 import android.text.TextUtils;
 
 import com.android.base.ConstantValue;
+import com.android.base.common.value.ValueTAG;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -64,7 +65,7 @@ public class MD5 {
         		try {
 					fis.close();
 				} catch (IOException e) {
-					LogUtil.e(ConstantValue.TAG_EXCEPTION, "", e);
+					LogUtil.e(ValueTAG.EXCEPTION, "", e);
 				}
         	}
         }
