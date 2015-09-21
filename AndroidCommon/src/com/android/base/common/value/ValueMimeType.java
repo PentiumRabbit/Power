@@ -6,7 +6,7 @@ import java.util.HashMap;
  * @author ----zhaoruyang----
  * @data: 2014/12/15
  */
-public class MimeTypeValue {
+public class ValueMimeType {
 
     /*后缀名对应的type*/
     private static HashMap<String, String> mimeMap;

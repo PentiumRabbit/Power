@@ -3,7 +3,6 @@ package com.android.netconnect.engine.NetWork;
 import android.util.SparseArray;
 
 import com.android.netconnect.engine.ConnectMode;
-import com.android.netconnect.engine.NetWork.Impl.ClientConnectImpl;
 import com.android.netconnect.engine.NetWork.Impl.OKHttpClientImpl;
 import com.android.netconnect.engine.NetWork.Impl.URlConnectImpl;
 import com.android.netconnect.http.NetOptions;
@@ -70,7 +69,7 @@ public class NetFactory {
     private IRequest createConnectMode(ConnectMode mode) {
            /*获取HttpClient执行对象*/
         if (mode == ConnectMode.connect_client) {
-            return new ClientConnectImpl();
+//            return new ClientConnectImpl();
         }
         /*获取URL执行对象*/
         else if (mode == ConnectMode.connect_url) {

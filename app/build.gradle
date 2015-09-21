@@ -134,7 +134,9 @@ android {
         compile 'com.android.support:support-v4:23.0.0'
     }
 
-
+    lintOptions {
+        abortOnError false
+    }
 
 }
 

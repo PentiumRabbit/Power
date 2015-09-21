@@ -58,14 +58,7 @@ public interface ConstantValue {
      * *************************************************************************
      */
 
-    /**
-     * 异常信息
-     */
-    String TAG_EXCEPTION = "storm.exception";
-    /**
-     * OOM追踪
-     */
-    String TAG_OOM = "storm.oom";
+
 
 
     String NTE_DEBUG_HOST = "";

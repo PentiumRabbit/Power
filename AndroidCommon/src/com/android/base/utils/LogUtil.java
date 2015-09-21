@@ -2,6 +2,9 @@ package com.android.base.utils;
 
 import android.util.Log;
 
+import com.android.base.common.value.ValueTAG;
+import com.google.gson.Gson;
+
 /**
  * LogUtil
  *
@@ -37,6 +40,26 @@ public class LogUtil {
     public static void i(String tag, String msg) {
         if (isDebug) {
             Log.i(tag, msg);
+        }
+    }
+
+    public static void i(String tag, Object msg) {
+        if (isDebug) {
+            String msgTag = msg == null ? ValueTAG.NULL : msg.getClass().getSimpleName();
+            Log.i(tag, msgTag + " json : " + new Gson().toJson(msg));
+        }
+    }
+
+    public static void i(Class c, String msg) {
+        if (isDebug) {
+            String msgTag = c == null ? ValueTAG.NULL : msg.getClass().getSimpleName();
+            Log.i(msgTag, msg);
+        }
+    }
+
+    public static void i(String msg) {
+        if (isDebug) {
+            Log.i(ValueTAG.NONE, msg);
         }
     }
 

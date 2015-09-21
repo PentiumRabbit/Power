@@ -12,37 +12,21 @@ package com.android.base.common.bean;
  */
 public class BaseFile {
     /*文件字节书*/
-    private long size;
+    private Long size;
     /*文件全路径*/
     private String path;
     /*文件更新时间*/
-    private long updateTime;
+    private Long updateTime;
     /*文件类型*/
-    private int type;
+    private Integer type;
     /*文件名*/
     private String fileName;
 
-    public String getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
-
-    public long getSize() {
+    public Long getSize() {
         return size;
     }
 
-    public void setSize(long size) {
+    public void setSize(Long size) {
         this.size = size;
     }
 
@@ -54,11 +38,27 @@ public class BaseFile {
         this.path = path;
     }
 
-    public long getUpdateTime() {
+    public Long getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(long updateTime) {
+    public void setUpdateTime(Long updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }
