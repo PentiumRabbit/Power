@@ -5,6 +5,7 @@ package com.android.base.common.value;
  * @data: 2015-9-21
  */
 public interface ValueTAG {
+
     String ValueTAG = "ValueTAG.";
 
     /**
