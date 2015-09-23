@@ -11,7 +11,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.TextUtils;
 
-import com.android.base.GloableParams;
+import com.android.base.GlobeParams;
 
 import com.android.base.common.SharedPref.Impl.CommonSettingImpl;
 import com.android.base.common.SharedPref.SharedPref;
@@ -46,10 +46,10 @@ public class NetStatusReceiver extends BroadcastReceiver {
         if (wifiState != null && mobileState != null
                 && NetworkInfo.State.CONNECTED != wifiState
                 && NetworkInfo.State.CONNECTED == mobileState) {
-            if (GloableParams.currentNetStatus == NET_MOBILE) {
+            if (GlobeParams.currentNetStatus == NET_MOBILE) {
                 return;
             }
-            GloableParams.currentNetStatus = NET_MOBILE;
+            GlobeParams.currentNetStatus = NET_MOBILE;
             LogUtil.i(TAG, "手机网络连接成功!");
             CommonObserver.getInstance().notifyListener(ObserverType.NET_STATUS, NET_MOBILE);
         } else if (wifiState != null && mobileState != null
@@ -60,8 +60,8 @@ public class NetStatusReceiver extends BroadcastReceiver {
 
             LogUtil.i(TAG, "SSID : " + wifiSSID);
 
-            if (GloableParams.currentNetStatus != NET_WIFI) {
-                GloableParams.currentNetStatus = NET_WIFI;
+            if (GlobeParams.currentNetStatus != NET_WIFI) {
+                GlobeParams.currentNetStatus = NET_WIFI;
                 LogUtil.i(TAG, "无线网络连接成功！");
                 CommonObserver.getInstance().notifyListener(ObserverType.NET_STATUS, NET_WIFI);
             } else {
@@ -80,10 +80,10 @@ public class NetStatusReceiver extends BroadcastReceiver {
         } else if (wifiState != null && mobileState != null
                 && NetworkInfo.State.CONNECTED != wifiState
                 && NetworkInfo.State.CONNECTED != mobileState) {
-            if (GloableParams.currentNetStatus == NET_NONE) {
+            if (GlobeParams.currentNetStatus == NET_NONE) {
                 return;
             }
-            GloableParams.currentNetStatus = NET_NONE;
+            GlobeParams.currentNetStatus = NET_NONE;
             LogUtil.i(TAG, "手机没有网络...");
             CommonObserver.getInstance().notifyListener(ObserverType.NET_STATUS, NET_NONE);
         }

@@ -27,12 +27,12 @@ import butterknife.ButterKnife;
  * @data: 2015/6/11
  */
 public class App extends Application {
-    private static final String TAG = "App";
+    private static final String TAG = App.class.getSimpleName();
 
     @Override
     public void onCreate() {
         super.onCreate();
-
+        // 初始化配置
         initConfig();
     }
 

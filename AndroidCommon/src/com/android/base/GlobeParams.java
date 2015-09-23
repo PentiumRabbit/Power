@@ -5,14 +5,14 @@
 package com.android.base;
 
 /**
- * GloableParams
+ * GlobeParams
  *
  * @author ----zhaoruyang----
  * @version: V1.0
  * @data: 2014年11月10日 下午7:48:15
  */
 
-public class GloableParams {
+public class GlobeParams {
 
     /**
      * 当前网络状态

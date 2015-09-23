@@ -27,7 +27,6 @@ public class FileScanEngine {
      * 开始扫描
      */
     public void start() {
-
         if (callback != null) {
             nanoTime = System.nanoTime();
             callback.scanStart();

@@ -79,6 +79,14 @@ public class LogUtil {
         if (isDebug) {
             Log.e(tag, msg, e);
         }
+        
+    }
+
+    public static void e(String tag, Object object, Throwable e) {
+        if (isDebug) {
+            String msgTag = object == null ? ValueTAG.NULL : object.getClass().getSimpleName();
+            Log.e(tag, msgTag, e);
+        }
     }
 
     public static void w(String tag, String msg) {
