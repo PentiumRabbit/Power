@@ -162,7 +162,7 @@ public class PackageUtils {
             return INSTALL_SUCCEEDED;
         }
 
-        LogUtil.e(TAG,
+        Logger.e(TAG,
                 new StringBuilder().append("installSilent successMsg:").append(commandResult.successMsg)
                         .append(", ErrorMsg:").append(commandResult.errorMsg).toString());
         if (commandResult.errorMsg == null) {

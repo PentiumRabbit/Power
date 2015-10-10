@@ -22,7 +22,7 @@ import java.util.Locale;
 
 import android.text.TextUtils;
 
-import com.android.base.utils.LogUtil;
+import com.android.base.utils.Logger;
 
 /**
  * An object to convert Chinese character to its corresponding pinyin string.
@@ -394,14 +394,14 @@ public class NewHanziToPinyin extends HanziToPinyin {
                 if (locale[i].equals(Locale.CHINA) || locale[i].equals(Locale.CHINESE)) {
                     // Do self validation just once.
                     if (DEBUG) {
-                        LogUtil.d(TAG, "Self validation. Result: "
+                        Logger.d(TAG, "Self validation. Result: "
                                 + doSelfValidation());
                     }
                     sInstance = new NewHanziToPinyin(true);
                     return sInstance;
                 }
             }
-            LogUtil.w(TAG,
+            Logger.w(TAG,
                     "There is no Chinese collator, HanziToPinyin is disabled");
             sInstance = new NewHanziToPinyin(false);
             return sInstance;
@@ -423,7 +423,7 @@ public class NewHanziToPinyin extends HanziToPinyin {
             final String curString = Character.toString(c);
             int cmp = COLLATOR.compare(lastString, curString);
             if (cmp >= 0) {
-                LogUtil.e(TAG, "Internal error in Unihan table. "
+                Logger.e(TAG, "Internal error in Unihan table. "
                         + "The last string \"" + lastString
                         + "\" is greater than current string \"" + curString
                         + "\".");

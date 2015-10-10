@@ -15,7 +15,7 @@ def getDate() {
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23"
+    buildToolsVersion "23.0.1"
     // 默认的文件配置
     defaultConfig {
         applicationId "com.storm.powerimprove"

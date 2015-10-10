@@ -17,7 +17,7 @@ import com.android.base.common.SharedPref.Impl.CommonSettingImpl;
 import com.android.base.common.SharedPref.SharedPref;
 import com.android.base.common.Observer.CommonObserver;
 import com.android.base.common.Observer.ObserverType;
-import com.android.base.utils.LogUtil;
+import com.android.base.utils.Logger;
 import com.android.base.utils.SysInfoUtil;
 
 /**
@@ -50,7 +50,7 @@ public class NetStatusReceiver extends BroadcastReceiver {
                 return;
             }
             GlobeParams.currentNetStatus = NET_MOBILE;
-            LogUtil.i(TAG, "手机网络连接成功!");
+            Logger.i(TAG, "手机网络连接成功!");
             CommonObserver.getInstance().notifyListener(ObserverType.NET_STATUS, NET_MOBILE);
         } else if (wifiState != null && mobileState != null
                 && NetworkInfo.State.CONNECTED == wifiState
@@ -58,18 +58,18 @@ public class NetStatusReceiver extends BroadcastReceiver {
 
             String wifiSSID = SysInfoUtil.getWifiSSID(context);
 
-            LogUtil.i(TAG, "SSID : " + wifiSSID);
+            Logger.i(TAG, "SSID : " + wifiSSID);
 
             if (GlobeParams.currentNetStatus != NET_WIFI) {
                 GlobeParams.currentNetStatus = NET_WIFI;
-                LogUtil.i(TAG, "无线网络连接成功！");
+                Logger.i(TAG, "无线网络连接成功！");
                 CommonObserver.getInstance().notifyListener(ObserverType.NET_STATUS, NET_WIFI);
             } else {
                 //判断wifi是否变化
                 String old_SSID = SharedPref.getSettingString(context, CommonSettingImpl.RECORD_WIFI_SSID, "");
 
                 if (!TextUtils.equals(old_SSID, wifiSSID)) {
-                    LogUtil.i(TAG, "无线网络发生变化！");
+                    Logger.i(TAG, "无线网络发生变化！");
                     CommonObserver.getInstance().notifyListener(ObserverType.NET_STATUS, NET_WIFI_CHANGE);
                 }
 
@@ -84,7 +84,7 @@ public class NetStatusReceiver extends BroadcastReceiver {
                 return;
             }
             GlobeParams.currentNetStatus = NET_NONE;
-            LogUtil.i(TAG, "手机没有网络...");
+            Logger.i(TAG, "手机没有网络...");
             CommonObserver.getInstance().notifyListener(ObserverType.NET_STATUS, NET_NONE);
         }
     }

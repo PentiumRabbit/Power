@@ -1,12 +1,10 @@
 package com.storm.powerimprove.utils;
 
-import com.android.base.utils.LogUtil;
-import com.android.base.utils.ShellUtils;
+import com.android.base.utils.Logger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 
 /**
  * 用于记录日志操作的类
@@ -24,7 +22,7 @@ public class LogRecondUtil {
         BufferedReader successResult = new BufferedReader(new InputStreamReader(process.getInputStream()));
         String s;
         while ((s = successResult.readLine()) != null) {
-            LogUtil.i(TAG,s);
+            Logger.i(TAG, s);
         }
 
     }

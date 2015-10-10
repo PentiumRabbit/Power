@@ -3,9 +3,8 @@ package com.storm.powerimprove;
 import android.app.Application;
 import android.test.ApplicationTestCase;
 
-import com.android.base.ConstantValue;
 import com.android.base.common.value.ValueTAG;
-import com.android.base.utils.LogUtil;
+import com.android.base.utils.Logger;
 import com.storm.powerimprove.utils.LogRecondUtil;
 
 import java.io.IOException;
@@ -22,11 +21,11 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     }
 
     public void testLogCmd() {
-        LogUtil.i(TAG, "测试log命令");
+        Logger.i(TAG, "测试log命令");
         try {
             LogRecondUtil.logOutput();
         } catch (IOException e) {
-            LogUtil.e(ValueTAG.EXCEPTION, "*****EXCEPTION*****\n", e);
+            Logger.e(ValueTAG.EXCEPTION, "*****EXCEPTION*****\n", e);
         }
     }
 }

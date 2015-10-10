@@ -10,7 +10,6 @@ import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.ComponentInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -25,13 +24,10 @@ import android.os.storage.StorageManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
-import com.android.base.ConstantValue;
 import com.android.base.common.value.ValueTAG;
 
 import java.io.File;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -161,7 +157,7 @@ public class SysInfoUtil {
         } catch (IllegalAccessException
                 | InvocationTargetException
                 | NoSuchMethodException e) {
-            LogUtil.e(ValueTAG.EXCEPTION, "*****EXCEPTION*****\n", e);
+            Logger.e(ValueTAG.EXCEPTION, "*****EXCEPTION*****\n", e);
         }
 
 
@@ -290,7 +286,7 @@ public class SysInfoUtil {
             if (resolveInfo != null) {
                 ComponentInfo ci = getComponentInfo(resolveInfo);
                 String resolvePackageName = ci.packageName;
-                LogUtil.i(TAG, "resolvePackageName----" + resolvePackageName);
+                Logger.i(TAG, "resolvePackageName----" + resolvePackageName);
                 appsPackageName.add(resolvePackageName);
             }
         }

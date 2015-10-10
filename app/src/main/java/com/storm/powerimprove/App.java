@@ -5,8 +5,7 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.StrictMode;
 
-import com.android.base.ConstantValue;
-import com.android.base.utils.LogUtil;
+import com.android.base.utils.Logger;
 import com.android.netconnect.engine.NetConfig;
 import com.android.netconnect.http.HttpLoader;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -55,7 +54,7 @@ public class App extends Application {
      * 设置debug开关
      */
     private void initDebug() {
-        LogUtil.setDebug(AppConstant.IS_DEBUG);
+        Logger.setDebug(AppConstant.IS_DEBUG);
         ButterKnife.setDebug(AppConstant.IS_DEBUG);
     }
 

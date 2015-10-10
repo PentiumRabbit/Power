@@ -21,7 +21,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.android.base.utils.LogUtil;
 import com.android.base.utils.ScreenUtil;
 import com.storm.powerimprove.R;
 import com.storm.powerimprove.adapter.MenuAdapter;

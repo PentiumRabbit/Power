@@ -1,23 +1,19 @@
 package com.storm.powerimprove.fragment;
 
 import android.annotation.TargetApi;
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.util.Pair;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
-import com.android.base.utils.LogUtil;
+import com.android.base.utils.Logger;
 import com.storm.powerimprove.R;
 import com.storm.powerimprove.activity.SettingsActivity;
 import com.storm.powerimprove.adapter.PackageAdapter;
@@ -62,7 +58,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        LogUtil.d(TAG, "onViewCreated  ");
+        Logger.d(TAG, "onViewCreated  ");
         ButterKnife.inject(this, view);
 
         wrlRefresh.setOnRefreshListener(this);

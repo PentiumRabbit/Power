@@ -5,7 +5,7 @@
 package com.android.base.common.message;
 
 import com.android.base.common.value.ValueTAG;
-import com.android.base.utils.LogUtil;
+import com.android.base.utils.Logger;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -43,7 +43,7 @@ public class MessageQueue {
         try {
             result = this.blockingQueue.take();
         } catch (InterruptedException e) {
-            LogUtil.e(ValueTAG.EXCEPTION, this, e);
+            Logger.e(ValueTAG.EXCEPTION, this, e);
         }
         return result;
     }

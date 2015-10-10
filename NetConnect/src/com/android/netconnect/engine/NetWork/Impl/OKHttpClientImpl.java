@@ -1,8 +1,6 @@
 package com.android.netconnect.engine.NetWork.Impl;
 
-import android.text.TextUtils;
-
-import com.android.base.utils.LogUtil;
+import com.android.base.utils.Logger;
 import com.android.netconnect.NetConstant;
 import com.android.netconnect.engine.NetWork.IRequest;
 import com.android.netconnect.engine.NetWork.RequestMethod;
@@ -46,7 +44,7 @@ public class OKHttpClientImpl implements IRequest {
             if (resultDeal != null) {
                 resultDeal.requestFail(NetConstant.ERROR_EXCEPTION, e);
             }
-            LogUtil.e(NetConstant.TAG_NET_CONNECT, "*****EXCEPTION*****\n", e);
+            Logger.e(NetConstant.TAG_NET_CONNECT, "*****EXCEPTION*****\n", e);
         }
 
     }
@@ -54,10 +52,10 @@ public class OKHttpClientImpl implements IRequest {
 
     @Override
     public void doPost(String url, Map<String, String> params, IHttpResult resultDeal) {
-
-
         Request request = new Request.Builder()
                 .url(url)
+                        //添加http头
+//                .headers(Headers.of(params))
                 .post(createPostParams(params))
                 .build();
 
@@ -68,7 +66,7 @@ public class OKHttpClientImpl implements IRequest {
             if (resultDeal != null) {
                 resultDeal.requestFail(NetConstant.ERROR_EXCEPTION, e);
             }
-            LogUtil.e(NetConstant.TAG_NET_CONNECT, "*****EXCEPTION*****\n", e);
+            Logger.e(NetConstant.TAG_NET_CONNECT, "*****EXCEPTION*****\n", e);
         }
     }
 

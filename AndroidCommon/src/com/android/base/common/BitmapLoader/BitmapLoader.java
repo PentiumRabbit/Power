@@ -9,9 +9,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.widget.ImageView;
 
-import com.android.base.ConstantValue;
 import com.android.base.common.value.ValueTAG;
-import com.android.base.utils.LogUtil;
+import com.android.base.utils.Logger;
 import com.android.base.utils.SysInfoUtil;
 
 import java.util.concurrent.Callable;
@@ -84,7 +83,7 @@ public class BitmapLoader {
                     }
 
                 } catch (InterruptedException | ExecutionException e) {
-                    LogUtil.e(ValueTAG.EXCEPTION, "*****EXCEPTION*****\n", e);
+                    Logger.e(ValueTAG.EXCEPTION, "*****EXCEPTION*****\n", e);
                 }
             }
         };

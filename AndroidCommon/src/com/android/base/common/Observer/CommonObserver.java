@@ -7,7 +7,7 @@ package com.android.base.common.Observer;
 import android.support.annotation.NonNull;
 import android.util.SparseArray;
 
-import com.android.base.utils.LogUtil;
+import com.android.base.utils.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +48,7 @@ public class CommonObserver {
             throw new NullPointerException();
 
         int ordinal = type.ordinal();
-        LogUtil.i(TAG, "callback register" + ordinal);
+        Logger.i(TAG, "callback register" + ordinal);
         List<ObserverCallback> observerCallbacks = observers.get(ordinal);
         if (observerCallbacks == null) {
             List<ObserverCallback> callbacks = new ArrayList<>();
@@ -83,7 +83,7 @@ public class CommonObserver {
     public void notifyListener(@NonNull ObserverType type, int code) {
 
         int ordinal = type.ordinal();
-        LogUtil.i(TAG, "callback notifyListener" + ordinal);
+        Logger.i(TAG, "callback notifyListener" + ordinal);
         List<ObserverCallback> callbacks = observers.get(ordinal);
         if (callbacks == null) {
             return;

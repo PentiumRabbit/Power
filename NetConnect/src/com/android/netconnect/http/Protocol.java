@@ -1,7 +1,7 @@
 package com.android.netconnect.http;
 
 import com.android.base.ConstantValue;
-import com.android.base.utils.LogUtil;
+import com.android.base.utils.Logger;
 
 public class Protocol {
 
@@ -25,7 +25,7 @@ public class Protocol {
 
 
     public static String generateUrl(ProtocolType type) {
-        if (LogUtil.isDebug()) {
+        if (Logger.isDebug()) {
             return String.format("%s%s", ConstantValue.NTE_DEBUG_HOST, type.toString());
         } else {
             return String.format("%s%s", ConstantValue.NET_DEFAULT_HOST, type.toString());

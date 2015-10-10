@@ -7,19 +7,14 @@ package com.android.base.utils;
 import android.annotation.TargetApi;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaMetadataRetriever;
 import android.media.ThumbnailUtils;
 import android.os.Build;
 import android.provider.MediaStore;
 
-import com.android.base.ConstantValue;
 import com.android.base.common.value.ValueTAG;
 
 /**
@@ -215,7 +210,7 @@ public class ThumbUtil {
             bitmap = ThumbnailUtils.extractThumbnail(bitmap, width, height,
                     ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
         } catch (RuntimeException ex) {
-            LogUtil.e(ValueTAG.EXCEPTION, "", ex);
+            Logger.e(ValueTAG.EXCEPTION, "", ex);
         } finally {
             try {
                 retriever.release();

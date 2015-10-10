@@ -1,6 +1,6 @@
 package com.storm.powerimprove.engine;
 
-import com.android.base.utils.LogUtil;
+import com.android.base.utils.Logger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -44,7 +44,7 @@ public class LogShell {
         BufferedReader successResult = new BufferedReader(new InputStreamReader(process.getInputStream()));
         String s;
         while ((s = successResult.readLine()) != null) {
-            LogUtil.i(TAG, s);
+            Logger.i(TAG, s);
         }
     }
 
@@ -59,7 +59,7 @@ public class LogShell {
         BufferedReader successResult = new BufferedReader(new InputStreamReader(process.getInputStream()));
         String s;
         while ((s = successResult.readLine()) != null) {
-            LogUtil.i(TAG, s);
+            Logger.i(TAG, s);
         }
     }
 

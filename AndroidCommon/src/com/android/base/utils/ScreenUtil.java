@@ -3,13 +3,11 @@ package com.android.base.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Point;
-import android.graphics.Rect;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.android.base.ConstantValue;
 import com.android.base.common.value.ValueTAG;
 
 import java.lang.reflect.Field;
@@ -36,7 +34,7 @@ public class ScreenUtil {
             int x = Integer.parseInt(field.get(obj).toString());
             return activity.getResources().getDimensionPixelSize(x);
         } catch (Exception e) {
-            LogUtil.e(ValueTAG.EXCEPTION, "*****EXCEPTION*****\n", e);
+            Logger.e(ValueTAG.EXCEPTION, "*****EXCEPTION*****\n", e);
         }
 
         return 0;

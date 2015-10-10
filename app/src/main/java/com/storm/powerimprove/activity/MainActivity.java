@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.android.base.utils.LogUtil;
+import com.android.base.utils.Logger;
 import com.android.base.utils.ScreenUtil;
 import com.storm.powerimprove.R;
 import com.storm.powerimprove.dialog.ExitDialog;
@@ -59,10 +59,10 @@ public class MainActivity extends LocalDialogActivity
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(true);
             int statusBarHeight = ScreenUtil.getStatusBarHeight(this.getBaseContext());
-            LogUtil.i(TAG, "statusBarHeight : " + statusBarHeight);
+            Logger.i(TAG, "statusBarHeight : " + statusBarHeight);
             findViewById(R.id.toolbar).setPadding(0, statusBarHeight, 0, 0);
         }
-
+        Logger.d("开始");
 //        showSystemUI();
     }
 

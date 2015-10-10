@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 import android.util.SparseArray;
 
 /**
- * 创建多线程异步共享队列消息发送工厂
+ * 创建多线程异步共享队列消息发送工厂(写在其他进程的服务内)
  *
  * @author zhaoruyang
  */

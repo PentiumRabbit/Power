@@ -91,7 +91,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 			trace.close();
 			return fileName;
 		} catch (Exception e) {
-			LogUtil.e(TAG, "saveCrashInfoToFile", e);
+			Logger.e(TAG, "saveCrashInfoToFile", e);
 		}
 		return null;
 	}
@@ -133,7 +133,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 				field.setAccessible(true);
 				mDeviceCrashInfo.put(field.getName(), "" + field.get(null));
 			} catch (Exception e) {
-				LogUtil.e(TAG, "collectCrashDeviceInfo", e);
+				Logger.e(TAG, "collectCrashDeviceInfo", e);
 			}
 		}
 	}
