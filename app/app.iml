@@ -36,7 +36,7 @@
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/baidu/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/baidu/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/baidu/debug" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/generated/baidu/debug" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/baidu/debug" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/baiduDebug/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/baiduDebug/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/baiduDebug/assets" type="java-resource" />
@@ -49,7 +49,7 @@
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/androidTest/baidu/debug" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/rs/androidTest/baidu/debug" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/androidTest/baidu/debug" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/generated/androidTest/baidu/debug" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/androidTest/baidu/debug" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/baidu/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/baidu/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/baidu/assets" type="java-resource" />

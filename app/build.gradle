@@ -7,6 +7,7 @@ def versionBuild = 0;
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
 }
+
 def getDate() {
     def date = new Date()
     def formattedDate = date.format('MMdd')
@@ -14,13 +15,13 @@ def getDate() {
 };
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
     // 默认的文件配置
     defaultConfig {
-        applicationId "com.storm.powerimprove"
-        minSdkVersion 15
-        targetSdkVersion 23
+        applicationId project.DefaultApplicationId
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         // 版本名称
         versionName "${versionMajor}.${versionMinor}.${versionPatch}.${versionBuild}"
         // 版本号
@@ -61,8 +62,8 @@ android {
             // 指定混淆文件的路径
             proguardFile 'proguard-rules.pro'
 
-            android.buildTypes.all{ buildType ->
-                task "${buildType.name}CopyFiles" (type: Copy)
+            android.buildTypes.all { buildType ->
+                task "${buildType.name}CopyFiles"(type: Copy)
                 "${buildType.name}CopyFiles" {
                     description = 'Copies html5 files from the common library...'
                     from 'D:\\123.png'
@@ -82,7 +83,7 @@ android {
             minifyEnabled false
             pseudoLocalesEnabled true
             applicationIdSuffix '.debug'
-            versionNameSuffix '.debug.'+ getDate()
+            versionNameSuffix '.debug.' + getDate()
             zipAlignEnabled false
             // 为该类型设置属性值
             buildConfigField "boolean", "DEBUG_MODEL", "true"
@@ -102,14 +103,8 @@ android {
             applicationId "com.storm.powerimprove.international"
             manifestPlaceholders = [umeng_channel: "google"]
         }
-
-        wandoujia {
-            applicationId project.ANDROID_BUILD_APPLICATIONID_PRODUCTION
-        }
-
-
-        productFlavors.all{
-            flavor->flavor.manifestPlaceholders = [umeng_channel: name]
+        productFlavors.all {
+            flavor -> flavor.manifestPlaceholders = [umeng_channel: name]
         }
 
     }
