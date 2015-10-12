@@ -4,14 +4,14 @@ dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
     // 远程依赖json,格式: groupId:artifactId:version
     compile 'com.google.code.gson:gson:2.3.1'
-    compile 'com.android.support:support-v4:23.0.0'
+    compile 'com.android.support:support-v4:23.0.1'
     // 图片加载
     compile 'com.squareup.picasso:picasso:2.5.2'
     // 数据库操作
     compile 'org.litepal.android:core:1.2.1'
 
-    compile 'com.android.support:cardview-v7:23.0.0'
-    compile 'com.android.support:recyclerview-v7:23.0.0'
+    compile 'com.android.support:cardview-v7:23.0.1'
+    compile 'com.android.support:recyclerview-v7:23.0.1'
 
     // Umeng 统计
     compile 'com.umeng.analytics:analytics:latest.integration'
