@@ -1,6 +1,7 @@
 package com.storm.powerimprove;
 
 import android.app.Application;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.StrictMode;
@@ -16,6 +17,8 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.utils.L;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 
 import butterknife.ButterKnife;
 
@@ -45,6 +48,9 @@ public class App extends Application {
     private void initConfig() {
         // 率先设置Debug开关
         initDebug();
+        // 初始化OOM检测
+        LeakCanary.install(this);
+
         initImageLoader();
         initDebugModel();
         initHttpLoader();
