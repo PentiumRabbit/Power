@@ -43,7 +43,7 @@ public class MessageQueue {
         try {
             result = this.blockingQueue.take();
         } catch (InterruptedException e) {
-            Logger.e(ValueTAG.EXCEPTION, this, e);
+            Logger.e(ValueTAG.EXCEPTION, this.getClass(), e);
         }
         return result;
     }

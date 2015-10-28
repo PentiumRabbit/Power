@@ -100,22 +100,28 @@ public class Logger {
 
     }
 
+    public static void e(String tag, Throwable e) {
+        if (!isDebug) {
+            return;
+        }
+        Log.e(tag, getFunctionName(), e);
+
+    }
+
     public static void e(String tag, String msg, Throwable e) {
         if (!isDebug) {
             return;
         }
         Log.e(tag, msg, e);
 
-        
     }
 
-    public static void e(String tag, Object object, Throwable e) {
+    public static void e(String tag, Class cls, Throwable e) {
         if (!isDebug) {
             return;
         }
-        String msgTag = object == null ? ValueTAG.NULL : object.getClass().getSimpleName();
+        String msgTag = cls == null ? ValueTAG.NULL : cls.getSimpleName();
         Log.e(tag, msgTag, e);
-
     }
 
     public static void w(String tag, String msg) {
