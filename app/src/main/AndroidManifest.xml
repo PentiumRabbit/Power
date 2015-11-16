@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    package="com.storm.powerimprove"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest package="com.storm.powerimprove"
+          xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
@@ -14,15 +13,26 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.Power">
+
         <activity
-            android:name=".activity.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.Power.NavigationDrawer">
+            android:name=".activity.SplashActivity"
+            android:label="@string/title_activity_splash"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.storm.powerimprove.activity.BaseActivity"/>
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.Power.NavigationDrawer">S
         </activity>
         <activity
             android:name=".activity.SettingsActivity"
@@ -32,16 +42,19 @@
         <service
             android:name=".service.LogService"
             android:enabled="true"
-            android:exported="true">
+            android:process=":service"
+            android:exported="false"
+            >
         </service>
 
-
-        <!--集成Umeng统计-->
+        <!-- 集成Umeng统计 -->
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="55b877f167e58e72a7002883"/>
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="${umeng_channel}"/>
+
     </application>
+
 </manifest>
