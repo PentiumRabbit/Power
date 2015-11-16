@@ -5,6 +5,7 @@
     <string name="menu_home">首页</string>
     <string name="menu_log">日志工具</string>
     <string name="menu_suggest">建议</string>
+    <string name="menu_pic">图片处理</string>
     <string name="menu_set">选项</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

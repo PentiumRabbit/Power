@@ -1,7 +1,9 @@
 package com.storm.powerimprove.fragment;
 
-import android.app.FragmentManager;
 
+import android.support.v4.app.FragmentManager;
+
+import com.android.base.common.fragment.BaseFragment;
 import com.storm.powerimprove.dialog.NoFrameDialog;
 import com.storm.powerimprove.dialog.OnDialogCallBack;
 

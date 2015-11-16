@@ -26,13 +26,15 @@ public class MenuAdapter extends BaseAdapter {
         this.context = context;
         menuArray = new int[][]{
                 // 首页
-                {R.string.menu_home , R.drawable.icon_menu_video} ,
+                {R.string.menu_home, R.drawable.icon_menu_video},
                 // 日志工具
-                {R.string.menu_log , R.drawable.icon_menu_video} ,
+                {R.string.menu_log, R.drawable.icon_menu_video},
+                // 用于图片处理
+                {R.string.menu_pic, R.drawable.icon_menu_video},
                 // 建议
-                {R.string.menu_suggest , R.drawable.icon_menu_feedback} ,
+                {R.string.menu_suggest, R.drawable.icon_menu_feedback},
                 // 选项
-                {R.string.menu_set , R.drawable.icon_menu_set}
+                {R.string.menu_set, R.drawable.icon_menu_set}
         };
 
 

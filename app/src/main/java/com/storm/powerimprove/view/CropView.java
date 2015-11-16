@@ -1,13 +1,29 @@
 package com.storm.powerimprove.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.PointF;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.Shader;
+import android.os.Environment;
 import android.util.AttributeSet;
 import android.util.FloatMath;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.android.base.common.value.ValueTAG;
+import com.android.base.utils.ImageUtil;
+import com.android.base.utils.Logger;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * 可以放大缩小,平移,裁切的view
@@ -79,7 +95,68 @@ public class CropView extends ImageView {
      * @return
      */
     public boolean save(String path) {
-        return false;
+        Bitmap bitmap = ImageUtil.drawableToBitmap(getDrawable());
+        int width = getWidth() > bitmap.getWidth() ? bitmap.getWidth() : getWidth();
+        int height = getHeight() > bitmap.getHeight() ? bitmap.getHeight() : getWidth();
+        Logger.d(ValueTAG.NONE, "save : " + matrix.toShortString());
+
+        BitmapShader bitmapShader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+        RectF mBitmapRect = new RectF(0, 0, bitmap.getWidth(), bitmap.getHeight());
+
+//        bitmapShader.setLocalMatrix(matrix);
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setShader(bitmapShader);
+        //压缩后图片的宽和高以及kB大小均会变化
+//        Bitmap newBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, false);
+        Canvas canvas = new Canvas(bitmap);
+        Rect dstRect = new Rect(0, 0, bitmap.getWidth(), bitmap.getWidth());
+        canvas.drawBitmap(bitmap,matrix, paint);
+        compressAndSaveBitmapToSDCard(bitmap, "newBitmap.png", 80);
+        bitmap.recycle();
+//        newBitmap.recycle();
+        return true;
+    }
+
+    //压缩且保存图片到SDCard
+    private void compressAndSaveBitmapToSDCard(Bitmap rawBitmap, String fileName, int quality) {
+        String saveFilePaht = this.getSDCardPath() + File.separator + fileName;
+        Logger.i(ValueTAG.NONE, saveFilePaht);
+        File saveFile = new File(saveFilePaht);
+
+        if (saveFile.exists()) {
+            saveFile.delete();
+        }
+
+        try {
+
+            saveFile.createNewFile();
+            FileOutputStream fileOutputStream = new FileOutputStream(saveFile);
+
+            //imageBitmap.compress(format, quality, stream);
+            //把位图的压缩信息写入到一个指定的输出流中
+            //第一个参数format为压缩的格式
+            //第二个参数quality为图像压缩比的值,0-100.0 意味着小尺寸压缩,100意味着高质量压缩
+            //第三个参数stream为输出流
+            rawBitmap.compress(Bitmap.CompressFormat.PNG, quality, fileOutputStream);
+
+            fileOutputStream.flush();
+            fileOutputStream.close();
+        } catch (IOException e) {
+            Logger.e(TAG, e);
+        }
+
+    }
+
+    //获取SDCard的目录路径功能
+    private String getSDCardPath() {
+        String SDCardPath = null;
+        // 判断SDCard是否存在
+        boolean IsSDcardExist = Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
+        if (IsSDcardExist) {
+            SDCardPath = Environment.getExternalStorageDirectory().toString();
+        }
+        return SDCardPath;
     }
 
     @Override
@@ -133,6 +210,7 @@ public class CropView extends ImageView {
                 break;
         }
         setImageMatrix(matrix);
+        Logger.d(ValueTAG.NONE, matrix.toShortString());
         return true;
     }
 

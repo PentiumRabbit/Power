@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.android.base.common.fragment.BaseFragment;
 import com.android.base.utils.Logger;
 import com.storm.powerimprove.R;
 import com.storm.powerimprove.activity.SettingsActivity;
@@ -50,7 +51,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-//        ButterKnife.inject(this, view);
+        ButterKnife.inject(this, view);
         return view;
     }
 

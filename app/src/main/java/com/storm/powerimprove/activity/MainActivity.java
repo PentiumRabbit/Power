@@ -1,10 +1,11 @@
 package com.storm.powerimprove.activity;
 
 import android.annotation.TargetApi;
-import android.app.Fragment;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -22,6 +23,7 @@ import com.storm.powerimprove.fragment.HomeFragment;
 import com.storm.powerimprove.fragment.LogRecordFragment;
 import com.storm.powerimprove.fragment.MainFragment;
 import com.storm.powerimprove.fragment.NavigationDrawerFragment;
+import com.storm.powerimprove.fragment.PicDealFragment;
 
 
 /**
@@ -88,7 +90,7 @@ public class MainActivity extends LocalDialogActivity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
-        android.app.FragmentManager fragmentManager = getFragmentManager();
+        FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = MainFragment.newInstance(position + 1);
         if (position == R.string.menu_suggest) {
             fragment = HomeFragment.newInstance();
@@ -111,10 +113,9 @@ public class MainActivity extends LocalDialogActivity
 
 //            如果不想使用transition可以设置options bundle为null。当需要结束当前Activity并回退这个动画时调用Activity.finishAfterTransition()方法。
 
-        }
-
-        else if (position==R.string.menu_log)
-        {
+        } else if (position == R.string.menu_pic) {
+            fragment = PicDealFragment.newInstance();
+        } else if (position == R.string.menu_log) {
             fragment = LogRecordFragment.newInstance();
         }
 

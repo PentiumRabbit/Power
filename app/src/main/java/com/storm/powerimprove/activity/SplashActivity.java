@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 
+import com.android.base.common.fragment.BaseActivity;
 import com.storm.powerimprove.R;
 
 public class SplashActivity extends BaseActivity {
