@@ -10,6 +10,7 @@ import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
+import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.util.AttributeSet;
 import android.util.FloatMath;
@@ -68,6 +69,8 @@ public class CropView extends ImageView {
      * 两个手指的中间点
      */
     private PointF midPoint;
+    private int dWidth;
+    private int dHeight;
 
     public CropView(Context context) {
         super(context);
@@ -95,34 +98,40 @@ public class CropView extends ImageView {
      * @return
      */
     public boolean save(String path) {
-        Bitmap bitmap = ImageUtil.drawableToBitmap(getDrawable());
-        int width = getWidth() > bitmap.getWidth() ? bitmap.getWidth() : getWidth();
-        int height = getHeight() > bitmap.getHeight() ? bitmap.getHeight() : getWidth();
-        Logger.d(ValueTAG.NONE, "save : " + matrix.toShortString());
-
-        BitmapShader bitmapShader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-        RectF mBitmapRect = new RectF(0, 0, bitmap.getWidth(), bitmap.getHeight());
-
+//        Bitmap bitmap = ImageUtil.drawableToBitmap(getDrawable());
+//        int width = getWidth() > bitmap.getWidth() ? bitmap.getWidth() : getWidth();
+//        int height = getHeight() > bitmap.getHeight() ? bitmap.getHeight() : getWidth();
+//        Logger.d(ValueTAG.NONE, "save : " + matrix.toShortString());
+//
+//        BitmapShader bitmapShader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+//        RectF mBitmapRect = new RectF(0, 0, bitmap.getWidth(), bitmap.getHeight());
+//
 //        bitmapShader.setLocalMatrix(matrix);
-        Paint paint = new Paint();
-        paint.setAntiAlias(true);
-        paint.setShader(bitmapShader);
+//        Paint paint = new Paint();
+//        paint.setAntiAlias(true);
+//        paint.setShader(bitmapShader);
         //压缩后图片的宽和高以及kB大小均会变化
-//        Bitmap newBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, false);
-        Canvas canvas = new Canvas(bitmap);
-        Rect dstRect = new Rect(0, 0, bitmap.getWidth(), bitmap.getWidth());
-        canvas.drawBitmap(bitmap,matrix, paint);
-        compressAndSaveBitmapToSDCard(bitmap, "newBitmap.png", 80);
-        bitmap.recycle();
-//        newBitmap.recycle();
+//        Bitmap newBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, getImageMatrix(), true);
+//        Canvas canvas = new Canvas(bitmap);
+//        Rect dstRect = new Rect(0, 0, bitmap.getWidth(), bitmap.getWidth());
+//        Rect srcRect = new Rect(0, 0, bitmap.getWidth(), bitmap.getWidth());
+//        canvas.drawBitmap(bitmap,matrix, paint);
+
+        setDrawingCacheEnabled(true);
+        Bitmap newBitmap = getDrawingCache();
+        compressAndSaveBitmapToSDCard(newBitmap, path, 50);
+//        bitmap.recycle();
+        newBitmap.recycle();
+        setDrawingCacheEnabled(false);
         return true;
     }
 
     //压缩且保存图片到SDCard
-    private void compressAndSaveBitmapToSDCard(Bitmap rawBitmap, String fileName, int quality) {
-        String saveFilePaht = this.getSDCardPath() + File.separator + fileName;
-        Logger.i(ValueTAG.NONE, saveFilePaht);
-        File saveFile = new File(saveFilePaht);
+    private boolean compressAndSaveBitmapToSDCard(Bitmap rawBitmap, String saveFilePath, int quality) {
+        Logger.i(ValueTAG.NONE, saveFilePath);
+        File saveFile = new File(saveFilePath);
+
+        boolean success = false;
 
         if (saveFile.exists()) {
             saveFile.delete();
@@ -130,7 +139,12 @@ public class CropView extends ImageView {
 
         try {
 
-            saveFile.createNewFile();
+            success = saveFile.createNewFile();
+
+            if (!success) {
+                return false;
+            }
+
             FileOutputStream fileOutputStream = new FileOutputStream(saveFile);
 
             //imageBitmap.compress(format, quality, stream);
@@ -139,24 +153,14 @@ public class CropView extends ImageView {
             //第二个参数quality为图像压缩比的值,0-100.0 意味着小尺寸压缩,100意味着高质量压缩
             //第三个参数stream为输出流
             rawBitmap.compress(Bitmap.CompressFormat.PNG, quality, fileOutputStream);
-
             fileOutputStream.flush();
             fileOutputStream.close();
+            success = true;
         } catch (IOException e) {
+            success = false;
             Logger.e(TAG, e);
         }
-
-    }
-
-    //获取SDCard的目录路径功能
-    private String getSDCardPath() {
-        String SDCardPath = null;
-        // 判断SDCard是否存在
-        boolean IsSDcardExist = Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
-        if (IsSDcardExist) {
-            SDCardPath = Environment.getExternalStorageDirectory().toString();
-        }
-        return SDCardPath;
+        return success;
     }
 
     @Override
@@ -209,9 +213,92 @@ public class CropView extends ImageView {
                 }
                 break;
         }
+
         setImageMatrix(matrix);
-        Logger.d(ValueTAG.NONE, matrix.toShortString());
         return true;
+    }
+
+    @Override
+    public void setImageMatrix(Matrix matrix) {
+        Matrix b = checkMatrix(matrix);
+
+        super.setImageMatrix(b);
+
+
+    }
+
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        Bitmap bitmap = ImageUtil.drawableToBitmap(getDrawable());
+
+        dWidth = bitmap.getWidth();
+        dHeight = bitmap.getHeight();
+
+
+    }
+
+    /**
+     * 限定矩阵变化范围
+     */
+    private Matrix checkMatrix(Matrix matrix) {
+
+        int width = getWidth();
+        int height = getHeight();
+
+        float baseScaleX = width*1f / dWidth;
+        float baseScaleY = height*1f / dHeight;
+
+        float baseScale = Math.max(baseScaleX, baseScaleY);
+
+
+
+        float[] values = new float[9];
+        matrix.getValues(values);
+
+        float scaleX = values[0];
+        float TranslateX = values[2];
+
+        float scaleY = values[4];
+        float translateY = values[5];
+        float offY = dHeight * scaleY - height;
+        float offX = dWidth * scaleX - width;
+
+        Logger.d(ValueTAG.NONE, "offY : " + offY);
+        Logger.d(ValueTAG.NONE, "offX : " + offX);
+        Logger.d(ValueTAG.NONE, "TranslateX : " + TranslateX);
+        Logger.d(ValueTAG.NONE, "translateY : " + translateY);
+
+        if (offX < 0||offY < 0) {
+            values[0] = baseScale;
+            values[4] = baseScale;
+        }
+        if (offY < 0) {
+
+        }
+
+        if (translateY < -offY) {
+            values[5] = -offY;
+        }
+
+        if (translateY > 0) {
+            values[5] = 0;
+        }
+
+        if (TranslateX < -offX) {
+            values[2] = -offX;
+        }
+
+
+        if (TranslateX > 0) {
+            values[2] = 0;
+        }
+
+        matrix.setValues(values);
+        return matrix;
+
     }
 
     /**
