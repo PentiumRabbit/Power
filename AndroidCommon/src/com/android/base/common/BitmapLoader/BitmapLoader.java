@@ -57,7 +57,7 @@ public class BitmapLoader {
         return instance;
     }
 
-    public void loadBitmap(final String imageUrl, final ImageView imageView, Callable<Bitmap> mWorker) {
+    public void loadBitmap(final String imageUrl, final ImageView imageView, WorkCallback<Bitmap> mWorker) {
         imageView.setTag(imageUrl);
         final Bitmap bitmapFromMemCache = imageMap.getBitmapFromMemCache(imageUrl);
         if (bitmapFromMemCache != null) {
@@ -78,15 +78,15 @@ public class BitmapLoader {
                         return;
                     }
                     handler = defineHandler();
-                    if (handler != null) {
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                imageView.setImageBitmap(result);
-                            }
-                        });
+                    if (handler == null) {
+                        return;
                     }
-
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            imageView.setImageBitmap(result);
+                        }
+                    });
                 } catch (InterruptedException | ExecutionException e) {
                     Logger.e(ValueTAG.EXCEPTION, "*****EXCEPTION*****\n", e);
                 }
