@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -14,6 +15,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.android.base.common.fragment.BaseFragment;
+import com.android.base.common.handler.CommonHandler;
+import com.android.base.common.handler.IHandlerMessage;
 import com.android.base.utils.Logger;
 import com.storm.powerimprove.R;
 import com.storm.powerimprove.activity.SettingsActivity;
@@ -30,13 +33,14 @@ import butterknife.InjectView;
  * @author ----zhaoruyang----
  * @data: 2015/6/12
  */
-public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemClickListener {
+public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,IHandlerMessage, AdapterView.OnItemClickListener {
     private static final String TAG = "HomeFragment";
     @InjectView(R.id.lv_packs)
     ListView lvPacks;
     @InjectView(R.id.wrl_refresh)
     SwipeRefreshLayout wrlRefresh;
     private PackageAdapter packageAdapter;
+    private CommonHandler<HomeFragment> handler;
 
 
     /**
@@ -52,6 +56,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.inject(this, view);
+        handler = new CommonHandler<>(this);
         return view;
     }
 
@@ -69,6 +74,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                 R.color.Turquoise,
                 R.color.Teal);
 
+        handler.sendEmptyMessage(2222);
     }
 
 
@@ -115,5 +121,10 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
         }
 
+    }
+
+    @Override
+    public void handleMessage(Message msg) {
+        Logger.d(TAG, "handleMessage() returned " + msg.what);
     }
 }
