@@ -8,5 +8,5 @@ import android.os.Message;
  * 2015/11/28 20:38
  */
 public interface IHandlerMessage {
-    void handleMessage(Message msg);
+    void handlerCallback(Message msg);
 }

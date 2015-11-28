@@ -29,7 +29,7 @@ public class CommonHandler<T extends IHandlerMessage> extends Handler {
         if (t == null) {
             return;
         }
-        t.handleMessage(msg);
+        t.handlerCallback(msg);
     }
 
 }
