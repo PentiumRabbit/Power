@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.android.base.common.fragment.BaseActivity;
 import com.storm.powerimprove.R;
 
 public class SettingsActivity extends BaseActivity {

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.base.common.fragment.BaseFragment;
 import com.storm.powerimprove.R;
 
 import java.util.ArrayList;

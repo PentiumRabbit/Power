@@ -4,6 +4,8 @@
 
 package com.android.base.common.BitmapLoader;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
@@ -33,18 +35,21 @@ public class BitmapLoader {
     private final AtomicBoolean atomicBoolean = new AtomicBoolean();
 
     // private constructor suppresses
-    private BitmapLoader(int memory) {
+    private BitmapLoader(Context context) {
+        // 获取内存大小,用于分配图片缓存大小
+        int memClass = ((ActivityManager) context.getSystemService(
+                Context.ACTIVITY_SERVICE)).getMemoryClass();
         handler = defineHandler();
         pool = Executors.newFixedThreadPool(SysInfoUtil.getDefaultThreadPoolSize());
-        imageMap = new BitmapLruCache(memory);
+        imageMap = new BitmapLruCache(memClass);
     }
 
-    public static BitmapLoader getInstance(int memory) {
+    public static BitmapLoader getInstance(Context context) {
         // if already inited, no need to get lock everytime
         if (instance == null) {
             synchronized (BitmapLoader.class) {
                 if (instance == null) {
-                    instance = new BitmapLoader(memory);
+                    instance = new BitmapLoader(context);
                 }
             }
         }
@@ -52,7 +57,7 @@ public class BitmapLoader {
         return instance;
     }
 
-    public void loadBitmap(final String imageUrl, final ImageView imageView, Callable<Bitmap> mWorker) {
+    public void loadBitmap(final String imageUrl, final ImageView imageView, WorkCallback<Bitmap> mWorker) {
         imageView.setTag(imageUrl);
         final Bitmap bitmapFromMemCache = imageMap.getBitmapFromMemCache(imageUrl);
         if (bitmapFromMemCache != null) {
@@ -73,20 +78,21 @@ public class BitmapLoader {
                         return;
                     }
                     handler = defineHandler();
-                    if (handler != null) {
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                imageView.setImageBitmap(result);
-                            }
-                        });
+                    if (handler == null) {
+                        return;
                     }
-
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            imageView.setImageBitmap(result);
+                        }
+                    });
                 } catch (InterruptedException | ExecutionException e) {
                     Logger.e(ValueTAG.EXCEPTION, "*****EXCEPTION*****\n", e);
                 }
             }
         };
+
         pool.execute(futureTask);
 
 

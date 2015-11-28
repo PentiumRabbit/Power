@@ -6,6 +6,7 @@ package com.android.base.common.BitmapLoader;
 
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
+import android.text.TextUtils;
 
 import java.lang.ref.SoftReference;
 import java.util.LinkedHashMap;
@@ -74,28 +75,38 @@ class BitmapLruCache {
         }
     }
 
+    // 添加bitmap到缓存
     public synchronized void addBitmapToMemoryCache(String key, Bitmap bitmap) {
-
-        if (mMemoryCache.get(key) == null) {
-            if (key != null && bitmap != null)
-                mMemoryCache.put(key, bitmap);
-
+        if (TextUtils.isEmpty(key)) {
+            return;
         }
+
+        if (bitmap == null) {
+            return;
+        }
+        if (mMemoryCache.get(key) != null) {
+            return;
+        }
+        mMemoryCache.put(key, bitmap);
+
     }
 
     public synchronized Bitmap getBitmapFromMemCache(String key) {
+        if (TextUtils.isEmpty(key)) {
+            return null;
+        }
         Bitmap bm = mMemoryCache.get(key);
-        if (key != null) {
+        if (bm != null) {
             return bm;
         }
 
         SoftReference<Bitmap> bitmapSoftReference = softBitmapCache.get(key);
         Bitmap bitmap = bitmapSoftReference.get();
-        if (bitmap != null) {
-            mMemoryCache.put(key, bitmap);
-            return bitmap;
+        if (bitmap == null) {
+            return null;
         }
-        return null;
+        mMemoryCache.put(key, bitmap);
+        return bitmap;
     }
 
     /**
@@ -104,15 +115,18 @@ class BitmapLruCache {
      * @param key
      */
     public synchronized void removeImageCache(String key) {
-        if (key != null) {
-            if (mMemoryCache != null) {
-                Bitmap bm = mMemoryCache.remove(key);
-                if (bm != null) {
-                    bm.recycle();
-                    bm = null;
-                }
-
-            }
+        if (key == null) {
+            return;
         }
+        if (mMemoryCache == null) {
+            return;
+        }
+        Bitmap bm = mMemoryCache.remove(key);
+
+        if (bm == null) {
+            return;
+        }
+        bm.recycle();
+        bm = null;
     }
 }

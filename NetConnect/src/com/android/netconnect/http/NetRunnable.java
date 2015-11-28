@@ -26,7 +26,7 @@ public class NetRunnable implements Runnable, IHttpResult {
     public static final int REQUEST_SUCCESS = 0;
     public static final int REQUEST_FAIL = 1;
     public static final int LOAD_DB_CACHE = 2;
-    private Handler handler;
+    private NetHandler handler;
     private NetOptions options;
     private INetCacheDao cacheDao;
 
@@ -59,8 +59,7 @@ public class NetRunnable implements Runnable, IHttpResult {
     /**
      * 处理字符串
      *
-     * @param msg
-     *         字符串
+     * @param msg 字符串
      */
     private <T> T dealMsg(String msg, Class<T> tClass) {
         //TODO 将 GSON 改成基于流的操作,更加偏于底程,效率更高,采取 TypeAdapters 和 TypeAdapterFactorys 方案来代替 JsonDeserializer
@@ -130,6 +129,13 @@ public class NetRunnable implements Runnable, IHttpResult {
     }
 
     /**
+     * 释放资源
+     */
+    public void release() {
+        handler.release();
+    }
+
+    /**
      * 强制关联,防止上层不能获取结果,不需要使用弱引用,不会造成内存泄露
      */
     static class NetHandler extends Handler {
@@ -139,6 +145,10 @@ public class NetRunnable implements Runnable, IHttpResult {
         public NetHandler(INetCallBack callBack, NetOptions options) {
             this.callBack = callBack;
             this.options = options;
+        }
+
+        public void release() {
+            callBack = null;
         }
 
         public void handleMessage(Message msg) {
