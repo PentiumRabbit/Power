@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.lang.ref.WeakReference;
 
 
 /**
@@ -26,6 +27,7 @@ public class NetRunnable implements Runnable, IHttpResult {
     public static final int REQUEST_SUCCESS = 0;
     public static final int REQUEST_FAIL = 1;
     public static final int LOAD_DB_CACHE = 2;
+
     private NetHandler handler;
     private NetOptions options;
     private INetCacheDao cacheDao;
@@ -45,15 +47,22 @@ public class NetRunnable implements Runnable, IHttpResult {
             android.os.Process.setThreadPriority(options.getThreadPriority());
         }
         if (options.readCache()) {
-            // 读取数据库
-            String cacheStr = cacheDao.getCacheStr(options.getCacheId());
-            if (!TextUtils.isEmpty(cacheStr)) {
-                Message message = handler.obtainMessage(LOAD_DB_CACHE, dealMsg(cacheStr, options.getCastType()));
-                handler.sendMessage(message);
-            }
+            readDao();
+
         }
 
         NetFactory.getInstance().exeConnect(options, this);
+    }
+
+    /**
+     * 读取数据库缓存
+     */
+    private void readDao() {
+        String cacheStr = cacheDao.getCacheStr(options.getCacheId());
+        if (TextUtils.isEmpty(cacheStr)) {
+            return;
+        }
+        handler.obtainMessage(LOAD_DB_CACHE, dealMsg(cacheStr, options.getCastType())).sendToTarget();
     }
 
     /**
@@ -62,7 +71,7 @@ public class NetRunnable implements Runnable, IHttpResult {
      * @param msg 字符串
      */
     private <T> T dealMsg(String msg, Class<T> tClass) {
-        //TODO 将 GSON 改成基于流的操作,更加偏于底程,效率更高,采取 TypeAdapters 和 TypeAdapterFactorys 方案来代替 JsonDeserializer
+        //TODO 将 GSON 改成基于流的操作,更加偏于底程,效率更高,采取 TypeAdapters 和 TypeAdapterFactory 方案来代替 JsonDeserializer
         if (String.class.equals(tClass) || msg == null) {
             return (T) msg;
         } else {
@@ -73,8 +82,7 @@ public class NetRunnable implements Runnable, IHttpResult {
     public void requestSuccess(RequestMethod method, String message) {
         // TODO 将流引到这里,如果需要缓存,在转化成字符串,减少GSON转化资源
         handler.removeMessages(LOAD_DB_CACHE);
-        Message msg = handler.obtainMessage(REQUEST_SUCCESS, dealMsg(message, options.getCastType()));
-        handler.sendMessage(msg);
+        handler.obtainMessage(REQUEST_SUCCESS, dealMsg(message, options.getCastType())).sendToTarget();
         // 存入数据库
         if (options.saveCache()) {
             cacheDao.saveCache(options.getCacheId(), message, options.getSaveModel());
@@ -85,8 +93,7 @@ public class NetRunnable implements Runnable, IHttpResult {
     public void requestSuccess(RequestMethod method, Reader message) {
         //  将流引到这里,如果需要缓存,在转化成字符串,减少GSON转化资源
         handler.removeMessages(LOAD_DB_CACHE);
-        Message msg = handler.obtainMessage(REQUEST_SUCCESS, dealMsg(message, options.getCastType()));
-        handler.sendMessage(msg);
+        handler.obtainMessage(REQUEST_SUCCESS, dealMsg(message, options.getCastType())).sendToTarget();
         // 存入数据库
         if (options.saveCache()) {
             String str = reader2String(message);
@@ -139,19 +146,23 @@ public class NetRunnable implements Runnable, IHttpResult {
      * 强制关联,防止上层不能获取结果,不需要使用弱引用,不会造成内存泄露
      */
     static class NetHandler extends Handler {
-        private INetCallBack callBack;
+        private WeakReference<INetCallBack> reference;
         private NetOptions options;
 
         public NetHandler(INetCallBack callBack, NetOptions options) {
-            this.callBack = callBack;
+            reference = new WeakReference<INetCallBack>(callBack);
             this.options = options;
         }
 
         public void release() {
-            callBack = null;
+            reference.clear();
         }
 
         public void handleMessage(Message msg) {
+            if (reference == null) {
+                return;
+            }
+            INetCallBack callBack = reference.get();
 
             if (callBack == null) {
                 return;
