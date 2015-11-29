@@ -131,8 +131,7 @@ public class NetRunnable implements Runnable, IHttpResult {
 
     @Override
     public void requestFail(int errorCode, Exception e) {
-        Message msg = handler.obtainMessage(REQUEST_FAIL, errorCode, 0, e);
-        handler.sendMessage(msg);
+        handler.obtainMessage(REQUEST_FAIL, errorCode, 0, e).sendToTarget();
     }
 
     /**
