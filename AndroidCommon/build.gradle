@@ -17,6 +17,11 @@ dependencies {
     // Umeng 统计
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
+
+    // A debug bridge for Android applications
+    compile 'com.facebook.stetho:stetho:1.2.0'
+    compile 'com.facebook.stetho:stetho-okhttp:1.2.0'
+//    compile 'com.facebook.stetho:stetho-urlconnection:1.2.0'
 }
 
 android {

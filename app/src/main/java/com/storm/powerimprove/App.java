@@ -9,6 +9,9 @@ import android.os.StrictMode;
 import com.android.base.utils.Logger;
 import com.android.netconnect.engine.NetConfig;
 import com.android.netconnect.http.HttpLoader;
+import com.facebook.stetho.DumperPluginsProvider;
+import com.facebook.stetho.Stetho;
+import com.facebook.stetho.dumpapp.DumperPlugin;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -105,6 +108,13 @@ public class App extends Application {
             StrictMode.setVmPolicy(vmBuilder.build());
 
         }
+    }
+
+    /**
+     * 初始化
+     */
+    private void initStetho() {
+        Stetho.initializeWithDefaults(this);
     }
 
 }

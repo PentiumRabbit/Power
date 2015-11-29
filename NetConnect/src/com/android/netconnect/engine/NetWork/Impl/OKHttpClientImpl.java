@@ -5,6 +5,7 @@ import com.android.netconnect.NetConstant;
 import com.android.netconnect.engine.NetWork.IRequest;
 import com.android.netconnect.engine.NetWork.RequestMethod;
 import com.android.netconnect.listener.IHttpResult;
+import com.facebook.stetho.okhttp.StethoInterceptor;
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -30,6 +31,9 @@ public class OKHttpClientImpl implements IRequest {
     public OKHttpClientImpl() {
         client = new OkHttpClient();
         client.setConnectTimeout(8, TimeUnit.SECONDS);
+        if (Logger.isDebug()) {
+            client.networkInterceptors().add(new StethoInterceptor());
+        }
     }
 
     @Override
@@ -54,7 +58,7 @@ public class OKHttpClientImpl implements IRequest {
     public void doPost(String url, Map<String, String> params, IHttpResult resultDeal) {
         Request request = new Request.Builder()
                 .url(url)
-                        //添加http头
+                //添加http头
 //                .headers(Headers.of(params))
                 .post(createPostParams(params))
                 .build();
@@ -88,7 +92,6 @@ public class OKHttpClientImpl implements IRequest {
      * @param resultDeal
      * @param response
      * @param method
-     *
      * @throws IOException
      */
     private void dealResult(IHttpResult resultDeal, Response response, RequestMethod method) throws IOException {
