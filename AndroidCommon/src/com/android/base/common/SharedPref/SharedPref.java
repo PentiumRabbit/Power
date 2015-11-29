@@ -33,7 +33,7 @@ public class SharedPref {
     public static void setSettingInt(Context context, ISettingsField field, int value) {
         SharedPreferences.Editor settingEditor = context.getSharedPreferences(field.getPreferenceName(), field.getFileMode()).edit();
         settingEditor.putInt(field.name(), value);
-        settingEditor.commit();
+        settingEditor.apply();
     }
 
     public static String getSettingString(Context context, ISettingsField field, String defaultValue) {
@@ -43,7 +43,7 @@ public class SharedPref {
     public static void setSettingString(Context context, ISettingsField field, String value) {
         SharedPreferences.Editor settingEditor = context.getSharedPreferences(field.getPreferenceName(), field.getFileMode()).edit();
         settingEditor.putString(field.name(), value);
-        settingEditor.commit();
+        settingEditor.apply();
     }
 
     public static long getSettingLong(Context context, ISettingsField field, long defaultValue) {
@@ -53,7 +53,7 @@ public class SharedPref {
     public static void setSettingLong(Context context, ISettingsField field, long value) {
         SharedPreferences.Editor settingEditor = context.getSharedPreferences(field.getPreferenceName(), field.getFileMode()).edit();
         settingEditor.putLong(field.name(), value);
-        settingEditor.commit();
+        settingEditor.apply();
     }
 
     public static boolean getSettingBoolean(Context context, ISettingsField field, boolean defaultValue) {
@@ -63,7 +63,7 @@ public class SharedPref {
     public static void setSettingBoolean(Context context, ISettingsField field, boolean value) {
         SharedPreferences.Editor settingEditor = context.getSharedPreferences(field.getPreferenceName(), field.getFileMode()).edit();
         settingEditor.putBoolean(field.name(), value);
-        settingEditor.commit();
+        settingEditor.apply();
     }
 
     public static void setArrayInt(Context context, ISettingsField field, List<Integer> array) {
@@ -75,7 +75,7 @@ public class SharedPref {
             }
             SharedPreferences.Editor settingEditor = context.getSharedPreferences(field.getPreferenceName(), field.getFileMode()).edit();
             settingEditor.putString(field.name(), sBuilder.toString());
-            settingEditor.commit();
+            settingEditor.apply();
         }
     }
 
@@ -95,7 +95,7 @@ public class SharedPref {
     public static void remove(Context context, ISettingsField field) {
         SharedPreferences.Editor settingEditor = context.getSharedPreferences(field.getPreferenceName(), field.getFileMode()).edit();
         settingEditor.remove(field.name());
-        settingEditor.commit();
+        settingEditor.apply();
     }
 
 }
