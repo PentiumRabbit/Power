@@ -66,7 +66,7 @@ public class NetStatusReceiver extends BroadcastReceiver {
                 CommonObserver.getInstance().notifyListener(ObserverType.NET_STATUS, NET_WIFI);
             } else {
                 //判断wifi是否变化
-                String old_SSID = SharedPref.getSettingString(context, CommonSettingImpl.RECORD_WIFI_SSID, "");
+                String old_SSID = SharedPref.getString(context, CommonSettingImpl.RECORD_WIFI_SSID, "");
 
                 if (!TextUtils.equals(old_SSID, wifiSSID)) {
                     Logger.i(TAG, "无线网络发生变化！");
@@ -74,7 +74,7 @@ public class NetStatusReceiver extends BroadcastReceiver {
                 }
 
             }
-            SharedPref.setSettingString(context, CommonSettingImpl.RECORD_WIFI_SSID,
+            SharedPref.applyString(context, CommonSettingImpl.RECORD_WIFI_SSID,
                     wifiSSID);
 
         } else if (wifiState != null && mobileState != null
