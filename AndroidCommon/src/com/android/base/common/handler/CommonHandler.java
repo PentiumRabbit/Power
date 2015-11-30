@@ -1,5 +1,6 @@
 package com.android.base.common.handler;
 
+import android.app.Fragment;
 import android.os.Handler;
 import android.os.Message;
 
@@ -28,6 +29,12 @@ public class CommonHandler<T extends IHandlerMessage> extends Handler {
         T t = reference.get();
         if (t == null) {
             return;
+        }
+        if (t instanceof Fragment) {
+            Fragment fragment = (Fragment) t;
+            if (fragment.getActivity() == null || !(fragment).isAdded()) {
+                return;
+            }
         }
         t.handlerCallback(msg);
     }
