@@ -1,0 +1,11 @@
+<com.storm.powerimprove.view.NestedScrollImageContent xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/v_root"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@id/view_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</com.storm.powerimprove.view.NestedScrollImageContent>

@@ -33,6 +33,8 @@ public class MenuAdapter extends BaseAdapter {
                 {R.string.menu_pic, R.drawable.icon_menu_video},
                 // 建议
                 {R.string.menu_suggest, R.drawable.icon_menu_feedback},
+                // 建议
+                {R.string.menu_nested, R.drawable.icon_menu_feedback},
                 // 选项
                 {R.string.menu_set, R.drawable.icon_menu_set}
         };
