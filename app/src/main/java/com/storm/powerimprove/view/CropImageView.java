@@ -17,6 +17,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewParent;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -33,28 +34,57 @@ import java.io.InputStream;
  */
 public class CropImageView extends View {
     private static final String TAG = CropImageView.class.getSimpleName();
-
+    /**
+     * 拖拉照片模式
+     */
+    private static final int MODE_DRAG = 1;
+    /**
+     * 放大缩小照片模式
+     */
+    private static final int MODE_ZOOM = 2;
     private Uri mUri;
     private int mResource = 0;
     private Matrix mMatrix;
     private boolean mAdjustViewBounds = false;
-    private int mMaxWidth = Integer.MAX_VALUE;
-    private int mMaxHeight = Integer.MAX_VALUE;
 
     // these are applied to the drawable
-
+    private int mMaxWidth = Integer.MAX_VALUE;
+    private int mMaxHeight = Integer.MAX_VALUE;
     private Drawable mDrawable = null;
-
     private int mDrawableWidth;
     private int mDrawableHeight;
     private Matrix mDrawMatrix = null;
-
     private Context context;
+    /**
+     * 记录是拖拉照片模式还是放大缩小照片模式
+     */
+    private int mode = 0;// 初始状态
+    /**
+     * 用于记录开始时候的坐标位置
+     */
+    private PointF startPoint = new PointF();
+    /**
+     * 用于记录拖拉图片移动的坐标位置
+     */
+    private Matrix matrix = new Matrix();
+    /**
+     * 用于记录图片要进行拖拉时候的坐标位置
+     */
+    private Matrix currentMatrix = new Matrix();
+    /**
+     * 两个手指的开始距离
+     */
+    private float startDis;
+    /**
+     * 两个手指的中间点
+     */
+    private PointF midPoint;
 
     public CropImageView(Context context) {
         super(context);
         initImageView();
     }
+
 
     public CropImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -66,6 +96,24 @@ public class CropImageView extends View {
         initImageView();
     }
 
+    /**
+     * 将Drawable转化为Bitmap
+     *
+     * @param drawable
+     * @return
+     */
+    public static Bitmap drawableToBitmap(Drawable drawable) {
+        int width = drawable.getIntrinsicWidth();
+        int height = drawable.getIntrinsicHeight();
+        Bitmap bitmap = Bitmap.createBitmap(width, height, drawable
+                .getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
+                : Bitmap.Config.RGB_565);
+
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, width, height);
+        drawable.draw(canvas);
+        return bitmap;
+    }
 
     private void initImageView() {
         mMatrix = new Matrix();
@@ -150,7 +198,6 @@ public class CropImageView extends View {
             invalidate();
         }
     }
-
 
     private void resolveUri() {
         if (mDrawable != null) {
@@ -361,7 +408,6 @@ public class CropImageView extends View {
         return result;
     }
 
-
     /**
      * 限定矩阵变化范围
      */
@@ -463,7 +509,6 @@ public class CropImageView extends View {
         }
     }
 
-
     @Override
     public void setVisibility(int visibility) {
         super.setVisibility(visibility);
@@ -487,42 +532,6 @@ public class CropImageView extends View {
             mDrawable.setVisible(false, false);
         }
     }
-
-    /**
-     * 记录是拖拉照片模式还是放大缩小照片模式
-     */
-    private int mode = 0;// 初始状态
-    /**
-     * 拖拉照片模式
-     */
-    private static final int MODE_DRAG = 1;
-    /**
-     * 放大缩小照片模式
-     */
-    private static final int MODE_ZOOM = 2;
-
-    /**
-     * 用于记录开始时候的坐标位置
-     */
-    private PointF startPoint = new PointF();
-    /**
-     * 用于记录拖拉图片移动的坐标位置
-     */
-    private Matrix matrix = new Matrix();
-    /**
-     * 用于记录图片要进行拖拉时候的坐标位置
-     */
-    private Matrix currentMatrix = new Matrix();
-
-    /**
-     * 两个手指的开始距离
-     */
-    private float startDis;
-    /**
-     * 两个手指的中间点
-     */
-    private PointF midPoint;
-
 
     /**
      * 保存显示区域图片(在异步线程中操作)
@@ -600,7 +609,6 @@ public class CropImageView extends View {
         return success;
     }
 
-
     public int getBitmapSize(Bitmap bitmap) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {    //API 19
             return bitmap.getAllocationByteCount();
@@ -616,6 +624,10 @@ public class CropImageView extends View {
         /** 通过与运算保留最后八位 MotionEvent.ACTION_MASK = 255 */
         switch (event.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:
+                final ViewParent parent = getParent();
+                if (parent != null) {
+                    parent.requestDisallowInterceptTouchEvent(true);
+                }
                 mode = MODE_DRAG;
                 currentMatrix.set(mMatrix);
                 matrix.set(mMatrix);
@@ -654,7 +666,6 @@ public class CropImageView extends View {
         return true;
     }
 
-
     public void setImageMatrix(Matrix m) {
 
         if (m == null || m.equals(mMatrix)) {
@@ -665,27 +676,6 @@ public class CropImageView extends View {
         configureBounds();
         invalidate();
     }
-
-
-    /**
-     * 将Drawable转化为Bitmap
-     *
-     * @param drawable
-     * @return
-     */
-    public static Bitmap drawableToBitmap(Drawable drawable) {
-        int width = drawable.getIntrinsicWidth();
-        int height = drawable.getIntrinsicHeight();
-        Bitmap bitmap = Bitmap.createBitmap(width, height, drawable
-                .getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
-                : Bitmap.Config.RGB_565);
-
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, width, height);
-        drawable.draw(canvas);
-        return bitmap;
-    }
-
 
     /**
      * 计算两个手指间的距离

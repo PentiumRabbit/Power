@@ -2,13 +2,10 @@ package com.storm.powerimprove.view;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.NestedScrollingParent;
 import android.support.v4.view.NestedScrollingParentHelper;
-import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.ScrollerCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -16,12 +13,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
-import android.view.ViewGroup;
-import android.view.ViewParent;
-import android.widget.AbsListView;
+import android.widget.FrameLayout;
 
-import com.android.base.utils.Logger;
-import com.storm.powerimprove.R;
 
 /**
  * 嵌套滑动图片控制
@@ -30,15 +23,20 @@ import com.storm.powerimprove.R;
  * @Author: ZhaoRuYang
  * @Update: ZhaoRuYang(2015-12-02 15:51)
  */
-public class NestedScrollImageContent extends ViewGroup implements NestedScrollingParent {
+public class NestedScrollImageContent extends FrameLayout implements NestedScrollingParent {
     private static final String TAG = NestedScrollImageContent.class.getSimpleName();
     private NestedScrollingParentHelper parentHelper;
     private ScrollerCompat scroller;
     private int maximumVelocity;
     private RecyclerView recyclerView;
-    private CropImageView header;
-    private boolean toucheRecycling;
-    private boolean touchCurrent;
+    private View header;
+    private int contentHeight = 0;
+    private boolean stopNestScroll = false;
+
+    private int rTop = -1;
+    private int rBottom = -1;
+    private int downloadViewID;
+    private int moveViewID;
 
     public NestedScrollImageContent(Context context) {
         super(context);
@@ -65,23 +63,26 @@ public class NestedScrollImageContent extends ViewGroup implements NestedScrolli
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        Logger.d(TAG, "onLayout() called with l = [" + l + "], t = [" + t + "], r = [" + r + "], b = [" + b + "]");
+
+        if (stopNestScroll) {
+            return;
+        }
+
         int childCount = getChildCount();
-        int bottom = t;
+
         for (int i = 0; i < childCount; i++) {
             View childAt = getChildAt(i);
             if (childAt instanceof CropImageView) {
-                Logger.d(TAG, "method >>>>  onLayout()  IControlHeader");
-                bottom = t + 200;
-                header.layout(l, t, r, bottom);
+                childAt.layout(l, t, r, t + contentHeight);
+
+            }
+            rBottom = b;
+            rTop = t + contentHeight;
+            if (childAt instanceof RecyclerView) {
+                childAt.layout(l, rTop, r, rBottom);
             }
 
-            if (childAt instanceof RecyclerView) {
-                Logger.d(TAG, "method >>>>  onLayout()  RecyclerView : top --- " + bottom);
-                int measuredHeight = recyclerView.getMeasuredHeight();
-                Logger.d(TAG, "method >>>>  onLayout()  RecyclerView : measuredHeight --- " + measuredHeight);
-                recyclerView.layout(l, bottom, r, b);
-            }
+
         }
 
 
@@ -94,16 +95,22 @@ public class NestedScrollImageContent extends ViewGroup implements NestedScrolli
         maximumVelocity = configuration.getScaledMaximumFlingVelocity();
 
 
-        header = new CropImageView(getContext());
-        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-        header.setLayoutParams(params);
-        addView(header);
-        Drawable drawable = getResources().getDrawable(R.drawable.pic_war);
-        header.setImageDrawable(drawable);
     }
 
-    public void setRecyclerView(RecyclerView recyclerView) {
+
+    /**
+     * 填充内容
+     *
+     * @param header       头部
+     * @param recyclerView recyclerView
+     * @param height       头部高度
+     */
+    public void addViews(CropImageView header, RecyclerView recyclerView, int height) {
+        contentHeight = height;
         this.recyclerView = recyclerView;
+        this.header = header;
+        addView(header);
+        addView(recyclerView, 1);
     }
 
     @Override
@@ -111,10 +118,14 @@ public class NestedScrollImageContent extends ViewGroup implements NestedScrolli
         int actionMasked = MotionEventCompat.getActionMasked(ev);
         switch (actionMasked) {
             case MotionEvent.ACTION_DOWN:
-                toucheRecycling = checkView(ev, recyclerView);
+                downloadViewID = getViewID(ev);
                 break;
             case MotionEvent.ACTION_MOVE:
-                touchCurrent = checkView(ev, header);
+                moveViewID = getViewID(ev);
+                break;
+            case MotionEvent.ACTION_UP:
+                downloadViewID = 0;
+                moveViewID = 0;
                 break;
         }
         return super.dispatchTouchEvent(ev);
@@ -126,6 +137,18 @@ public class NestedScrollImageContent extends ViewGroup implements NestedScrolli
     }
 
 
+    private int getViewID(MotionEvent event) {
+        int childCount = getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View view = getChildAt(i);
+            boolean b = checkView(event, view);
+            if (b) {
+                return view.hashCode();
+            }
+        }
+        return 0;
+    }
+
     /**
      * 检查View
      *
@@ -136,6 +159,7 @@ public class NestedScrollImageContent extends ViewGroup implements NestedScrolli
         if (view == null) {
             return false;
         }
+
 
         MotionEvent obtain = MotionEvent.obtain(event);
         float x = obtain.getX();
@@ -150,26 +174,6 @@ public class NestedScrollImageContent extends ViewGroup implements NestedScrolli
         return false;
     }
 
-    /**
-     * @return Whether it is possible for the child view of this layout to
-     * scroll up. Override this if the child view is a custom view.
-     */
-    public boolean canChildScrollUp(View view) {
-        if (android.os.Build.VERSION.SDK_INT < 14) {
-            if (view instanceof AbsListView) {
-                final AbsListView absListView = (AbsListView) view;
-                return absListView.getChildCount() > 0
-                        && (absListView.getFirstVisiblePosition() > 0 || absListView.getChildAt(0)
-                        .getTop() < absListView.getPaddingTop());
-            } else {
-                return ViewCompat.canScrollVertically(view, -1) || view.getScrollY() > 0;
-            }
-        } else {
-            return ViewCompat.canScrollVertically(view, -1);
-        }
-    }
-
-
 
     ///////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////
@@ -180,26 +184,28 @@ public class NestedScrollImageContent extends ViewGroup implements NestedScrolli
 
     @Override
     public boolean onStartNestedScroll(View child, View target, int nestedScrollAxes) {
-        Log.d(TAG, "method : onStartNestedScroll() ");
+        stopNestScroll = true;
         return true;
     }
 
     @Override
     public void onNestedScrollAccepted(View child, View target, int nestedScrollAxes) {
-        Log.d(TAG, "method : onNestedScrollAccepted() ");
         parentHelper.onNestedScrollAccepted(child, target, nestedScrollAxes);
     }
 
 
     @Override
     public void onNestedPreScroll(View target, int dx, int dy, int[] consumed) {
-        Log.d(TAG, "method : onNestedPreScroll() ");
+
+
+        if (downloadViewID == 0 || moveViewID == 0 || downloadViewID == moveViewID) {
+            return;
+        }
         int top = header.getTop();
-        Logger.d(TAG, "method >>>>  onNestedPreScroll()  top -->" + top);
-        if (touchCurrent && toucheRecycling && dy > 0) {
+        if (dy > 0 && top >= -contentHeight) {
             consumed[1] = dy;
             moveHeader(dy);
-        } else if (dy < 0 && top < 0) {
+        } else if (dy < 0 && top <= 0) {
             int comsumedY;
             if (top >= dy) {
                 comsumedY = top;
@@ -213,34 +219,38 @@ public class NestedScrollImageContent extends ViewGroup implements NestedScrolli
     }
 
     private void moveHeader(int dy) {
-        Logger.d(TAG, "moveHeader() called with " + "dy = [" + dy + "]");
         header.offsetTopAndBottom(-dy);
-        recyclerView.offsetTopAndBottom(-dy);
+        rTop -= dy;
+        recyclerView.layout(recyclerView.getLeft(), rTop, recyclerView.getRight(), rBottom);
+
 
     }
 
+    @Override
+    public void requestLayout() {
+        super.requestLayout();
+    }
 
     @Override
     public void onNestedScroll(View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed) {
-        Log.d(TAG, "method : onNestedScroll() ");
 
     }
 
     @Override
     public void onStopNestedScroll(View target) {
         Log.d(TAG, "method : onStopNestedScroll() ");
+        stopNestScroll = false;
+
     }
 
 
     @Override
     public boolean onNestedFling(View target, float velocityX, float velocityY, boolean consumed) {
-        Log.d(TAG, "onNestedFling() called with ");
         return false;
     }
 
     @Override
     public boolean onNestedPreFling(View target, float velocityX, float velocityY) {
-        Log.d(TAG, "onNestedPreFling() called with ");
         return false;
     }
 
