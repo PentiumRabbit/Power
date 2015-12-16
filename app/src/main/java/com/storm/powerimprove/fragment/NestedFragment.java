@@ -53,7 +53,7 @@ public class NestedFragment extends LocalDialogFragment {
         viewList.setAdapter(adapter);
         viewList.setLayoutManager(new LinearLayoutManager(getContext()));
         viewList.setHasFixedSize(true);
-        vRoot.setRecyclerView(viewList);
+//        vRoot.setRecyclerView(viewList);
         List<PackageInfo> packages = getActivity().getPackageManager().getInstalledPackages(0);
         adapter.update(packages);
     }

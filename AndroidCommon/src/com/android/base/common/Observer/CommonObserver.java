@@ -43,52 +43,75 @@ public class CommonObserver {
     }
 
 
-    public synchronized void register(@NonNull ObserverType type, ObserverCallback callback) {
+    /**
+     * 注册观察者
+     *
+     * @param type     事件类型
+     * @param callback 事件回调
+     */
+    public void register(int type, ObserverCallback callback) {
+        // TODO: 2015/12/14 callback 存入弱引用,防止泄露,需要吗?
+        // 有移除逻辑,应该不需要弱引用
         if (callback == null)
             throw new NullPointerException();
-
-        int ordinal = type.ordinal();
-        Logger.i(TAG, "callback register" + ordinal);
-        List<ObserverCallback> observerCallbacks = observers.get(ordinal);
-        if (observerCallbacks == null) {
-            List<ObserverCallback> callbacks = new ArrayList<>();
-            callbacks.add(callback);
-            observers.put(ordinal, callbacks);
-        } else {
-            if (observerCallbacks.contains(callback))
-                return;
-            observerCallbacks.add(callback);
+        Logger.i(TAG, "callback register" + type);
+        synchronized (observers) {
+            List<ObserverCallback> observerCallbacks = observers.get(type);
+            if (observerCallbacks == null) {
+                List<ObserverCallback> callbacks = new ArrayList<>();
+                callbacks.add(callback);
+                observers.put(type, callbacks);
+            } else {
+                if (observerCallbacks.contains(callback)) {
+                    return;
+                }
+                observerCallbacks.add(callback);
+            }
         }
 
 
     }
 
-    public synchronized void unRegister(@NonNull ObserverType type, ObserverCallback callback) {
-
-        int ordinal = type.ordinal();
-        List<ObserverCallback> callbacks = observers.get(ordinal);
-        if (callbacks != null) {
+    /**
+     * 移除观察者
+     *
+     * @param type     事件类型
+     * @param callback 事件回调
+     */
+    public void unRegister(int type, ObserverCallback callback) {
+        synchronized (observers) {
+            List<ObserverCallback> callbacks = observers.get(type);
+            if (callbacks == null) {
+                return;
+            }
             callbacks.remove(callback);
         }
-
-
     }
 
-    public void clearOnservers(@NonNull ObserverType type) {
-        int ordinal = type.ordinal();
-        observers.get(ordinal).clear();
-        observers.remove(ordinal);
+    /**
+     * 清空观察者
+     *
+     * @param type 类型
+     */
+    public void clearObservers(int type) {
+        observers.get(type).clear();
+        observers.remove(type);
     }
 
-    public void notifyListener(@NonNull ObserverType type, int code) {
-
-        int ordinal = type.ordinal();
-        Logger.i(TAG, "callback notifyListener" + ordinal);
-        List<ObserverCallback> callbacks = observers.get(ordinal);
+    /**
+     * 消息分发
+     *
+     * @param type 消息类型
+     * @param code 消息标识
+     */
+    public void notifyListener(int type, int code) {
+        Logger.i(TAG, "callback notifyListener" + type);
+        List<ObserverCallback> callbacks = observers.get(type);
         if (callbacks == null) {
             return;
         }
         for (ObserverCallback listener : callbacks) {
+            // TODO: 2015/12/14 统计回调时长,超过某些时长使用log.e
             listener.onMessageChange(type, code);
         }
     }

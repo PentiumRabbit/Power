@@ -12,5 +12,5 @@ package com.android.base.common.Observer;
  */
 public interface ObserverCallback {
     /*回调方法里不要做耗时,阻塞操作,否则会影响到后面小心的分发*/
-    void onMessageChange(ObserverType type, int code);
+    void onMessageChange(int type, int code);
 }
