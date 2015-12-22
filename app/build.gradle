@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.droidtitan.lintcleaner'
+apply plugin: 'com.getkeepsafe.dexcount'
 def versionMajor = 1;
 def versionMinor = 0;
 def versionPatch = 0;
@@ -15,13 +17,13 @@ def getDate() {
 };
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion COMPILE_SDK_VERSION as int
+    buildToolsVersion BUILD_TOOLS_VERSION as String
     // 默认的文件配置
     defaultConfig {
-        applicationId project.DefaultApplicationId
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        applicationId DefaultApplicationId as String
+        minSdkVersion MIN_SDK_VERSION as int
+        targetSdkVersion TARGET_SDK_VERSION as int
         // 版本名称
         versionName "${versionMajor}.${versionMinor}.${versionPatch}.${versionBuild}"
         // 版本号
@@ -61,18 +63,6 @@ android {
             minifyEnabled true
             // 指定混淆文件的路径
             proguardFile 'proguard-rules.pro'
-
-            android.buildTypes.all { buildType ->
-                task "${buildType.name}CopyFiles"(type: Copy)
-                "${buildType.name}CopyFiles" {
-                    description = 'Copies html5 files from the common library...'
-                    from 'D:\\123.png'
-                    into 'assets/'
-//        include('**/*')
-                }
-
-                tasks.getByPath(":${project.name}:assemble${buildType.name.capitalize()}").dependsOn "${buildType.name}CopyFiles"
-            }
         }
         debug {
             debuggable true
@@ -140,15 +130,23 @@ android {
 
 }
 
-task copyFiles(type: Copy)
 
-copyFiles {
-    description = 'Copies html5 files from the common library...'
-    from 'D:\\123.png'
-    into 'assets/'
-//    include('**/*')
+lintCleaner {
+    // Exclude specific files
+    exclude = ['com_crashlytics_export_strings.xml', 'config.xml']
+
+    // Ability to ignore all resource files. False by default.
+    ignoreResFiles = true
+
+    // Default path is build/outputs/lint-results.xml
+    lintXmlFilePath = 'path/to/lint-results.xml'
 }
 
-dependencies {
-    compile 'com.android.support:support-v4:23.+'
-}//preBuild.dependsOn copyFiles
+dexcount {
+    includeClasses = false
+    includeFieldCount = true
+    includeTotalMethodCount = false
+    printAsTree = false
+    orderByMethodCount = false
+    verbose = false
+}
