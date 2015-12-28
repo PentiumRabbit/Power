@@ -45,8 +45,43 @@ public class Logger {
         if (!isDebug) {
             return;
         }
-        String message = getFunctionName() + msg;
-        Log.d(ValueTAG.NONE, message);
+        Log.d(ValueTAG.NONE, getFormatStr(msg));
+    }
+
+    private static String getFormatStr(String msg) {
+        String message = "------------------------------------------------------------------------------\n|   "
+                + getFunctionName()
+                + "\n|   "
+                + msg
+                + "\n------------------------------------------------------------------------------";
+
+        return message;
+    }
+
+    /**
+     * 获取栈信息
+     *
+     * @return 返回：类名-方法名称-行号
+     */
+    private static String getFunctionName() {
+        StackTraceElement[] sts = Thread.currentThread().getStackTrace();
+        if (sts == null) {
+            return null;
+        }
+        for (StackTraceElement st : sts) {
+            if (st.isNativeMethod()) {
+                continue;
+            }
+            if (st.getClassName().equals(Thread.class.getName())) {
+                continue;
+            }
+            if (st.getClassName().equals(Logger.class.getName())) {
+                continue;
+            }
+            return "[" + Thread.currentThread().getName() + ":" + st.getFileName() + "  " + st.getMethodName() + ":" + st.getLineNumber() + "]";
+        }
+
+        return null;
     }
 
     public static void i(String tag, String msg) {
@@ -79,10 +114,9 @@ public class Logger {
         if (!isDebug) {
             return;
         }
-        Log.i(ValueTAG.NONE, msg);
+        Log.i(ValueTAG.NONE, getFormatStr(msg));
 
     }
-
 
     public static void v(String tag, String msg) {
         if (!isDebug) {
@@ -138,33 +172,6 @@ public class Logger {
         }
         Log.w(tag, msg, e);
 
-    }
-
-
-    /**
-     * 获取栈信息
-     *
-     * @return 返回：类名-方法名称-行号
-     */
-    private static String getFunctionName() {
-        StackTraceElement[] sts = Thread.currentThread().getStackTrace();
-        if (sts == null) {
-            return null;
-        }
-        for (StackTraceElement st : sts) {
-            if (st.isNativeMethod()) {
-                continue;
-            }
-            if (st.getClassName().equals(Thread.class.getName())) {
-                continue;
-            }
-            if (st.getClassName().equals(Logger.class.getName())) {
-                continue;
-            }
-            return "[" + st.getFileName() + "_" + st.getMethodName() + ":" + st.getLineNumber() + "] : ";
-        }
-
-        return null;
     }
 
 }
