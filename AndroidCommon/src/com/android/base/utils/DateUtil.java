@@ -4,28 +4,23 @@
 
 package com.android.base.utils;
 
-import android.text.format.DateUtils;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 
 /**
  * 时间,日期类工具
  *
  * @author ----zhaoruyang----
- * @data: 2014/11/17
  */
 public class DateUtil {
 
-    public static final String FORMAT_TIEM = "yyyy-MM-dd HH:mm:ss";
-    public static final String FORMAT_TIEM_DATE = "yyyy-MM-dd";
+    public static final String FORMAT_TIME      = "yyyy-MM-dd HH:mm:ss";
+    public static final String FORMAT_TIME_DATE = "yyyy-MM-dd";
 
     /**
-     * 时间转化成Deta
+     * 时间转化成Date
      *
      * @param formatTime Format格式
      * @param time       时间
@@ -56,11 +51,11 @@ public class DateUtil {
      */
     public static String getPastTime(Date pastTime) {
 
-        long l = new Date().getTime() - pastTime.getTime();
-        long day = l / (24 * 60 * 60 * 1000);
+        long l    = new Date().getTime() - pastTime.getTime();
+        long day  = l / (24 * 60 * 60 * 1000);
         long hour = (l / (60 * 60 * 1000) - day * 24);
-        long min = ((l / (60 * 1000)) - day * 24 * 60 - hour * 60);
-        long s = (l / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
+        long min  = ((l / (60 * 1000)) - day * 24 * 60 - hour * 60);
+        long s    = (l / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
 
         StringBuilder sb = new StringBuilder();
         if (day > 0) {
