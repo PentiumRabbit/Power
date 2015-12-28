@@ -48,6 +48,13 @@ public class Logger {
         Log.d(ValueTAG.NONE, getFormatStr(msg));
     }
 
+    /**
+     * 格式化Log
+     *
+     * @param msg
+     *
+     * @return
+     */
     private static String getFormatStr(String msg) {
 
         return "------------------------------------------------------------------------------\n|   "
