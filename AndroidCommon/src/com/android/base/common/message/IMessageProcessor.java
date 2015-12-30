@@ -6,16 +6,15 @@ package com.android.base.common.message;
 
 /**
  * 消息分发
- * 
- * @author zhaoruyang
  *
+ * @author zhaoruyang
  */
 interface IMessageProcessor {
 
-	/**
-	 * 分发消息
-	 * 
-	 * @param message
-	 */
-	void sendMessage(IMessage message);
+    /**
+     * 分发消息
+     *
+     * @param message
+     */
+    void sendMessage(IMessage message);
 }

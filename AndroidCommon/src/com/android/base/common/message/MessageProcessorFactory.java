@@ -4,10 +4,10 @@
 
 package com.android.base.common.message;
 
+import android.util.SparseArray;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import android.util.SparseArray;
 
 /**
  * 创建多线程异步共享队列消息发送工厂(写在其他进程的服务内)
@@ -16,8 +16,8 @@ import android.util.SparseArray;
  */
 public class MessageProcessorFactory {
 
-    private MessageProcessorFactory factory = new MessageProcessorFactory();
     ExecutorService pool = Executors.newCachedThreadPool();
+    private MessageProcessorFactory factory = new MessageProcessorFactory();
     private SparseArray<MessageQueue> queueMap;
     private SparseArray<MessageLooper> runnableMap;
 
@@ -43,7 +43,7 @@ public class MessageProcessorFactory {
     public boolean registerProcessor(ProcessorType type,
                                      IMessageProcessor handout) {
         int ordinal = type.ordinal();
-
+        // TODO: 2015/12/29 添加多listener的情况
         if (queueMap.get(ordinal) != null) {
             return false;
         }
@@ -64,13 +64,12 @@ public class MessageProcessorFactory {
         return true;
     }
 
-    public void unRegistProcessor(ProcessorType type) {
+    public void unRegisterProcessor(ProcessorType type) {
         int ordinal = type.ordinal();
         queueMap.remove(ordinal);
         MessageLooper loop = runnableMap.get(ordinal);
         loop.stop();
         runnableMap.remove(ordinal);
-
     }
 
 }
