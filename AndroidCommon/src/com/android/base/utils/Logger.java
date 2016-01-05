@@ -17,6 +17,8 @@ public class Logger {
 
     private static volatile boolean isDebug = false;
 
+//    private static final Pattern ANONYMOUS_CLASS = Pattern.compile("(\\$\\d+)+$");
+
     public static boolean isDebug() {
         return isDebug;
     }
@@ -86,7 +88,12 @@ public class Logger {
             }
             return "[" + Thread.currentThread().getName() + ":" + st.getFileName() + "  " + st.getMethodName() + ":" + st.getLineNumber() + "]";
         }
-
+//        String tag = element.getClassName();
+//        Matcher m = ANONYMOUS_CLASS.matcher(tag);
+//        if (m.find()) {
+//            tag = m.replaceAll("");
+//        }
+//        return tag.substring(tag.lastIndexOf('.') + 1);
         return null;
     }
 
