@@ -90,3 +90,23 @@
 -keepclassmembers class * {
    public <init>(org.json.JSONObject);
 }
+
+# 去除log类
+-assumenosideeffects class android.util.Log {
+   public static boolean isLoggable(java.lang.String, int);
+   public static int v(...);
+   public static int i(...);
+   public static int w(...);
+   public static int d(...);
+   public static int e(...);
+}
+
+# 去除自己声明的log类
+-assumenosideeffects class com.android.base.utils.Logger {
+   public static boolean isLoggable(java.lang.String, int);
+   public static int v(...);
+   public static int i(...);
+   public static int w(...);
+   public static int d(...);
+   public static int e(...);
+}
