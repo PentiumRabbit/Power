@@ -61,6 +61,6 @@ public interface ConstantValue {
 
 
 
-    String NTE_DEBUG_HOST = "";
+    String NTE_DEBUG_HOST = "http://search.shouji.baofeng.com";
     String NET_DEFAULT_HOST = "";
 }

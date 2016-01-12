@@ -1,5 +1,7 @@
 package com.android.netconnect.engine.NetWork.Impl;
 
+import android.text.TextUtils;
+
 import com.android.base.utils.Logger;
 import com.android.netconnect.NetConstant;
 import com.android.netconnect.engine.NetWork.IRequest;
@@ -49,6 +51,7 @@ public class OKHttpClientImpl implements IRequest {
                 resultDeal.requestFail(NetConstant.ERROR_EXCEPTION, e);
             }
             Logger.e(NetConstant.TAG_NET_CONNECT, "*****EXCEPTION*****\n", e);
+        } finally {
         }
 
     }
@@ -92,6 +95,7 @@ public class OKHttpClientImpl implements IRequest {
      * @param resultDeal
      * @param response
      * @param method
+     *
      * @throws IOException
      */
     private void dealResult(IHttpResult resultDeal, Response response, RequestMethod method) throws IOException {
@@ -102,7 +106,13 @@ public class OKHttpClientImpl implements IRequest {
             resultDeal.requestFail(response.code(), null);
             return;
         }
-        resultDeal.requestSuccess(method, response.body().charStream());
+//        resultDeal.requestSuccess(method, response.body().charStream());
+        String msg = response.body().string();
+        if (TextUtils.isEmpty(msg)) {
+            resultDeal.requestFail(NetConstant.ERROR_NO_MSG, null);
+        } else {
+            resultDeal.requestSuccess(method, msg);
+        }
     }
 
 }

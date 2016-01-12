@@ -7,19 +7,13 @@ public class Protocol {
 
     public enum ProtocolType {
 
-        GET_APK_DETAILS {
+        GET_CLIENT_SETTINGS {
             @Override
             public String toString() {
-                return "/pdetail.php";
+                return "/client_settings.php?name=theme";
             }
         },
 
-        POLLING_SERVICE {
-            @Override
-            public String toString() {
-                return "/notification.php";
-            }
-        },
 
     }
 

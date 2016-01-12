@@ -65,6 +65,7 @@ public class App extends Application {
     private void initDebug() {
         Logger.setDebug(AppConstant.IS_DEBUG);
         ButterKnife.setDebug(AppConstant.IS_DEBUG);
+//        initStetho();
     }
 
     /*初始化HttpLoader*/
@@ -99,7 +100,7 @@ public class App extends Application {
             return;
         }
         // check if android:debuggable is set to true
-        StrictMode.VmPolicy.Builder vmBuilder = new StrictMode.VmPolicy.Builder();
+        StrictMode.VmPolicy.Builder     vmBuilder     = new StrictMode.VmPolicy.Builder();
         StrictMode.ThreadPolicy.Builder threadBuilder = new StrictMode.ThreadPolicy.Builder();
         if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
             threadBuilder.detectAll();
@@ -114,7 +115,11 @@ public class App extends Application {
      * 初始化
      */
     private void initStetho() {
-        Stetho.initializeWithDefaults(this);
+        Stetho.initialize(
+                Stetho.newInitializerBuilder(this)
+                        .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                        .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
+                        .build());
     }
 
 }

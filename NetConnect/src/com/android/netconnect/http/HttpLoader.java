@@ -65,9 +65,10 @@ public class HttpLoader {
         if (config == null) {
             throw new NullPointerException("HttpLoader need ApplicationContext init");
         }
-        Map<String, String> params = options.getParams();
-        if (params != null) {
-            params.putAll(config.getNetParams());
+        Map<String, String> params    = options.getParams();
+        Map<String, String> netParams = config.getNetParams();
+        if (params != null && netParams != null) {
+            params.putAll(netParams);
         }
         if (!options.isSync()) {
             config.getThreadPool().execute(new NetRunnable(options, callBack, config.getNetCacheDao()));

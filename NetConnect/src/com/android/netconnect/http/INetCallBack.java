@@ -5,7 +5,7 @@ package com.android.netconnect.http;
  */
 public interface INetCallBack {
 
-    void callback_loadcache(int msgId, Object messageInfo);
+    void callback_cache(int msgId, Object messageInfo);
 
     void callback_success(int msgId, Object messageInfo);
 

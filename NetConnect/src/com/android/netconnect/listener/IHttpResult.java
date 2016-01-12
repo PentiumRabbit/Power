@@ -25,7 +25,7 @@ import java.io.Reader;
 public interface IHttpResult {
 
     /*网络请求成功*/
-    void requestSuccess(RequestMethod method,Reader message);
+    void requestSuccess(RequestMethod method,String message);
 
     /*网络请求失败*/
     void requestFail(int errorCode, Exception e);

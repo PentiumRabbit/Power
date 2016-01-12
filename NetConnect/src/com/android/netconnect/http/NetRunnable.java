@@ -25,11 +25,11 @@ import java.lang.ref.WeakReference;
 public class NetRunnable implements Runnable, IHttpResult {
 
     public static final int REQUEST_SUCCESS = 0;
-    public static final int REQUEST_FAIL = 1;
-    public static final int LOAD_DB_CACHE = 2;
+    public static final int REQUEST_FAIL    = 1;
+    public static final int LOAD_DB_CACHE   = 2;
 
-    private NetHandler handler;
-    private NetOptions options;
+    private NetHandler   handler;
+    private NetOptions   options;
     private INetCacheDao cacheDao;
 
     public NetRunnable(NetOptions options, INetCallBack callback, INetCacheDao cacheDao) {
@@ -68,7 +68,8 @@ public class NetRunnable implements Runnable, IHttpResult {
     /**
      * 处理字符串
      *
-     * @param msg 字符串
+     * @param msg
+     *         字符串
      */
     private <T> T dealMsg(String msg, Class<T> tClass) {
         //TODO 将 GSON 改成基于流的操作,更加偏于底程,效率更高,采取 TypeAdapters 和 TypeAdapterFactory 方案来代替 JsonDeserializer
@@ -78,7 +79,7 @@ public class NetRunnable implements Runnable, IHttpResult {
             return new Gson().fromJson(msg, tClass);
         }
     }
-
+    @Override
     public void requestSuccess(RequestMethod method, String message) {
         // TODO 将流引到这里,如果需要缓存,在转化成字符串,减少GSON转化资源
         handler.removeMessages(LOAD_DB_CACHE);
@@ -89,7 +90,6 @@ public class NetRunnable implements Runnable, IHttpResult {
         }
     }
 
-    @Override
     public void requestSuccess(RequestMethod method, Reader message) {
         //  将流引到这里,如果需要缓存,在转化成字符串,减少GSON转化资源
         handler.removeMessages(LOAD_DB_CACHE);
@@ -107,9 +107,9 @@ public class NetRunnable implements Runnable, IHttpResult {
     private <T> T dealMsg(Reader msg, Class<T> tClass) {
         if (msg == null) {
             return null;
-        } else {
-            return new Gson().fromJson(msg, tClass);
         }
+        return new Gson().fromJson(msg, tClass);
+
     }
 
     private String reader2String(Reader reader) {
@@ -117,8 +117,8 @@ public class NetRunnable implements Runnable, IHttpResult {
             return null;
         }
         BufferedReader bufferedReader = new BufferedReader(reader);
-        StringBuilder stringBuffer = new StringBuilder();
-        String line;
+        StringBuilder  stringBuffer   = new StringBuilder();
+        String         line;
         try {
             while ((line = bufferedReader.readLine()) != null) {
                 stringBuffer.append(line);
@@ -146,7 +146,7 @@ public class NetRunnable implements Runnable, IHttpResult {
      */
     static class NetHandler extends Handler {
         private WeakReference<INetCallBack> reference;
-        private NetOptions options;
+        private NetOptions                  options;
 
         public NetHandler(INetCallBack callBack, NetOptions options) {
             reference = new WeakReference<INetCallBack>(callBack);
@@ -176,7 +176,7 @@ public class NetRunnable implements Runnable, IHttpResult {
                     callBack.callback_error(options.getCacheId(), error_code);
                     break;
                 case LOAD_DB_CACHE:
-                    callBack.callback_loadcache(options.getCacheId(), msg.obj);
+                    callBack.callback_cache(options.getCacheId(), msg.obj);
                     break;
                 default:
                     break;
