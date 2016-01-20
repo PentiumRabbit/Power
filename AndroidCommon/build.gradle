@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 
 dependencies {
-    compile fileTree(include: '*.jar', dir: 'libs')
+    compile fileTree(dir: 'libs', include: '*.jar')
     // 远程依赖json,格式: groupId:artifactId:version
     compile 'com.google.code.gson:gson:2.4'
     // 图片加载
@@ -14,16 +14,15 @@ dependencies {
     compile 'com.android.support:support-v4:23.1.1'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.jakewharton:butterknife:6.1.0'
-
-//    compile 'com.squareup.okhttp:okhttp:2.4.0'
+    //    compile 'com.squareup.okhttp:okhttp:2.4.0'
     // Umeng 统计
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
-
     // A debug bridge for Android applications
     compile 'com.facebook.stetho:stetho:1.2.0'
     compile 'com.facebook.stetho:stetho-okhttp:1.2.0'
-//    compile 'com.facebook.stetho:stetho-urlconnection:1.2.0'
+    //    compile 'com.facebook.stetho:stetho-urlconnection:1.2.0'
+    compile 'com.android.support:support-annotations:23.1.1'
 }
 
 android {

@@ -19,6 +19,20 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+    }
+
+    @Override
+    protected void updateTheme() {
+
+    }
+
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void initDate() {
         preLoading();
         stepIntoActivity();
     }
@@ -29,7 +43,7 @@ public class SplashActivity extends BaseActivity {
     private void preLoading() {
         //TODO 启动加载应用配置,网络请求,本地部署等
         Logger.i("start");
-        NetOptions options=new NetOptions.Builder()
+        NetOptions options = new NetOptions.Builder()
                 .setUrlType(Protocol.ProtocolType.GET_CLIENT_SETTINGS)
                 .setMethod(RequestMethod.GET)
                 .setConnectMode(ConnectMode.connect_ok)
@@ -42,7 +56,7 @@ public class SplashActivity extends BaseActivity {
 
             @Override
             public void callback_success(int msgId, Object messageInfo) {
-                Logger.i(messageInfo+"");
+                Logger.i(messageInfo + "");
             }
 
             @Override

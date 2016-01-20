@@ -2,25 +2,72 @@ package com.android.base.common.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
+import com.android.base.common.handler.CommonHandler;
+import com.android.base.common.handler.IHandlerMessage;
+
 /**
  * @author ----zhaoruyang----
  * @data: 2015/2/6
  */
-public class BaseActivity extends AppCompatActivity {
-    private static final String TAG = "BaseNewActivity";
+public abstract class BaseActivity extends AppCompatActivity implements IHandlerMessage {
+    private static final String TAG = BaseActivity.class.getSimpleName();
     protected FragmentManager supportFragmentManager;
+    protected Handler         handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         supportFragmentManager = getSupportFragmentManager();
+        handler = new CommonHandler<BaseActivity>(this);
+        // 优化的DelayLoad
+        getWindow().getDecorView().post(new Runnable() {
+            @Override
+            public void run() {
+                handler.post(loadDate);
+            }
+        });
+
     }
+
+    private Runnable loadDate = new Runnable() {
+        @Override
+        public void run() {
+            initView();
+            initDate();
+        }
+    };
+
+    /**
+     * 空实现，避免子类有些不需要的实现
+     */
+    @Override
+    public void handlerCallback(Message msg) {
+
+    }
+
+    /**
+     * 更新主题
+     */
+    protected abstract void updateTheme();
+
+    /**
+     * 初始化View
+     */
+    protected abstract void initView();
+
+    /**
+     * 初始化数据
+     */
+    protected abstract void initDate();
+
 
     @Override
     public void finish() {

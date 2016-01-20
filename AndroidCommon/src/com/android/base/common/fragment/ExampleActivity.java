@@ -13,8 +13,22 @@ public class ExampleActivity extends BaseActivity implements FragmentCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-                /*替换新的fragment*/
+    }
+
+    @Override
+    protected void updateTheme() {
+
+    }
+
+    @Override
+    protected void initView() {
+            /*替换新的fragment*/
         replaceFragment(11, ExampleFragment.newInstance(new Bundle()), true);
+
+    }
+
+    @Override
+    protected void initDate() {
 
     }
 

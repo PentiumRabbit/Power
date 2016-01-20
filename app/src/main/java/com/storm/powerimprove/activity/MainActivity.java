@@ -1,6 +1,7 @@
 package com.storm.powerimprove.activity;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -50,6 +51,16 @@ public class MainActivity extends LocalDialogActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        showSystemUI();
+    }
+
+    @Override
+    protected void updateTheme() {
+
+    }
+
+    @Override
+    protected void initView() {
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -66,14 +77,18 @@ public class MainActivity extends LocalDialogActivity
             findViewById(R.id.toolbar).setPadding(0, statusBarHeight, 0, 0);
         }
         Logger.d("开始");
-//        showSystemUI();
+    }
+
+    @Override
+    protected void initDate() {
+
     }
 
     @TargetApi(19)
     private void setTranslucentStatus(boolean on) {
-        Window win = getWindow();
+        Window                     win       = getWindow();
         WindowManager.LayoutParams winParams = win.getAttributes();
-        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+        final int                  bits      = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
         if (on) {
             winParams.flags |= bits;
         } else {
@@ -92,7 +107,7 @@ public class MainActivity extends LocalDialogActivity
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = MainFragment.newInstance(position + 1);
+        Fragment        fragment        = MainFragment.newInstance(position + 1);
         if (position == R.string.menu_suggest) {
             fragment = HomeFragment.newInstance();
         } else if (position == R.string.menu_home) {
@@ -120,6 +135,14 @@ public class MainActivity extends LocalDialogActivity
             fragment = LogRecordFragment.newInstance();
         } else if (position == R.string.menu_nested) {
             fragment = NestedFragment.newInstance();
+        } else if (position == R.string.menu_set) {
+            fragment = null;
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
+        }
+
+        if (fragment == null) {
+            return;
         }
 
         fragmentManager.beginTransaction()

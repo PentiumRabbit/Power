@@ -14,6 +14,7 @@ import java.lang.ref.WeakReference;
 public class CommonHandler<T extends IHandlerMessage> extends Handler {
     private static final String TAG = CommonHandler.class.getSimpleName();
 
+
     private WeakReference<T> reference;
 
     public CommonHandler(T t) {
