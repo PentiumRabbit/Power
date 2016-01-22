@@ -23,6 +23,8 @@
 #ACRA specifics
 # we need line numbers in our stack traces otherwise they are pretty useless
 -renamesourcefileattribute SourceFile
+
+# 为了保留调试信息，在Proguard保留了符号表,如果为了减小包大小，可以去掉
 -keepattributes SourceFile,LineNumberTable
 
 # ACRA needs "annotations" so add this...
