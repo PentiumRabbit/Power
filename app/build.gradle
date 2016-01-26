@@ -31,10 +31,7 @@ android {
 
         buildConfigField "boolean", "DEBUG_MODEL", "false"
     }
-    // 构建时,忽略lint检查
-    lintOptions {
-        abortOnError false
-    }
+
     //为不同的buildTypes配置签名
     signingConfigs {
         //release的keystore信息
@@ -108,10 +105,14 @@ android {
 
         }
     }
+
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
+
+
     dependencies {
         compile fileTree(dir: 'libs', include: ['*.jar'])
         compile project(':NetConnect')
@@ -123,12 +124,15 @@ android {
 
     }
 
-    lintOptions {
-        abortOnError false
-    }
     //打开dex增量编译
     dexOptions {
         incremental true
+    }
+
+    // 构建时,忽略lint检查
+    lintOptions {
+        abortOnError false
+        disable 'InvalidPackage'
     }
 
 }
