@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AppCompatDialogFragment;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +25,7 @@ import com.storm.powerimprove.R;
  * @author ----zhaoruyang----
  * @data: 2015/4/14
  */
-public abstract class NoFrameDialog extends DialogFragment {
+public abstract class NoFrameDialog extends AppCompatDialogFragment {
     public static final String BUNDLE_MSG = "bundle_msg";
 
     public static final int DIALOG_EXIT = 1;
