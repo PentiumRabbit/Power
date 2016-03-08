@@ -12,7 +12,7 @@ import com.google.gson.annotations.Expose;
  * @author ----zhaoruyang----
  * @data: 2014/11/12
  */
-public class BaseNetJson {
+public class BaseNet<T> {
     @Expose
     private Integer status;
     @Expose
@@ -23,6 +23,16 @@ public class BaseNetJson {
     private String method;
     @Expose
     private String context;
+    @Expose
+    private T result;
+
+    public T getResult() {
+        return result;
+    }
+
+    public void setResult(T result) {
+        this.result = result;
+    }
 
     public Integer getStatus() {
         return status;

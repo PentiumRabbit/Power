@@ -34,7 +34,7 @@
         android:title="@string/close"/>
     <item
         android:id="@+id/m_share"
-        android:icon="@drawable/abc_ic_menu_share_mtrl_alpha"
+        android:icon="@drawable/ic_github_issue_closed_white_24dp"
         app:showAsAction="never"
         android:title="@string/share"/>
     <item
