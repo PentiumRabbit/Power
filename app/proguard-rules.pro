@@ -19,7 +19,8 @@
 -keep public class * extends android.content.ContentProvider
 -keep public class * extends android.app.backup.BackupAgentHelper
 -keep public class * extends android.preference.Preference
-
+# 忽略警告
+-ignorewarnings
 #ACRA specifics
 # we need line numbers in our stack traces otherwise they are pretty useless
 -renamesourcefileattribute SourceFile
