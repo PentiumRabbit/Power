@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.droidtitan.lintcleaner'
-apply plugin: 'com.getkeepsafe.dexcount'
+//apply plugin: 'com.droidtitan.lintcleaner'
+//apply plugin: 'com.getkeepsafe.dexcount'
 def versionMajor = 1;
 def versionMinor = 0;
 def versionPatch = 0;
@@ -138,22 +138,22 @@ android {
 }
 
 
-lintCleaner {
-    // Exclude specific files
-    exclude = ['com_crashlytics_export_strings.xml', 'config.xml']
-
-    // Ability to ignore all resource files. False by default.
-    ignoreResFiles = true
-
-    // Default path is build/outputs/lint-results.xml
-    lintXmlFilePath = 'path/to/lint-results.xml'
-}
-
-dexcount {
-    includeClasses = false
-    includeFieldCount = true
-    includeTotalMethodCount = false
-    printAsTree = false
-    orderByMethodCount = false
-    verbose = false
-}
+//lintCleaner {
+//    // Exclude specific files
+//    exclude = ['com_crashlytics_export_strings.xml', 'config.xml']
+//
+//    // Ability to ignore all resource files. False by default.
+//    ignoreResFiles = true
+//
+//    // Default path is build/outputs/lint-results.xml
+//    lintXmlFilePath = 'path/to/lint-results.xml'
+//}
+//
+//dexcount {
+//    includeClasses = false
+//    includeFieldCount = true
+//    includeTotalMethodCount = false
+//    printAsTree = false
+//    orderByMethodCount = false
+//    verbose = false
+//}
