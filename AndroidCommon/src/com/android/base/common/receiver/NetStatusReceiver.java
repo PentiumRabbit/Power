@@ -11,7 +11,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.TextUtils;
 
-import com.android.base.GlobeParams;
+import com.android.base.AppParams;
 
 import com.android.base.common.SharedPref.Impl.CommonSettingImpl;
 import com.android.base.common.SharedPref.SharedPref;
@@ -46,10 +46,10 @@ public class NetStatusReceiver extends BroadcastReceiver {
         if (wifiState != null && mobileState != null
                 && NetworkInfo.State.CONNECTED != wifiState
                 && NetworkInfo.State.CONNECTED == mobileState) {
-            if (GlobeParams.currentNetStatus == NET_MOBILE) {
+            if (AppParams.currentNetStatus == NET_MOBILE) {
                 return;
             }
-            GlobeParams.currentNetStatus = NET_MOBILE;
+            AppParams.currentNetStatus = NET_MOBILE;
             Logger.i(TAG, "手机网络连接成功!");
             CommonObserver.getInstance().notifyListener(ObserverType.NET_STATUS, NET_MOBILE);
         } else if (wifiState != null && mobileState != null
@@ -60,8 +60,8 @@ public class NetStatusReceiver extends BroadcastReceiver {
 
             Logger.i(TAG, "SSID : " + wifiSSID);
 
-            if (GlobeParams.currentNetStatus != NET_WIFI) {
-                GlobeParams.currentNetStatus = NET_WIFI;
+            if (AppParams.currentNetStatus != NET_WIFI) {
+                AppParams.currentNetStatus = NET_WIFI;
                 Logger.i(TAG, "无线网络连接成功！");
                 CommonObserver.getInstance().notifyListener(ObserverType.NET_STATUS, NET_WIFI);
             } else {
@@ -80,10 +80,10 @@ public class NetStatusReceiver extends BroadcastReceiver {
         } else if (wifiState != null && mobileState != null
                 && NetworkInfo.State.CONNECTED != wifiState
                 && NetworkInfo.State.CONNECTED != mobileState) {
-            if (GlobeParams.currentNetStatus == NET_NONE) {
+            if (AppParams.currentNetStatus == NET_NONE) {
                 return;
             }
-            GlobeParams.currentNetStatus = NET_NONE;
+            AppParams.currentNetStatus = NET_NONE;
             Logger.i(TAG, "手机没有网络...");
             CommonObserver.getInstance().notifyListener(ObserverType.NET_STATUS, NET_NONE);
         }
