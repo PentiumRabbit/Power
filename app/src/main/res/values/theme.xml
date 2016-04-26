@@ -44,7 +44,7 @@
         <!--colorAccent（色彩突显）：它是原色的强调色彩，应用在框架控制上,CheckBox 选中等。-->
         <item name="colorAccent">@color/CommonButton</item>
         <!--屏幕背景色-->
-        <item name="android:windowBackground">@color/White</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
         <item name="actionBarStyle">@style/ActionBar</item>
 
         <!--这里是定义系统默认actionbar的地方,自己写的需要在actionbar中自己声明,还有PopMenu-->
@@ -57,6 +57,10 @@
         <!--底部3个按键栏的颜色,5.1以上可用-->
         <!--<item name="android:navigationBarColor">@color/Violet</item>-->
         <!-- translucent system bars -->
+
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
     </style>
 
     <style name="Theme.Power.NavigationDrawer" parent="Theme.Power">
