@@ -81,7 +81,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 		printWriter.close();
 		mDeviceCrashInfo.put(STACK_TRACE, result);
 		try {
-			String fileName = FileUtil.getFileCachePath(mContext) + CRASH_REPORTER_FILE_NAME;
+			String fileName = "";
 			FileOutputStream trace = new FileOutputStream(fileName, false);
 
 			String ylDevInfo = getDeviceInfo();
@@ -97,7 +97,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 	}
 
 	private void formatCrashInfoFile() {
-		File file = new File(FileUtil.getFileCachePath(mContext) + CRASH_REPORTER_FILE_NAME);
+		File file = null;
 		if (file.exists()) {
 			CrashFileInfo fileInfo = readCreashInfo(file);
 			if (fileInfo.isValidate()) {
@@ -105,7 +105,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 				crashInfo = crashInfo.replace("\\n\\t", "\n");
 				String fileName = CRASH_REPORTER_FILE_NAME;
 				try {
-					FileOutputStream trace = new FileOutputStream(FileUtil.getFileCachePath(mContext) + fileName, false);
+					FileOutputStream trace = new FileOutputStream("", false);
 					trace.write(crashInfo.getBytes());
 					trace.flush();
 					trace.close();
@@ -161,7 +161,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 			br = new BufferedReader(new FileReader(file));
 			String logTime = "0";
 			String buildNum = "";
-			String crashInfo = "";
+			String crashInfo =  "";
 			try {
 				logTime = br.readLine();
 				crashInfoBuilder.append(logTime).append("\n");

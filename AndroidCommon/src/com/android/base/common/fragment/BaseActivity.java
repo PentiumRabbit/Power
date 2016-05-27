@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.android.base.common.handler.CommonHandler;
 import com.android.base.common.handler.IHandlerMessage;
@@ -53,6 +54,8 @@ public abstract class BaseActivity extends AppCompatActivity implements IHandler
 
     }
 
+
+
     /**
      * 更新主题
      */
@@ -80,6 +83,14 @@ public abstract class BaseActivity extends AppCompatActivity implements IHandler
         super.startActivity(intent);
         //TODO 添加动画
     }
+
+    @Override
+    protected void onDestroy() {
+        setContentView(new View(this));
+        super.onDestroy();
+    }
+
+
 
     /**
      * 替换Fragment
