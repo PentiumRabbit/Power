@@ -124,3 +124,38 @@
 -keepclasseswithmembernames class * {
     @butterknife.* <methods>;
 }
+
+# ShareSDK
+-keep class android.net.http.SslError
+-keep class android.webkit.**{*;}
+-keep class cn.sharesdk.**{*;}
+-keep class com.sina.**{*;}
+-keep class m.framework.**{*;}
+
+# Gson
+-keepattributes *Annotation*
+-keep class sun.misc.Unsafe { *; }
+-keep class com.idea.fifaalarmclock.entity.***
+-keep class com.google.gson.stream.** { *; }
+
+# Umeng
+-keepclassmembers class * {
+   public <init>(org.json.JSONObject);
+}
+
+-keep class com.umeng.**
+
+-keep public class com.idea.fifaalarmclock.app.R$*{
+    public static final int *;
+}
+
+-keep public class com.umeng.fb.ui.ThreadView {
+}
+
+-dontwarn com.umeng.**
+
+-dontwarn org.apache.commons.**
+
+-keep public class * extends com.umeng.**
+
+-keep class com.umeng.** {*; }
