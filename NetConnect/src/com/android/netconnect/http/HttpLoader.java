@@ -61,7 +61,7 @@ public class HttpLoader {
      * @param callBack
      *         回调
      */
-    public void exeRequest(NetOptions options, INetCallBack callBack) {
+    public void exeRequest(Request options, INetCallBack callBack) {
         if (config == null) {
             throw new NullPointerException("HttpLoader need ApplicationContext init");
         }

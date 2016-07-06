@@ -5,7 +5,7 @@ import android.util.SparseArray;
 import com.android.netconnect.engine.ConnectMode;
 import com.android.netconnect.engine.NetWork.Impl.OKHttpClientImpl;
 import com.android.netconnect.engine.NetWork.Impl.URlConnectImpl;
-import com.android.netconnect.http.NetOptions;
+import com.android.netconnect.http.Request;
 import com.android.netconnect.listener.IHttpResult;
 
 /**
@@ -41,7 +41,7 @@ public class NetFactory {
 
 
     /*执行连接*/
-    public void exeConnect(NetOptions options, IHttpResult result) {
+    public void exeConnect(Request options, IHttpResult result) {
         ConnectMode connectMode = options.getConnectMode();
         IRequest executor = getExecutor(connectMode);
         if (options.getMethod() == RequestMethod.GET) {

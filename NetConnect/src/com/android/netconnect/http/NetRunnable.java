@@ -29,10 +29,10 @@ public class NetRunnable implements Runnable, IHttpResult {
     public static final int LOAD_DB_CACHE   = 2;
 
     private NetHandler   handler;
-    private NetOptions   options;
+    private Request options;
     private INetCacheDao cacheDao;
 
-    public NetRunnable(NetOptions options, INetCallBack callback, INetCacheDao cacheDao) {
+    public NetRunnable(Request options, INetCallBack callback, INetCacheDao cacheDao) {
         this.options = options;
         if (callback != null) {
             handler = new NetHandler(callback, options);
@@ -146,9 +146,9 @@ public class NetRunnable implements Runnable, IHttpResult {
      */
     static class NetHandler extends Handler {
         private WeakReference<INetCallBack> reference;
-        private NetOptions                  options;
+        private Request options;
 
-        public NetHandler(INetCallBack callBack, NetOptions options) {
+        public NetHandler(INetCallBack callBack, Request options) {
             reference = new WeakReference<INetCallBack>(callBack);
             this.options = options;
         }

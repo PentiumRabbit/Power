@@ -11,7 +11,7 @@ import java.util.Map;
  * @author ----zhaoruyang----
  * @data: 2014/12/25
  */
-public final class NetOptions {
+public final class Request {
     private final int cacheId;
     private final NetSaveModel saveModel;
     private final RequestMethod method;
@@ -23,8 +23,7 @@ public final class NetOptions {
     private final ConnectMode connectMode;
 
 
-
-    private NetOptions(Builder builder) {
+    private Request(Builder builder) {
         cacheId = builder.cacheId;
         saveModel = builder.saveModel;
         method = builder.method;
@@ -34,6 +33,10 @@ public final class NetOptions {
         isSync = builder.isSync;
         castType = builder.castType;
         connectMode = builder.connectMode;
+    }
+
+    public static Request createSimple() {
+        return new Builder().build();
     }
 
     public ConnectMode getConnectMode() {
@@ -61,7 +64,7 @@ public final class NetOptions {
     }
 
     public boolean saveCache() {
-        return saveModel != NetSaveModel.tag_no_cache;
+        return saveModel != NetSaveModel.no_cache;
     }
 
     public RequestMethod getMethod() {
@@ -77,7 +80,7 @@ public final class NetOptions {
     }
 
     public boolean readCache() {
-        return saveModel != NetSaveModel.tag_no_cache;
+        return saveModel != NetSaveModel.no_cache;
     }
 
     public NetSaveModel getSaveModel() {
@@ -85,17 +88,17 @@ public final class NetOptions {
     }
 
     public static class Builder {
-        private int cacheId = 0;
-        private NetSaveModel saveModel = NetSaveModel.tag_no_cache;
-        private RequestMethod method = RequestMethod.POST;
         public Protocol.ProtocolType urlType;
-        private int threadPriority = android.os.Process.THREAD_PRIORITY_BACKGROUND;
         public Map<String, String> params = new HashMap<>();
         public boolean isSync = false;
         /*默认强转的类型为String*/
         public Class castType = String.class;
         /*默认HttpClient*/
         public ConnectMode connectMode = ConnectMode.connect_ok;
+        private int cacheId = 0;
+        private NetSaveModel saveModel = NetSaveModel.no_cache;
+        private RequestMethod method = RequestMethod.POST;
+        private int threadPriority = android.os.Process.THREAD_PRIORITY_BACKGROUND;
 
         public Builder() {
 
@@ -149,7 +152,7 @@ public final class NetOptions {
         /**
          * Sets all options equal to incoming options
          */
-        public Builder cloneFrom(NetOptions options) {
+        public Builder cloneFrom(Request options) {
             cacheId = options.cacheId;
             saveModel = options.saveModel;
             method = options.method;
@@ -164,15 +167,10 @@ public final class NetOptions {
         }
 
 
-        public NetOptions build() {
-            return new NetOptions(this);
+        public Request build() {
+            return new Request(this);
         }
 
 
-    }
-
-
-    public static NetOptions createSimple() {
-        return new Builder().build();
     }
 }

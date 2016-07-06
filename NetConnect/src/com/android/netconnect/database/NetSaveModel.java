@@ -10,9 +10,9 @@ package com.android.netconnect.database;
  */
 public enum NetSaveModel {
     /* 不缓存 */
-    tag_no_cache,
+    no_cache,
     /* 退出清理 */
-    tag_exit_clear,
+    exit_clear,
     /* 一直保留 */
-    tag_save_for_ever
+    save_for_ever
 }
