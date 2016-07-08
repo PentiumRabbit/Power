@@ -26,6 +26,7 @@ import com.storm.powerimprove.fragment.MainFragment;
 import com.storm.powerimprove.fragment.NavigationDrawerFragment;
 import com.storm.powerimprove.fragment.NestedFragment;
 import com.storm.powerimprove.fragment.PicDealFragment;
+import com.storm.powerimprove.fragment.ProgressFragment;
 
 
 /**
@@ -133,6 +134,8 @@ public class MainActivity extends LocalDialogActivity
             fragment = PicDealFragment.newInstance();
         } else if (position == R.string.menu_log) {
             fragment = LogRecordFragment.newInstance();
+        } else if (position == R.string.menu_progress) {
+            fragment = ProgressFragment.instance();
         } else if (position == R.string.menu_nested) {
             fragment = NestedFragment.newInstance();
         } else if (position == R.string.menu_set) {

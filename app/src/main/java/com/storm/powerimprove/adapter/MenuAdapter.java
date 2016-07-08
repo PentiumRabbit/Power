@@ -1,7 +1,6 @@
 package com.storm.powerimprove.adapter;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +34,8 @@ public class MenuAdapter extends BaseAdapter {
                 {R.string.menu_suggest, R.drawable.icon_menu_feedback},
                 // 建议
                 {R.string.menu_nested, R.drawable.icon_menu_feedback},
+                // 自定义进度条
+                {R.string.menu_progress, R.drawable.icon_menu_feedback},
                 // 选项
                 {R.string.menu_set, R.drawable.icon_menu_set}
         };

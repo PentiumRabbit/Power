@@ -16,6 +16,10 @@ def getDate() {
     return formattedDate
 };
 
+def getGitVersion() {
+    return 'git rev-parse --short HEAD'.execute().text.trim()
+}
+
 android {
     compileSdkVersion COMPILE_SDK_VERSION as int
     buildToolsVersion BUILD_TOOLS_VERSION as String
@@ -41,12 +45,12 @@ android {
             keyAlias "baofeng"
             keyPassword "zoruyg"
         }
-        debug {
-            storeFile file('KeyStore/KeyStore_Debug.jks')
-            storePassword "zoruyg"
-            keyAlias "baofeng"
-            keyPassword "zoruyg"
-        }
+//        debug {
+//            storeFile file('KeyStore/KeyStore_Debug.jks')
+//            storePassword "zoruyg"
+//            keyAlias "baofeng"
+//            keyPassword "zoruyg"
+//        }
     }
     buildTypes {
         release {
@@ -62,16 +66,15 @@ android {
             proguardFile 'proguard-rules.pro'
         }
         debug {
-            debuggable true
-            jniDebuggable false
-            signingConfig signingConfigs.debug
-            renderscriptDebuggable false
-            renderscriptOptimLevel 3
-            minifyEnabled false
-            pseudoLocalesEnabled true
+//            debuggable true
+//            jniDebuggable false
+//            signingConfig signingConfigs.debug
+//            renderscriptDebuggable false
+//            renderscriptOptimLevel 3
+//            minifyEnabled false
+//            pseudoLocalesEnabled true
             applicationIdSuffix '.debug'
-            versionNameSuffix '.debug.' + getDate()
-            zipAlignEnabled false
+            versionNameSuffix '.debug.' + getGitVersion()
             // 为该类型设置属性值
             buildConfigField "boolean", "DEBUG_MODEL", "true"
         }
@@ -86,10 +89,10 @@ android {
             // 对占位符进行替换
             manifestPlaceholders = [umeng_channel: "baidu"]
         }
-        google {
-            applicationId "com.storm.powerimprove.international"
-            manifestPlaceholders = [umeng_channel: "google"]
-        }
+//        google {
+//            applicationId "com.storm.powerimprove.international"
+//            manifestPlaceholders = [umeng_channel: "google"]
+//        }
         productFlavors.all {
             flavor -> flavor.manifestPlaceholders = [umeng_channel: name]
         }

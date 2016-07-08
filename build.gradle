@@ -2,10 +2,10 @@
 
 buildscript {
     repositories {
-        maven { url 'http://repo2.maven.org/maven2/' }
-        maven { url 'http://uk.maven.org/maven2/' }
-        maven { url 'http://repository.jboss.org/nexus/content/groups/public/' }
-        maven { url 'http://maven.oschina.net/content/groups/public/' }
+//        maven { url 'http://repo2.maven.org/maven2/' }
+//        maven { url 'http://uk.maven.org/maven2/' }
+//        maven { url 'http://repository.jboss.org/nexus/content/groups/public/' }
+//        maven { url 'http://maven.oschina.net/content/groups/public/' }
         jcenter()
     }
     dependencies {
@@ -19,10 +19,10 @@ buildscript {
 
 allprojects {
     repositories {
-        maven { url 'http://repo2.maven.org/maven2/' }
-        maven { url 'http://uk.maven.org/maven2/' }
-        maven { url 'http://repository.jboss.org/nexus/content/groups/public/' }
-        maven { url 'http://maven.oschina.net/content/groups/public/' }
+//        maven { url 'http://repo2.maven.org/maven2/' }
+//        maven { url 'http://uk.maven.org/maven2/' }
+//        maven { url 'http://repository.jboss.org/nexus/content/groups/public/' }
+//        maven { url 'http://maven.oschina.net/content/groups/public/' }
         jcenter()
     }
 }
