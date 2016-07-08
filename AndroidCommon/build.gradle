@@ -19,7 +19,6 @@ dependencies {
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.4'
     // A debug bridge for Android applications
     compile 'com.facebook.stetho:stetho:1.2.0'
-    //    compile 'com.facebook.stetho:stetho-urlconnection:1.2.0'
     compile 'com.android.support:support-annotations:24.0.0'
     compile 'com.squareup.okhttp3:okhttp-android-support:3.4.0-RC1'
 }
