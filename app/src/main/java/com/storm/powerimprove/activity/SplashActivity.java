@@ -5,12 +5,11 @@ import android.os.Bundle;
 
 import com.android.base.common.fragment.BaseActivity;
 import com.android.base.utils.Logger;
+import com.android.netconnect.bean.Request;
 import com.android.netconnect.engine.ConnectMode;
 import com.android.netconnect.engine.NetWork.RequestMethod;
 import com.android.netconnect.http.HttpLoader;
 import com.android.netconnect.http.INetCallBack;
-import com.android.netconnect.http.Protocol;
-import com.android.netconnect.http.Request;
 import com.storm.powerimprove.R;
 
 public class SplashActivity extends BaseActivity {
@@ -44,9 +43,9 @@ public class SplashActivity extends BaseActivity {
         //TODO 启动加载应用配置,网络请求,本地部署等
         Logger.i("start");
         Request options = new Request.Builder()
-                .setUrlType(Protocol.ProtocolType.GET_CLIENT_SETTINGS)
-                .setMethod(RequestMethod.GET)
-                .setConnectMode(ConnectMode.connect_ok)
+                .url("")
+                .method(RequestMethod.GET)
+                .connectMode(ConnectMode.connect_ok)
                 .build();
         HttpLoader.getInstance().exeRequest(options, new INetCallBack() {
             @Override

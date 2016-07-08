@@ -2,10 +2,10 @@ package com.android.netconnect.engine.NetWork;
 
 import android.util.SparseArray;
 
+import com.android.netconnect.bean.Request;
 import com.android.netconnect.engine.ConnectMode;
 import com.android.netconnect.engine.NetWork.Impl.OKHttpClientImpl;
 import com.android.netconnect.engine.NetWork.Impl.URlConnectImpl;
-import com.android.netconnect.http.Request;
 import com.android.netconnect.listener.IHttpResult;
 
 /**
@@ -46,9 +46,9 @@ public class NetFactory {
         IRequest executor = getExecutor(connectMode);
         if (options.getMethod() == RequestMethod.GET) {
             // TODO：　回调直接传入是不是影响了层层传递的规则？？？
-            executor.doGet(options.getUrl(), result);
+            executor.doGet(options.url(), result);
         } else if (options.getMethod() == RequestMethod.POST) {
-            executor.doPost(options.getUrl(), options.getParams(), result);
+            executor.doPost(options.url(), options.getParams(), result);
         }
 
     }

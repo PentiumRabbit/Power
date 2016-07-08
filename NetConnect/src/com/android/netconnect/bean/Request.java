@@ -1,4 +1,4 @@
-package com.android.netconnect.http;
+package com.android.netconnect.bean;
 
 import com.android.netconnect.database.NetSaveModel;
 import com.android.netconnect.engine.ConnectMode;
@@ -15,7 +15,7 @@ public final class Request {
     private final int cacheId;
     private final NetSaveModel saveModel;
     private final RequestMethod method;
-    private final Protocol.ProtocolType urlType;
+    private final String urlType;
     private final int threadPriority;
     private final Map<String, String> params;
     private final boolean isSync;
@@ -55,7 +55,7 @@ public final class Request {
         return cacheId;
     }
 
-    public Protocol.ProtocolType getUrlType() {
+    public String url() {
         return urlType;
     }
 
@@ -71,10 +71,6 @@ public final class Request {
         return method;
     }
 
-    public String getUrl() {
-        return Protocol.generateUrl(urlType);
-    }
-
     public int getThreadPriority() {
         return threadPriority;
     }
@@ -88,7 +84,7 @@ public final class Request {
     }
 
     public static class Builder {
-        public Protocol.ProtocolType urlType;
+        public String urlType;
         public Map<String, String> params = new HashMap<>();
         public boolean isSync = false;
         /*默认强转的类型为String*/
@@ -104,7 +100,7 @@ public final class Request {
 
         }
 
-        public Builder setConnectMode(ConnectMode connectMode) {
+        public Builder connectMode(ConnectMode connectMode) {
             this.connectMode = connectMode;
             return this;
         }
@@ -114,32 +110,37 @@ public final class Request {
             return this;
         }
 
-        public Builder setSaveModel(NetSaveModel saveModel) {
+        public Builder saveModel(NetSaveModel saveModel) {
             this.saveModel = saveModel;
             return this;
         }
 
-        public Builder setMethod(RequestMethod method) {
+        public Builder method(RequestMethod method) {
             this.method = method;
             return this;
         }
 
-        public Builder setUrlType(Protocol.ProtocolType urlType) {
-            this.urlType = urlType;
+        public Builder url(String url) {
+            this.urlType = url;
             return this;
         }
 
-        public Builder setThreadPriority(int threadPriority) {
+        public Builder threadPriority(int threadPriority) {
             this.threadPriority = threadPriority;
             return this;
         }
 
-        public Builder setParams(Map<String, String> params) {
-            this.params = params;
+        public Builder addParams(Map<String, String> params) {
+            this.params.putAll(params);
             return this;
         }
 
-        public Builder setIsSync(boolean isSync) {
+        public Builder addParams(String key, String value) {
+            this.params.put(key, value);
+            return this;
+        }
+
+        public Builder sync(boolean isSync) {
             this.isSync = isSync;
             return this;
         }

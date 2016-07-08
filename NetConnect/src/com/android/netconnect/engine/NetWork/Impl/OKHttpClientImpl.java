@@ -7,16 +7,16 @@ import com.android.netconnect.NetConstant;
 import com.android.netconnect.engine.NetWork.IRequest;
 import com.android.netconnect.engine.NetWork.RequestMethod;
 import com.android.netconnect.listener.IHttpResult;
-import com.facebook.stetho.okhttp.StethoInterceptor;
-import com.squareup.okhttp.FormEncodingBuilder;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * Facebook 很早就开始使用Square公司开发的 OkHttp（一个开源的网络协议栈）了，现在Google 官方也从Android 4.4开始使用 OkHttp作为HttpURLConnection的默认实现了。  OkHttp 支持在糟糕的网络环境下面更快的重试，并且还能利用 SPDY 协议进行快速的并发网络请求。
@@ -31,11 +31,10 @@ public class OKHttpClientImpl implements IRequest {
     private OkHttpClient client;
 
     public OKHttpClientImpl() {
-        client = new OkHttpClient();
-        client.setConnectTimeout(8, TimeUnit.SECONDS);
-        if (Logger.isDebug()) {
-            client.networkInterceptors().add(new StethoInterceptor());
-        }
+        OkHttpClient.Builder builder = new OkHttpClient
+                .Builder()
+                .connectTimeout(30, TimeUnit.MILLISECONDS);
+        client = builder.build();
     }
 
     @Override
@@ -43,6 +42,7 @@ public class OKHttpClientImpl implements IRequest {
         Request request = new Request.Builder()
                 .url(url)
                 .build();
+
         try {
             Response response = client.newCall(request).execute();
             dealResult(resultDeal, response, RequestMethod.GET);
@@ -78,13 +78,14 @@ public class OKHttpClientImpl implements IRequest {
     }
 
     private RequestBody createPostParams(Map<String, String> params) {
-        FormEncodingBuilder formEncodingBuilder = new FormEncodingBuilder();
+
+        FormBody.Builder builder = new FormBody.Builder();
 
         for (Map.Entry<String, String> entry : params.entrySet()) {
-            formEncodingBuilder.add(entry.getKey(), entry.getValue());
+            builder.add(entry.getKey(), entry.getValue());
         }
 
-        return formEncodingBuilder.build();
+        return builder.build();
 
     }
 
@@ -95,7 +96,6 @@ public class OKHttpClientImpl implements IRequest {
      * @param resultDeal
      * @param response
      * @param method
-     *
      * @throws IOException
      */
     private void dealResult(IHttpResult resultDeal, Response response, RequestMethod method) throws IOException {

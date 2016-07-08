@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 
+import com.android.netconnect.bean.Request;
 import com.android.netconnect.database.INetCacheDao;
 import com.android.netconnect.engine.NetWork.NetFactory;
 import com.android.netconnect.engine.NetWork.RequestMethod;

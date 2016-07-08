@@ -10,6 +10,7 @@
 
 package com.android.netconnect.http;
 
+import com.android.netconnect.bean.Request;
 import com.android.netconnect.engine.NetConfig;
 
 import java.util.Map;
