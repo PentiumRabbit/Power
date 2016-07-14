@@ -26,10 +26,10 @@ import java.lang.ref.WeakReference;
 public class NetRunnable implements Runnable, IHttpResult {
 
     public static final int REQUEST_SUCCESS = 0;
-    public static final int REQUEST_FAIL    = 1;
-    public static final int LOAD_DB_CACHE   = 2;
+    public static final int REQUEST_FAIL = 1;
+    public static final int LOAD_DB_CACHE = 2;
 
-    private NetHandler   handler;
+    private NetHandler handler;
     private Request options;
     private INetCacheDao cacheDao;
 
@@ -63,14 +63,20 @@ public class NetRunnable implements Runnable, IHttpResult {
         if (TextUtils.isEmpty(cacheStr)) {
             return;
         }
-        handler.obtainMessage(LOAD_DB_CACHE, dealMsg(cacheStr, options.getCastType())).sendToTarget();
+        if (options.isSync()) {
+            Message msg = new Message();
+            msg.what = LOAD_DB_CACHE;
+            msg.obj = dealMsg(cacheStr, options.getCastType());
+            handler.handleMessage(msg);
+        } else {
+            handler.obtainMessage(LOAD_DB_CACHE, dealMsg(cacheStr, options.getCastType())).sendToTarget();
+        }
     }
 
     /**
      * 处理字符串
      *
-     * @param msg
-     *         字符串
+     * @param msg 字符串
      */
     private <T> T dealMsg(String msg, Class<T> tClass) {
         //TODO 将 GSON 改成基于流的操作,更加偏于底程,效率更高,采取 TypeAdapters 和 TypeAdapterFactory 方案来代替 JsonDeserializer
@@ -80,6 +86,7 @@ public class NetRunnable implements Runnable, IHttpResult {
             return new Gson().fromJson(msg, tClass);
         }
     }
+
     @Override
     public void requestSuccess(RequestMethod method, String message) {
         // TODO 将流引到这里,如果需要缓存,在转化成字符串,减少GSON转化资源
@@ -118,8 +125,8 @@ public class NetRunnable implements Runnable, IHttpResult {
             return null;
         }
         BufferedReader bufferedReader = new BufferedReader(reader);
-        StringBuilder  stringBuffer   = new StringBuilder();
-        String         line;
+        StringBuilder stringBuffer = new StringBuilder();
+        String line;
         try {
             while ((line = bufferedReader.readLine()) != null) {
                 stringBuffer.append(line);

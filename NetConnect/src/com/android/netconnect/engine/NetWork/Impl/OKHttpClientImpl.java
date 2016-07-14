@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Call;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -43,8 +44,10 @@ public class OKHttpClientImpl implements IRequest {
                 .url(url)
                 .build();
 
+        Call call = client.newCall(request);
+
         try {
-            Response response = client.newCall(request).execute();
+            Response response = call.execute();
             dealResult(resultDeal, response, RequestMethod.GET);
         } catch (IOException e) {
             if (resultDeal != null) {
