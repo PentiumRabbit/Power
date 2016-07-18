@@ -15,7 +15,6 @@ import com.android.base.common.value.ValueTAG;
 import com.android.base.utils.Logger;
 import com.android.base.utils.SysInfoUtil;
 
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -31,8 +30,8 @@ public class BitmapLoader {
     private static volatile BitmapLoader instance = null;
     private final BitmapLruCache imageMap;
     private final Executor pool;
-    private Handler handler;
     private final AtomicBoolean atomicBoolean = new AtomicBoolean();
+    private Handler handler;
 
     // private constructor suppresses
     private BitmapLoader(Context context) {
@@ -59,7 +58,7 @@ public class BitmapLoader {
 
     public void loadBitmap(final String imageUrl, final ImageView imageView, WorkCallback<Bitmap> mWorker) {
         imageView.setTag(imageUrl);
-        final Bitmap bitmapFromMemCache = imageMap.getBitmapFromMemCache(imageUrl);
+        Bitmap bitmapFromMemCache = imageMap.getBitmapFromMemCache(imageUrl);
         if (bitmapFromMemCache != null) {
             imageView.setImageBitmap(bitmapFromMemCache);
             return;
