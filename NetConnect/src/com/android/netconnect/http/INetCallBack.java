@@ -5,10 +5,10 @@ package com.android.netconnect.http;
  */
 public interface INetCallBack<T> {
 
-    void onNetCache(int msgId, T messageInfo);
+    void onNetCache(String key, T msg);
 
-    void onNetSuccess(int msgId, T messageInfo);
+    void onNetSuccess(String key, T msg);
 
-    void onNetError(int msgId, int errorCode);
+    void onNetError(String key, int errorCode);
 
 }

@@ -1,84 +1,53 @@
 package com.android.netconnect.database;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
- * 网络缓存
- *
- * @author ----zhaoruyang----
- * @data: 2014/12/26
+ * ZhaoRuYang
+ * 7/11/16 6:10 PM
  */
 public class NetCacheDao implements INetCacheDao {
+    private static final String TAG = NetCacheDao.class.getSimpleName();
+    private CacheOpenHelper helper;
 
-    private final CacheOpenHelper helper;
 
-    /**
-     * 需要在Application中初始化
-     *
-     * @param context
-     *         全局Context
-     */
-    // private constructor suppresses
     public NetCacheDao(Context context) {
-        helper = CacheOpenHelper.getInstance(context);
+        helper = new CacheOpenHelper(context.getApplicationContext());
+
     }
 
     /**
      * 保存缓存
      *
-     * @param field
-     *         界面代号
+     * @param key
      * @param cache
-     *         缓存
      */
-    public synchronized void saveCache(int field, String cache, NetSaveModel cache_tag) {
+    @Override
+    public void save(String key, String cache, NetSaveModel cache_tag) {
         SQLiteDatabase db = helper.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(CacheOpenHelper.CACHE_NAME, field);
-        contentValues.put(CacheOpenHelper.CACHE_INFO, cache);
-        contentValues.put(CacheOpenHelper.CACHE_TAG, cache_tag.ordinal());
-        db.replace(CacheOpenHelper.APP_NET_CACHE, null, contentValues);
+        db.execSQL(CacheConst.NetCache.insertOrReplace, new String[]{key, cache, String.valueOf(System.currentTimeMillis())});
+        helper.close();
     }
 
-    /**
-     * 获取缓存
-     *
-     * @param field
-     *         界面代号
-     *
-     * @return 缓存数据
-     */
-    public String getCacheStr(int field) {
-        String rawData = "";
+    @Override
+    public String get(String key) {
+        String msg = null;
         SQLiteDatabase db = helper.getReadableDatabase();
-        Cursor cursor = db.rawQuery("select "
-                + CacheOpenHelper.CACHE_INFO
-                + " from "
-                + CacheOpenHelper.APP_NET_CACHE
-                + " where "
-                + CacheOpenHelper.CACHE_NAME
-                + "=?", new String[]{String.valueOf(field)});
-        while (cursor.moveToNext()) {
-            rawData = cursor.getString(0);
+        Cursor cursor = db.rawQuery(CacheConst.NetCache.tableSelectByKey, new String[]{key});
+        int msgIndex = cursor.getColumnIndex(CacheConst.NetCache.INFO);
+        if (cursor.moveToNext()) {
+            msg = cursor.getString(msgIndex);
         }
         cursor.close();
-        return rawData;
+        helper.close();
+        return msg;
+
     }
 
-    /**
-     * 清除退出需要清除的缓存
-     */
-    public void clearCache(NetSaveModel tag) {
-        SQLiteDatabase writableDatabase = helper.getWritableDatabase();
-        String sql = "delete from "
-                + CacheOpenHelper.APP_NET_CACHE
-                + " where "
-                + CacheOpenHelper.CACHE_TAG
-                + " =="
-                + tag.ordinal();
-        writableDatabase.execSQL(sql);
+    @Override
+    public void clear(NetSaveModel tag) {
+
     }
 }

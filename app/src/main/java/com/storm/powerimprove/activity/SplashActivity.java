@@ -47,19 +47,19 @@ public class SplashActivity extends BaseActivity {
                 .method(RequestMethod.GET)
                 .connectMode(ConnectMode.connect_ok)
                 .build();
-        HttpLoader.getInstance().exeRequest(options, new OnStringNetCallback() {
+        HttpLoader.getInstance().execute(options, new OnStringNetCallback() {
             @Override
-            public void onNetCache(int msgId, String messageInfo) {
+            public void onNetCache(String msgId, String messageInfo) {
 
             }
 
             @Override
-            public void onNetSuccess(int msgId, String messageInfo) {
+            public void onNetSuccess(String msgId, String messageInfo) {
                 Logger.i(messageInfo + "");
             }
 
             @Override
-            public void onNetError(int msgId, int errorCode) {
+            public void onNetError(String msgId, int errorCode) {
 
             }
         });

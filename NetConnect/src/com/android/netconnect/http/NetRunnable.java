@@ -48,7 +48,6 @@ public class NetRunnable implements Runnable, IHttpResult {
         }
         if (options.readCache()) {
             readDao();
-
         }
 
         NetFactory.getInstance().exeConnect(options, this);
@@ -58,7 +57,7 @@ public class NetRunnable implements Runnable, IHttpResult {
      * 读取数据库缓存
      */
     private void readDao() {
-        String cacheStr = cacheDao.getCacheStr(options.getCacheId());
+        String cacheStr = cacheDao.get(options.getKey());
         if (TextUtils.isEmpty(cacheStr)) {
             return;
         }
@@ -84,7 +83,7 @@ public class NetRunnable implements Runnable, IHttpResult {
         handler.obtainMessage(REQUEST_SUCCESS, dealMsg(message)).sendToTarget();
         // 存入数据库
         if (options.saveCache()) {
-            cacheDao.saveCache(options.getCacheId(), message, options.getSaveModel());
+            cacheDao.save(options.getKey(), message, options.getSaveModel());
         }
     }
 
@@ -147,14 +146,14 @@ public class NetRunnable implements Runnable, IHttpResult {
 
             switch (i) {
                 case REQUEST_SUCCESS:
-                    callBack.onNetSuccess(options.getCacheId(), msg.obj);
+                    callBack.onNetSuccess(options.getKey(), msg.obj);
                     break;
                 case REQUEST_FAIL:
                     int error_code = msg.arg1;
-                    callBack.onNetError(options.getCacheId(), error_code);
+                    callBack.onNetError(options.getKey(), error_code);
                     break;
                 case LOAD_DB_CACHE:
-                    callBack.onNetCache(options.getCacheId(), msg.obj);
+                    callBack.onNetCache(options.getKey(), msg.obj);
                     break;
                 default:
                     break;

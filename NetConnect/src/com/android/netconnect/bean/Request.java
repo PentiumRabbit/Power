@@ -1,5 +1,7 @@
 package com.android.netconnect.bean;
 
+import android.net.Uri;
+
 import com.android.netconnect.database.NetSaveModel;
 import com.android.netconnect.engine.ConnectMode;
 import com.android.netconnect.engine.NetWork.RequestMethod;
@@ -8,13 +10,14 @@ import com.android.netconnect.http.StringParser;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author ----zhaoruyang----
  * @data: 2014/12/25
  */
 public final class Request {
-    private final int cacheId;
+    private final String key;
     private final NetSaveModel saveModel;
     private final RequestMethod method;
     private final String urlType;
@@ -26,7 +29,7 @@ public final class Request {
 
 
     private Request(Builder builder) {
-        cacheId = builder.cacheId;
+        key = builder.key;
         saveModel = builder.saveModel;
         method = builder.method;
         urlType = builder.urlType;
@@ -54,8 +57,8 @@ public final class Request {
         return isSync;
     }
 
-    public int getCacheId() {
-        return cacheId;
+    public String getKey() {
+        return key;
     }
 
     public String url() {
@@ -92,7 +95,7 @@ public final class Request {
         public boolean isSync = false;
         /*默认HttpClient*/
         public ConnectMode connectMode = ConnectMode.connect_ok;
-        private int cacheId = 0;
+        private String key;
         private NetSaveModel saveModel = NetSaveModel.no_cache;
         private RequestMethod method = RequestMethod.POST;
         private int threadPriority = android.os.Process.THREAD_PRIORITY_BACKGROUND;
@@ -107,10 +110,6 @@ public final class Request {
             return this;
         }
 
-        public Builder setCacheId(int cacheId) {
-            this.cacheId = cacheId;
-            return this;
-        }
 
         public Builder saveModel(NetSaveModel saveModel) {
             this.saveModel = saveModel;
@@ -157,7 +156,7 @@ public final class Request {
          * Sets all options equal to incoming options
          */
         public Builder cloneFrom(Request options) {
-            cacheId = options.cacheId;
+            key = options.key;
             saveModel = options.saveModel;
             method = options.method;
             urlType = options.urlType;
@@ -172,7 +171,20 @@ public final class Request {
 
 
         public Request build() {
+            key = createKey();
             return new Request(this);
+        }
+
+        protected String createKey() {
+            if (urlType == null || params == null || params.isEmpty()) {
+                return urlType;
+            }
+            Uri.Builder builder = Uri.parse(urlType).buildUpon();
+            Set<String> keys = params.keySet();
+            for (String key : keys) {
+                builder.appendQueryParameter(key, params.get(key));
+            }
+            return builder.build().toString();
         }
 
 
