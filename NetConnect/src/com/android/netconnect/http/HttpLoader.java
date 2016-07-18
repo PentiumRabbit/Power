@@ -57,16 +57,14 @@ public class HttpLoader {
     /**
      * 执行请求
      *
-     * @param options
-     *         选项
-     * @param callBack
-     *         回调
+     * @param options  选项
+     * @param callBack 回调
      */
-    public void exeRequest(Request options, INetCallBack callBack) {
+    public <T> void exeRequest(Request options, INetCallBack<T> callBack) {
         if (config == null) {
             throw new NullPointerException("HttpLoader need ApplicationContext init");
         }
-        Map<String, String> params    = options.getParams();
+        Map<String, String> params = options.getParams();
         Map<String, String> netParams = config.getNetParams();
         if (params != null && netParams != null) {
             params.putAll(netParams);

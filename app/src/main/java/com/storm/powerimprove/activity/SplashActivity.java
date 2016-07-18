@@ -9,7 +9,7 @@ import com.android.netconnect.bean.Request;
 import com.android.netconnect.engine.ConnectMode;
 import com.android.netconnect.engine.NetWork.RequestMethod;
 import com.android.netconnect.http.HttpLoader;
-import com.android.netconnect.http.INetCallBack;
+import com.android.netconnect.http.OnStringNetCallback;
 import com.storm.powerimprove.R;
 
 public class SplashActivity extends BaseActivity {
@@ -43,23 +43,23 @@ public class SplashActivity extends BaseActivity {
         //TODO 启动加载应用配置,网络请求,本地部署等
         Logger.i("start");
         Request options = new Request.Builder()
-                .url("")
+                .url("http://search.shouji.baofeng.com/client_settings.php?name=theme")
                 .method(RequestMethod.GET)
                 .connectMode(ConnectMode.connect_ok)
                 .build();
-        HttpLoader.getInstance().exeRequest(options, new INetCallBack() {
+        HttpLoader.getInstance().exeRequest(options, new OnStringNetCallback() {
             @Override
-            public void callback_cache(int msgId, Object messageInfo) {
+            public void onNetCache(int msgId, String messageInfo) {
 
             }
 
             @Override
-            public void callback_success(int msgId, Object messageInfo) {
+            public void onNetSuccess(int msgId, String messageInfo) {
                 Logger.i(messageInfo + "");
             }
 
             @Override
-            public void callback_error(int msgId, int errorCode) {
+            public void onNetError(int msgId, int errorCode) {
 
             }
         });

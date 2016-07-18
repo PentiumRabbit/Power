@@ -3,12 +3,12 @@ package com.android.netconnect.http;
 /**
  * 其他类实现需要加static,防止内存泄露
  */
-public interface INetCallBack {
+public interface INetCallBack<T> {
 
-    void callback_cache(int msgId, Object messageInfo);
+    void onNetCache(int msgId, T messageInfo);
 
-    void callback_success(int msgId, Object messageInfo);
+    void onNetSuccess(int msgId, T messageInfo);
 
-    void callback_error(int msgId, int errorCode);
+    void onNetError(int msgId, int errorCode);
 
 }

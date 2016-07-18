@@ -3,6 +3,8 @@ package com.android.netconnect.bean;
 import com.android.netconnect.database.NetSaveModel;
 import com.android.netconnect.engine.ConnectMode;
 import com.android.netconnect.engine.NetWork.RequestMethod;
+import com.android.netconnect.http.DataParser;
+import com.android.netconnect.http.StringParser;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,8 +21,8 @@ public final class Request {
     private final int threadPriority;
     private final Map<String, String> params;
     private final boolean isSync;
-    private final Class castType;
     private final ConnectMode connectMode;
+    private final DataParser parser;
 
 
     private Request(Builder builder) {
@@ -31,9 +33,10 @@ public final class Request {
         threadPriority = builder.threadPriority;
         params = builder.params;
         isSync = builder.isSync;
-        castType = builder.castType;
         connectMode = builder.connectMode;
+        parser = builder.parser;
     }
+
 
     public static Request createSimple() {
         return new Builder().build();
@@ -43,8 +46,8 @@ public final class Request {
         return connectMode;
     }
 
-    public Class getCastType() {
-        return castType;
+    public DataParser parser() {
+        return parser;
     }
 
     public boolean isSync() {
@@ -87,14 +90,13 @@ public final class Request {
         public String urlType;
         public Map<String, String> params = new HashMap<>();
         public boolean isSync = false;
-        /*默认强转的类型为String*/
-        public Class castType = String.class;
         /*默认HttpClient*/
         public ConnectMode connectMode = ConnectMode.connect_ok;
         private int cacheId = 0;
         private NetSaveModel saveModel = NetSaveModel.no_cache;
         private RequestMethod method = RequestMethod.POST;
         private int threadPriority = android.os.Process.THREAD_PRIORITY_BACKGROUND;
+        private DataParser parser = new StringParser();
 
         public Builder() {
 
@@ -145,10 +147,11 @@ public final class Request {
             return this;
         }
 
-        public Builder setCastType(Class castType) {
-            this.castType = castType;
+        public Builder parser(DataParser parser) {
+            this.parser = parser;
             return this;
         }
+
 
         /**
          * Sets all options equal to incoming options
@@ -161,7 +164,7 @@ public final class Request {
             threadPriority = options.threadPriority;
             params = options.params;
             isSync = options.isSync;
-            castType = options.castType;
+            parser = options.parser;
             connectMode = options.connectMode;
 
             return this;

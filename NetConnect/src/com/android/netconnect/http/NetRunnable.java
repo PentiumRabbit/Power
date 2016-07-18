@@ -9,7 +9,6 @@ import com.android.netconnect.database.INetCacheDao;
 import com.android.netconnect.engine.NetWork.NetFactory;
 import com.android.netconnect.engine.NetWork.RequestMethod;
 import com.android.netconnect.listener.IHttpResult;
-import com.google.gson.Gson;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -66,59 +65,29 @@ public class NetRunnable implements Runnable, IHttpResult {
         if (options.isSync()) {
             Message msg = new Message();
             msg.what = LOAD_DB_CACHE;
-            msg.obj = dealMsg(cacheStr, options.getCastType());
+            msg.obj = dealMsg(cacheStr);
             handler.handleMessage(msg);
         } else {
-            handler.obtainMessage(LOAD_DB_CACHE, dealMsg(cacheStr, options.getCastType())).sendToTarget();
+            handler.obtainMessage(LOAD_DB_CACHE, dealMsg(cacheStr)).sendToTarget();
         }
     }
 
-    /**
-     * 处理字符串
-     *
-     * @param msg 字符串
-     */
-    private <T> T dealMsg(String msg, Class<T> tClass) {
-        //TODO 将 GSON 改成基于流的操作,更加偏于底程,效率更高,采取 TypeAdapters 和 TypeAdapterFactory 方案来代替 JsonDeserializer
-        if (String.class.equals(tClass) || msg == null) {
-            return (T) msg;
-        } else {
-            return new Gson().fromJson(msg, tClass);
-        }
+    private Object dealMsg(String msg) {
+        return options.parser().parse(msg);
     }
+
 
     @Override
     public void requestSuccess(RequestMethod method, String message) {
         // TODO 将流引到这里,如果需要缓存,在转化成字符串,减少GSON转化资源
         handler.removeMessages(LOAD_DB_CACHE);
-        handler.obtainMessage(REQUEST_SUCCESS, dealMsg(message, options.getCastType())).sendToTarget();
+        handler.obtainMessage(REQUEST_SUCCESS, dealMsg(message)).sendToTarget();
         // 存入数据库
         if (options.saveCache()) {
             cacheDao.saveCache(options.getCacheId(), message, options.getSaveModel());
         }
     }
 
-    public void requestSuccess(RequestMethod method, Reader message) {
-        //  将流引到这里,如果需要缓存,在转化成字符串,减少GSON转化资源
-        handler.removeMessages(LOAD_DB_CACHE);
-        handler.obtainMessage(REQUEST_SUCCESS, dealMsg(message, options.getCastType())).sendToTarget();
-        // 存入数据库
-        if (options.saveCache()) {
-            String str = reader2String(message);
-            if (TextUtils.isEmpty(str)) {
-                return;
-            }
-            cacheDao.saveCache(options.getCacheId(), str, options.getSaveModel());
-        }
-    }
-
-    private <T> T dealMsg(Reader msg, Class<T> tClass) {
-        if (msg == null) {
-            return null;
-        }
-        return new Gson().fromJson(msg, tClass);
-
-    }
 
     private String reader2String(Reader reader) {
         if (reader == null) {
@@ -175,16 +144,17 @@ public class NetRunnable implements Runnable, IHttpResult {
                 return;
             }
             int i = msg.what;
+
             switch (i) {
                 case REQUEST_SUCCESS:
-                    callBack.callback_success(options.getCacheId(), msg.obj);
+                    callBack.onNetSuccess(options.getCacheId(), msg.obj);
                     break;
                 case REQUEST_FAIL:
                     int error_code = msg.arg1;
-                    callBack.callback_error(options.getCacheId(), error_code);
+                    callBack.onNetError(options.getCacheId(), error_code);
                     break;
                 case LOAD_DB_CACHE:
-                    callBack.callback_cache(options.getCacheId(), msg.obj);
+                    callBack.onNetCache(options.getCacheId(), msg.obj);
                     break;
                 default:
                     break;
