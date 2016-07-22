@@ -83,11 +83,17 @@ public class HttpLoader {
     }
 
 
+
     /**
      * 关闭所有任务
      */
     public void shutdownPool() {
         config.getThreadPool().shutdown();
+    }
+
+
+    public void release() {
+
     }
 
 }

@@ -88,23 +88,6 @@ public class NetRunnable implements Runnable, IHttpResult {
     }
 
 
-    private String reader2String(Reader reader) {
-        if (reader == null) {
-            return null;
-        }
-        BufferedReader bufferedReader = new BufferedReader(reader);
-        StringBuilder stringBuffer = new StringBuilder();
-        String line;
-        try {
-            while ((line = bufferedReader.readLine()) != null) {
-                stringBuffer.append(line);
-            }
-        } catch (IOException e) {
-            return null;
-        }
-        return stringBuffer.toString();
-    }
-
     @Override
     public void requestFail(int errorCode, Exception e) {
         handler.obtainMessage(REQUEST_FAIL, errorCode, 0, e).sendToTarget();
