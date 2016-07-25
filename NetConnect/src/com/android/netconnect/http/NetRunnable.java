@@ -10,9 +10,6 @@ import com.android.netconnect.engine.NetWork.NetFactory;
 import com.android.netconnect.engine.NetWork.RequestMethod;
 import com.android.netconnect.listener.IHttpResult;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.Reader;
 import java.lang.ref.WeakReference;
 
 
@@ -61,13 +58,18 @@ public class NetRunnable implements Runnable, IHttpResult {
         if (TextUtils.isEmpty(cacheStr)) {
             return;
         }
+        sendMessage(LOAD_DB_CACHE, dealMsg(cacheStr), 0);
+    }
+
+    private void sendMessage(int from, Object msgNet, int arg) {
+        Message msg = new Message();
+        msg.what = from;
+        msg.obj = msgNet;
+        msg.arg1 = arg;
         if (options.isSync()) {
-            Message msg = new Message();
-            msg.what = LOAD_DB_CACHE;
-            msg.obj = dealMsg(cacheStr);
             handler.handleMessage(msg);
         } else {
-            handler.obtainMessage(LOAD_DB_CACHE, dealMsg(cacheStr)).sendToTarget();
+            handler.sendMessage(msg);
         }
     }
 
@@ -80,7 +82,7 @@ public class NetRunnable implements Runnable, IHttpResult {
     public void requestSuccess(RequestMethod method, String message) {
         // TODO 将流引到这里,如果需要缓存,在转化成字符串,减少GSON转化资源
         handler.removeMessages(LOAD_DB_CACHE);
-        handler.obtainMessage(REQUEST_SUCCESS, dealMsg(message)).sendToTarget();
+        sendMessage(REQUEST_SUCCESS, dealMsg(message), 0);
         // 存入数据库
         if (options.saveCache()) {
             cacheDao.save(options.getKey(), message, options.getSaveModel());
@@ -90,7 +92,7 @@ public class NetRunnable implements Runnable, IHttpResult {
 
     @Override
     public void requestFail(int errorCode, Exception e) {
-        handler.obtainMessage(REQUEST_FAIL, errorCode, 0, e).sendToTarget();
+        sendMessage(REQUEST_FAIL, e, errorCode);
     }
 
     /**
@@ -103,16 +105,16 @@ public class NetRunnable implements Runnable, IHttpResult {
     /**
      * 强制关联,防止上层不能获取结果,不需要使用弱引用,不会造成内存泄露
      */
-    static class NetHandler extends Handler {
+    private static class NetHandler extends Handler {
         private WeakReference<INetCallBack> reference;
         private Request options;
 
-        public NetHandler(INetCallBack callBack, Request options) {
+        NetHandler(INetCallBack callBack, Request options) {
             reference = new WeakReference<INetCallBack>(callBack);
             this.options = options;
         }
 
-        public void release() {
+        void release() {
             reference.clear();
         }
 
