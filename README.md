@@ -1,3 +1,27 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [PowerImprove(自我能力提升,以及记录)](#powerimprove%E8%87%AA%E6%88%91%E8%83%BD%E5%8A%9B%E6%8F%90%E5%8D%87%E4%BB%A5%E5%8F%8A%E8%AE%B0%E5%BD%95)
+  - [导语:](#%E5%AF%BC%E8%AF%AD)
+  - [已做:](#%E5%B7%B2%E5%81%9A)
+    - [网络请求架构](#%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%9E%B6%E6%9E%84)
+    - [沉浸式布局](#%E6%B2%89%E6%B5%B8%E5%BC%8F%E5%B8%83%E5%B1%80)
+    - [SharedPreferences架构](#sharedpreferences%E6%9E%B6%E6%9E%84)
+    - [Handler小架构,CommonHandler](#handler%E5%B0%8F%E6%9E%B6%E6%9E%84commonhandler)
+    - [多线程异步共享队列消息发送(MessageProcessorFactory)](#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%BC%82%E6%AD%A5%E5%85%B1%E4%BA%AB%E9%98%9F%E5%88%97%E6%B6%88%E6%81%AF%E5%8F%91%E9%80%81messageprocessorfactory)
+    - [BitmapLoader](#bitmaploader)
+    - [FileScanEngine](#filescanengine)
+    - [CommonObserver](#commonobserver)
+    - [用于Adapter的回调的接口](#%E7%94%A8%E4%BA%8Eadapter%E7%9A%84%E5%9B%9E%E8%B0%83%E7%9A%84%E6%8E%A5%E5%8F%A3)
+    - [关于adapter简洁美观写法的思想](#%E5%85%B3%E4%BA%8Eadapter%E7%AE%80%E6%B4%81%E7%BE%8E%E8%A7%82%E5%86%99%E6%B3%95%E7%9A%84%E6%80%9D%E6%83%B3)
+    - [BitmapDisplayer(实现Imagelaoder花样展示)](#bitmapdisplayer%E5%AE%9E%E7%8E%B0imagelaoder%E8%8A%B1%E6%A0%B7%E5%B1%95%E7%A4%BA)
+    - [NoFrameDialog(无边框)](#noframedialog%E6%97%A0%E8%BE%B9%E6%A1%86)
+    - [标准写法,规范语法](#%E6%A0%87%E5%87%86%E5%86%99%E6%B3%95%E8%A7%84%E8%8C%83%E8%AF%AD%E6%B3%95)
+  - [待做:](#%E5%BE%85%E5%81%9A)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # PowerImprove(自我能力提升,以及记录)
 
 标签（空格分隔）： android handler
