@@ -1,6 +1,6 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
 
 - [PowerImprove(自我能力提升,以及记录)](#powerimprove%E8%87%AA%E6%88%91%E8%83%BD%E5%8A%9B%E6%8F%90%E5%8D%87%E4%BB%A5%E5%8F%8A%E8%AE%B0%E5%BD%95)
   - [导语:](#%E5%AF%BC%E8%AF%AD)
