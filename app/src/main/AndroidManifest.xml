@@ -52,7 +52,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Power.NavigationDrawer">S
+            android:theme="@style/Theme.Power.NavigationDrawer">
         </activity>
         <activity
             android:name=".activity.SettingsActivity"

@@ -34,6 +34,7 @@ public class MenuAdapter extends BaseAdapter {
                 {R.string.menu_suggest, R.drawable.icon_menu_feedback},
                 // 建议
                 {R.string.menu_nested, R.drawable.icon_menu_feedback},
+                {R.string.menu_elastic_tray, R.drawable.icon_menu_feedback},
                 // 自定义进度条
                 {R.string.menu_progress, R.drawable.icon_menu_feedback},
                 // 选项

@@ -20,6 +20,7 @@ import com.android.base.utils.Logger;
 import com.android.base.utils.ScreenUtil;
 import com.storm.powerimprove.R;
 import com.storm.powerimprove.dialog.ExitDialog;
+import com.storm.powerimprove.fragment.ElasticTrayFragment;
 import com.storm.powerimprove.fragment.HomeFragment;
 import com.storm.powerimprove.fragment.LogRecordFragment;
 import com.storm.powerimprove.fragment.MainFragment;
@@ -138,7 +139,11 @@ public class MainActivity extends LocalDialogActivity
             fragment = ProgressFragment.instance();
         } else if (position == R.string.menu_nested) {
             fragment = NestedFragment.newInstance();
-        } else if (position == R.string.menu_set) {
+        }
+        else if (position == R.string.menu_elastic_tray) {
+            fragment = ElasticTrayFragment.newInstance();
+        }
+        else if (position == R.string.menu_set) {
             fragment = null;
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
