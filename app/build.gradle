@@ -127,10 +127,10 @@ android {
 
     }
 
-    //打开dex增量编译
-    dexOptions {
-        incremental true
-    }
+    // //打开dex增量编译
+    // dexOptions {
+    //     incremental true
+    // }
 
     // 构建时,忽略lint检查
     lintOptions {
