@@ -12,12 +12,9 @@ import android.view.ViewGroup;
 import com.storm.powerimprove.R;
 import com.storm.powerimprove.adapter.RecyclePackageAdapter;
 import com.storm.powerimprove.view.ElasticTray;
-import com.storm.powerimprove.view.NestedScrollImageContent;
 
 import java.util.List;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * ZhaoRuYang
@@ -25,9 +22,9 @@ import butterknife.InjectView;
  */
 public class ElasticTrayFragment extends LocalDialogFragment {
 
-    @InjectView(R.id.view_list)
+
     RecyclerView viewList;
-    @InjectView(R.id.v_root)
+
     ElasticTray vRoot;
 
     public ElasticTrayFragment() {
@@ -46,7 +43,7 @@ public class ElasticTrayFragment extends LocalDialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_elastic_tray, container, false);
-        ButterKnife.inject(this, view);
+
         return view;
     }
 
@@ -70,6 +67,6 @@ public class ElasticTrayFragment extends LocalDialogFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.reset(this);
+
     }
 }

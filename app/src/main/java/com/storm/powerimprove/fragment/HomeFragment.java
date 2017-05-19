@@ -24,8 +24,6 @@ import com.storm.powerimprove.adapter.PackageAdapter;
 
 import java.util.List;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * 主页
@@ -35,9 +33,9 @@ import butterknife.InjectView;
  */
 public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener, IHandlerMessage, AdapterView.OnItemClickListener {
     private static final String TAG = "HomeFragment";
-    @InjectView(R.id.lv_packs)
+
     ListView lvPacks;
-    @InjectView(R.id.wrl_refresh)
+
     SwipeRefreshLayout wrlRefresh;
     private PackageAdapter packageAdapter;
     private CommonHandler<HomeFragment> handler;
@@ -55,7 +53,9 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        ButterKnife.inject(this, view);
+        wrlRefresh = (SwipeRefreshLayout) view.findViewById(R.id.wrl_refresh);
+        lvPacks = (ListView) view.findViewById(R.id.lv_packs);
+
         handler = new CommonHandler<>(this);
         return view;
     }
@@ -65,7 +65,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Logger.d(TAG, "onViewCreated  ");
-        ButterKnife.inject(this, view);
+
 
         wrlRefresh.setOnRefreshListener(this);
         wrlRefresh.setColorSchemeResources(

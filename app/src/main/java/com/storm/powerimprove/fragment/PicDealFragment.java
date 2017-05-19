@@ -15,9 +15,6 @@ import com.android.base.utils.Logger;
 import com.storm.powerimprove.R;
 import com.storm.powerimprove.view.CropView;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
-import butterknife.OnClick;
 
 /**
  * 用于图片处理
@@ -28,9 +25,9 @@ import butterknife.OnClick;
  */
 public class PicDealFragment extends BaseFragment {
     private static final String TAG = PicDealFragment.class.getSimpleName();
-    @InjectView(R.id.cv_pic)
+
     CropView cvPic;
-    @InjectView(R.id.btn_save)
+
     Button btnSave;
 
     public static PicDealFragment newInstance() {
@@ -41,7 +38,9 @@ public class PicDealFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pic_deal, container, false);
-        ButterKnife.inject(this, view);
+        btnSave = (Button) view.findViewById(R.id.btn_save);
+        cvPic = (CropView) view.findViewById(R.id.cv_pic);
+
         return view;
     }
 
@@ -50,7 +49,6 @@ public class PicDealFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
-    @OnClick(R.id.btn_save)
     void clickPic(View view) {
         cvPic.save("");
         Snackbar.make(getView(), "保存图片", Snackbar.LENGTH_LONG).show();
@@ -60,6 +58,6 @@ public class PicDealFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.reset(this);
+
     }
 }

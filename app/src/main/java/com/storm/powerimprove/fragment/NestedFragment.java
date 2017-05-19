@@ -15,15 +15,12 @@ import com.storm.powerimprove.view.NestedScrollImageContent;
 
 import java.util.List;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class NestedFragment extends LocalDialogFragment {
 
 
-    @InjectView(R.id.view_list)
     RecyclerView viewList;
-    @InjectView(R.id.v_root)
+
     NestedScrollImageContent vRoot;
 
     public NestedFragment() {
@@ -42,7 +39,7 @@ public class NestedFragment extends LocalDialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_nested, container, false);
-        ButterKnife.inject(this, view);
+
         return view;
     }
 
@@ -66,6 +63,6 @@ public class NestedFragment extends LocalDialogFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.reset(this);
+
     }
 }

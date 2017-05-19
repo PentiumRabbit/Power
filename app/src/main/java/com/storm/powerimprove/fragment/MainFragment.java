@@ -16,9 +16,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.RotateAnimation;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,8 +28,6 @@ import com.storm.powerimprove.widget.MaterialProgress;
 
 import java.util.List;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * @author ----zhaoruyang----
@@ -45,24 +40,19 @@ public class MainFragment extends Fragment {
      * fragment.
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
-    @InjectView(R.id.section_label)
-    TextView sectionLabel;
-    @InjectView(R.id.til_name)
-    TextInputLayout tilName;
-    @InjectView(R.id.til_pwd)
-    TextInputLayout tilPwd;
-    @InjectView(R.id.fab_button)
-    FloatingActionButton fabButton;
-    @InjectView(R.id.switchcompat)
-    SwitchCompat switchcompat;
-    @InjectView(R.id.iv_loading)
-    ImageView ivLoading;
-    private int postion;
-
-
     // Default background for the progress spinner
     private static final int CIRCLE_BG_LIGHT = 0xFFFAFAFA;
+    TextView sectionLabel;
+    TextInputLayout tilName;
+    TextInputLayout tilPwd;
+    FloatingActionButton fabButton;
+    SwitchCompat switchcompat;
+    ImageView ivLoading;
+    private int postion;
     private MaterialProgress materialProgress;
+
+    public MainFragment() {
+    }
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -76,15 +66,18 @@ public class MainFragment extends Fragment {
         return fragment;
     }
 
-    public MainFragment() {
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_main, container, false);
-        ButterKnife.inject(this, view);
+        ivLoading = (ImageView) view.findViewById(R.id.iv_loading);
+        switchcompat = (SwitchCompat) view.findViewById(R.id.switchcompat);
+        fabButton = (FloatingActionButton) view.findViewById(R.id.fab_button);
+        tilPwd = (TextInputLayout) view.findViewById(R.id.til_pwd);
+        tilName = (TextInputLayout) view.findViewById(R.id.til_name);
+        sectionLabel = (TextView) view.findViewById(R.id.section_label);
+
         return view;
     }
 
@@ -105,7 +98,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(final View view, Bundle savedInstanceState) {
         setHasOptionsMenu(true);
-        ButterKnife.inject(this, view);
+
         // On Lollipop, the action bar shadow is provided by default, so have to remove it explicitly
 //            ((ActionBarActivity) getActivity()).getSupportActionBar().setElevation(0);
 //            getActivity().supportInvalidateOptionsMenu();
@@ -158,7 +151,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ButterKnife.reset(this);
+
     }
 
     @Override
@@ -187,7 +180,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.reset(this);
+
     }
 
 
