@@ -12,8 +12,6 @@ import android.widget.EditText;
 
 import com.storm.powerimprove.R;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * Log操作界面
@@ -23,13 +21,13 @@ import butterknife.InjectView;
  */
 public class LogRecordFragment extends LocalDialogFragment implements View.OnClickListener {
     private static final String TAG = LogRecordFragment.class.getSimpleName();
-    @InjectView(R.id.til_name)
+
     TextInputLayout tilName;
-    @InjectView(R.id.sp_log_type)
+
     AppCompatSpinner spLogType;
-    @InjectView(R.id.btn_start)
+
     Button btnStart;
-    @InjectView(R.id.et_input_tag)
+
     EditText etInputTag;
 
     /**
@@ -45,7 +43,11 @@ public class LogRecordFragment extends LocalDialogFragment implements View.OnCli
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_log_record, container, false);
-        ButterKnife.inject(this, view);
+        etInputTag = (EditText) view.findViewById(R.id.et_input_tag);
+        btnStart = (Button) view.findViewById(R.id.btn_start);
+        spLogType = (AppCompatSpinner) view.findViewById(R.id.sp_log_type);
+        tilName = (TextInputLayout) view.findViewById(R.id.til_name);
+
         return view;
     }
 
@@ -62,7 +64,7 @@ public class LogRecordFragment extends LocalDialogFragment implements View.OnCli
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.reset(this);
+
     }
 
     /**

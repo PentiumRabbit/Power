@@ -7,15 +7,12 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.android.base.common.fragment.BaseFragment;
 import com.storm.powerimprove.R;
 
-import java.util.ArrayList;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
+
 
 /**
  * @author ----zhaoruyang----
@@ -23,23 +20,25 @@ import butterknife.InjectView;
  */
 public class PagerFragment extends BaseFragment {
     private static final String TAG = "PagerFragment";
-    @InjectView(R.id.tl_title)
+
     TabLayout tlTitle;
-    @InjectView(R.id.vp_pager)
+
     ViewPager vpPager;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pager, null);
-        ButterKnife.inject(this, view);
+        vpPager = (ViewPager) view.findViewById(R.id.vp_pager);
+        tlTitle = (TabLayout) view.findViewById(R.id.tl_title);
+
         return view;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.inject(this, view);
+
 //        ArrayList<TextView> tvs = new ArrayList<TextView>();
 //        for (int i = 0; i < items.length; i++) {
 //            TextView tv = new TextView(this);
@@ -67,7 +66,7 @@ public class PagerFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ButterKnife.reset(this);
+
     }
 
     @Override
@@ -78,6 +77,6 @@ public class PagerFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.reset(this);
+
     }
 }

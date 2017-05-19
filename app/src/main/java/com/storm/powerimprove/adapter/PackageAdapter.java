@@ -1,7 +1,6 @@
 package com.storm.powerimprove.adapter;
 
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +10,6 @@ import android.widget.TextView;
 import com.storm.powerimprove.R;
 
 import java.util.List;
-
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * @author ----zhaoruyang----
@@ -80,11 +76,10 @@ public class PackageAdapter extends BaseAdapter {
      * @author ButterKnifeZelezny , plugin for Android Studio by Avast Developers (http://github.com/avast)
      */
     static class ViewHolder {
-        @InjectView(R.id.tv_name)
         TextView tvName;
 
         ViewHolder(View view) {
-            ButterKnife.inject(this, view);
+            tvName = (TextView) view.findViewById(R.id.tv_name);
         }
     }
 }

@@ -11,8 +11,6 @@ import android.widget.TextView;
 
 import com.storm.powerimprove.R;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * @author ----zhaoruyang----
@@ -24,11 +22,8 @@ public class LoadingDialog extends NoFrameDialog {
     private static final String VALUE_CANCLE = "value_cancle";
 
     private static final String VALUE_MSG = "value_msg";
-    @InjectView(R.id.pb_loading_bar)
     ProgressBar ivPublicLoadingViewRotate;
-    @InjectView(R.id.tv_loading)
     TextView tvPublicLoading;
-    @InjectView(R.id.layout_loading)
     RelativeLayout layoutLoading;
 
     private String loadingMsg;
@@ -73,7 +68,9 @@ public class LoadingDialog extends NoFrameDialog {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_loading, container, false);
-        ButterKnife.inject(this, view);
+        ivPublicLoadingViewRotate = (ProgressBar) view.findViewById(R.id.pb_loading_bar);
+        tvPublicLoading = (TextView) view.findViewById(R.id.tv_loading);
+        layoutLoading = (RelativeLayout) view.findViewById(R.id.layout_loading);
         return view;
     }
 
@@ -91,6 +88,5 @@ public class LoadingDialog extends NoFrameDialog {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.reset(this);
     }
 }

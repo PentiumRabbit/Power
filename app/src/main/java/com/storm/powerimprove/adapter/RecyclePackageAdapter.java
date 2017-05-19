@@ -13,9 +13,6 @@ import com.storm.powerimprove.R;
 
 import java.util.List;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
-
 /**
  * 包的适配器
  */
@@ -57,12 +54,11 @@ public class RecyclePackageAdapter extends RecyclerView.Adapter<RecyclePackageAd
     }
 
     public class Holder extends RecyclerView.ViewHolder {
-        @InjectView(R.id.tv_name)
         TextView tvName;
 
         public Holder(View itemView) {
             super(itemView);
-            ButterKnife.inject(this, itemView);
+            tvName = (TextView) itemView.findViewById(R.id.tv_name);
         }
     }
 
