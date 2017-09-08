@@ -1,8 +1,6 @@
 package com.storm.powerimprove.constant;
 
 
-import com.storm.powerimprove.AppConstant;
-
 /**
  * Intent动作
  * <p/>
