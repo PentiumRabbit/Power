@@ -1,7 +1,6 @@
 package com.android.base.common.view;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -11,8 +10,6 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
-
-import static com.umeng.analytics.b.g.R;
 
 
 /**
@@ -41,13 +38,13 @@ public class RoundAngleFrameLayout extends FrameLayout {
     public RoundAngleFrameLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         if (attrs != null) {
-            TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.RoundAngleFrameLayout);
-            float radius = ta.getDimension(R.styleable.RoundAngleFrameLayout_radius, 0);
-            topLeftRadius = ta.getDimension(R.styleable.RoundAngleFrameLayout_topLeftRadius, radius);
-            topRightRadius = ta.getDimension(R.styleable.RoundAngleFrameLayout_topRightRadius, radius);
-            bottomLeftRadius = ta.getDimension(R.styleable.RoundAngleFrameLayout_bottomLeftRadius, radius);
-            bottomRightRadius = ta.getDimension(R.styleable.RoundAngleFrameLayout_bottomRightRadius, radius);
-            ta.recycle();
+//            TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.RoundAngleFrameLayout);
+//            float radius = ta.getDimension(R.styleable.RoundAngleFrameLayout_radius, 0);
+//            topLeftRadius = ta.getDimension(R.styleable.RoundAngleFrameLayout_topLeftRadius, radius);
+//            topRightRadius = ta.getDimension(R.styleable.RoundAngleFrameLayout_topRightRadius, radius);
+//            bottomLeftRadius = ta.getDimension(R.styleable.RoundAngleFrameLayout_bottomLeftRadius, radius);
+//            bottomRightRadius = ta.getDimension(R.styleable.RoundAngleFrameLayout_bottomRightRadius, radius);
+//            ta.recycle();
         }
         roundPaint = new Paint();
         roundPaint.setColor(Color.WHITE);

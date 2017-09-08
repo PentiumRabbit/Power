@@ -57,7 +57,7 @@ public class App extends Application {
      * 设置debug开关
      */
     private void initDebug() {
-        Logger.setDebug(AppConstant.IS_DEBUG);
+        Logger.setDebug(AppArg.IS_DEBUG);
 //        initStetho();
     }
 
@@ -83,13 +83,13 @@ public class App extends Application {
                 .build();
 
         ImageLoader.getInstance().init(config);
-        L.writeLogs(AppConstant.IS_DEBUG);
-        L.writeDebugLogs(AppConstant.IS_DEBUG);
+        L.writeLogs(AppArg.IS_DEBUG);
+        L.writeDebugLogs(AppArg.IS_DEBUG);
     }
 
     /*开启严苛模式*/
     public void initDebugModel() {
-        if (!AppConstant.IS_DEBUG) {
+        if (!AppArg.IS_DEBUG) {
             return;
         }
         // check if android:debuggable is set to true

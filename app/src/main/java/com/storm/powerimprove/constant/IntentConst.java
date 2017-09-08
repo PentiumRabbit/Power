@@ -1,6 +1,8 @@
 package com.storm.powerimprove.constant;
 
 
+import com.storm.powerimprove.AppArg;
+
 /**
  * Intent动作
  * <p/>
@@ -10,8 +12,8 @@ package com.storm.powerimprove.constant;
 public class IntentConst {
 
     public interface Action {
-        String jump        = AppConstant.PACKAGE_ID + ".JUMP";
-        String matchRemind = AppConstant.PACKAGE_ID + ".BROADCAST_ALARM";
+        String jump = AppArg.PACKAGE_ID + ".JUMP";
+        String matchRemind = AppArg.PACKAGE_ID + ".BROADCAST_ALARM";
     }
 
     public interface Type {
