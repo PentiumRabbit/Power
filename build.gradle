@@ -1,4 +1,4 @@
-apply plugin: 'com.codingbingo.gradletaskrecord'
+//apply plugin: 'com.codingbingo.gradletaskrecord'
 buildscript {
     repositories {
 //        maven { url 'http://repo2.maven.org/maven2/' }
@@ -6,6 +6,9 @@ buildscript {
 //        maven { url 'http://repository.jboss.org/nexus/content/groups/public/' }
 //        maven { url 'http://maven.oschina.net/content/groups/public/' }
         jcenter()
+
+        // RxJava
+        maven { url 'https://oss.jfrog.org/libs-snapshot' }
 
 // 显示编译时间
          maven(){
@@ -15,7 +18,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-rc2'
+        classpath 'com.android.tools.build:gradle:3.2.0-alpha04'
         classpath 'com.codingbingo.library:gradletaskrecord:1.0.0'
         // classpath 'com.droidtitan:lint-cleaner-plugin:0.3.0'
         // NOTE: Do not place your application dependencies here; they belong
@@ -33,6 +36,8 @@ allprojects {
         jcenter()
 //        google()
         google()
+        // RxJava
+        maven { url 'https://oss.jfrog.org/libs-snapshot' }
     }
 }
 
