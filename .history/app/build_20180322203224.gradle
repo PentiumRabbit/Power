@@ -157,14 +157,9 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    releaseImplementation project(':AndroidCommon')
+    compile project(':AndroidCommon')
 //    implementation project(':NetConnect')
     // 添加检测OOM的jar功能包依赖
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 }
-
-configurations.all {
-resolutionStrategy {
-    force 'com.android.support:support-v4:27.1.0'
-}}

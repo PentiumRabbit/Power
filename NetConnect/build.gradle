@@ -1,9 +1,8 @@
 apply plugin: 'com.android.library'
 
 dependencies {
-    compile fileTree(dir: 'libs', include: '*.jar')
-    compile project(':AndroidCommon')
 
+    implementation project(':AndroidCommon')
 }
 
 android {

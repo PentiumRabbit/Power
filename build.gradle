@@ -5,21 +5,22 @@ buildscript {
 //        maven { url 'http://uk.maven.org/maven2/' }
 //        maven { url 'http://repository.jboss.org/nexus/content/groups/public/' }
 //        maven { url 'http://maven.oschina.net/content/groups/public/' }
+        google()
         jcenter()
 
         // RxJava
         maven { url 'https://oss.jfrog.org/libs-snapshot' }
 
 // 显示编译时间
-         maven(){
-              url 'https://dl.bintray.com/codingbingo/maven'
-          }
+//         maven(){
+//              url 'https://dl.bintray.com/codingbingo/maven'
+//          }
 //        google()
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.0-alpha04'
-        classpath 'com.codingbingo.library:gradletaskrecord:1.0.0'
+        classpath 'com.android.tools.build:gradle:3.2.0-alpha07'
+//        classpath 'com.codingbingo.library:gradletaskrecord:1.0.0'
         // classpath 'com.droidtitan:lint-cleaner-plugin:0.3.0'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -33,9 +34,10 @@ allprojects {
 //        maven { url 'http://uk.maven.org/maven2/' }
 //        maven { url 'http://repository.jboss.org/nexus/content/groups/public/' }
 //        maven { url 'http://maven.oschina.net/content/groups/public/' }
+        google()
         jcenter()
 //        google()
-        google()
+
         // RxJava
         maven { url 'https://oss.jfrog.org/libs-snapshot' }
     }
@@ -44,7 +46,7 @@ allprojects {
 // Define versions in a single place
 ext {
     // App dependencies
-    supportLibraryVersion = '26.0.2'
+    supportLibraryVersion = '27.1.0'
 
 }
 

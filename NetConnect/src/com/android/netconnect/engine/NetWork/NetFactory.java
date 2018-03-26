@@ -4,7 +4,6 @@ import android.util.SparseArray;
 
 import com.android.netconnect.bean.Request;
 import com.android.netconnect.engine.ConnectMode;
-import com.android.netconnect.engine.NetWork.Impl.OKHttpClientImpl;
 import com.android.netconnect.engine.NetWork.Impl.URlConnectImpl;
 import com.android.netconnect.listener.IHttpResult;
 
@@ -77,9 +76,9 @@ public class NetFactory {
         }
 
         /*获取URL执行对象*/
-        else if (mode == ConnectMode.connect_ok) {
-            return new OKHttpClientImpl();
-        }
+//        else if (mode == ConnectMode.connect_ok) {
+//            return new OKHttpClientImpl();
+//        }
         return null;
     }
 }

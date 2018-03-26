@@ -163,8 +163,3 @@ dependencies {
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 }
-
-configurations.all {
-resolutionStrategy {
-    force 'com.android.support:support-v4:27.1.0'
-}}
