@@ -45,7 +45,7 @@ public class NetFactory {
         IRequest executor = getExecutor(connectMode);
         if (options.getMethod() == RequestMethod.GET) {
             // TODO：　回调直接传入是不是影响了层层传递的规则？？？
-            executor.doGet(options.url(), result);
+            //executor.doGet(options.url(), result);
         } else if (options.getMethod() == RequestMethod.POST) {
             executor.doPost(options.url(), options.getParams(), result);
         }
