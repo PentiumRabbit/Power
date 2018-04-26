@@ -1,24 +1,23 @@
-package com.android.base.common.fragment;
+package com.android.base.common.base;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.android.base.common.handler.CommonHandler;
 import com.android.base.common.handler.IHandlerMessage;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 /**
  * @author ----zhaoruyang----
  * @data: 2015/2/6
  */
-public abstract class BaseActivity extends AppCompatActivity implements IHandlerMessage {
+public abstract class BaseActivity extends RxAppCompatActivity implements IHandlerMessage {
     private static final String TAG = BaseActivity.class.getSimpleName();
     protected FragmentManager supportFragmentManager;
     protected Handler         handler;

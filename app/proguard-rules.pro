@@ -105,7 +105,7 @@
 }
 
 # 去除自己声明的log类
--assumenosideeffects class com.android.base.utils.Logger {
+-assumenosideeffects class com.android.base.common.utils.Logger {
    public static boolean isLoggable(java.lang.String, int);
    public static int v(...);
    public static int i(...);

@@ -3,7 +3,7 @@ package com.storm.powerimprove.activity;
 
 import android.support.v4.app.FragmentManager;
 
-import com.android.base.common.fragment.BaseActivity;
+import com.android.base.common.base.BaseActivity;
 import com.storm.powerimprove.dialog.NoFrameDialog;
 import com.storm.powerimprove.dialog.OnDialogCallBack;
 

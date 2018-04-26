@@ -2,12 +2,11 @@ package com.storm.powerimprove.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.base.common.fragment.BaseFragment;
+import com.android.base.common.base.BaseFragment;
 import com.storm.powerimprove.R;
 
 /**

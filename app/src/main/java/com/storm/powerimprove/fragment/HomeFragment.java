@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.android.base.common.fragment.BaseFragment;
+import com.android.base.common.base.BaseFragment;
 import com.android.base.common.handler.CommonHandler;
 import com.android.base.common.handler.IHandlerMessage;
 import com.android.base.utils.Logger;

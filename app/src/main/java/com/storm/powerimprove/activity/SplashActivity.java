@@ -3,7 +3,7 @@ package com.storm.powerimprove.activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.android.base.common.fragment.BaseActivity;
+import com.android.base.common.base.BaseActivity;
 import com.android.base.utils.Logger;
 import com.android.netconnect.bean.Request;
 import com.android.netconnect.engine.ConnectMode;

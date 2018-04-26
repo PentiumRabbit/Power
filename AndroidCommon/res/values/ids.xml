@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="tl_title" type="id">tl_title</item>
+    <item name="tv_desc" type="id">tv_desc</item>
+    <item name="lv_list" type="id">lv_list</item>
+    <item name="iv_loading" type="id">iv_loading</item>
+    <item name="rl_content" type="id">rl_content</item>
+    <item name="ll_content" type="id">ll_content</item>
+    <item name="iv_video" type="id">iv_video</item>
+    <item name="tv_cancel" type="id">tv_cancel</item>
+    <item name="iv_avatar" type="id">iv_avatar</item>
+    <item name="tv_state" type="id">tv_state</item>
+    <item name="tv_time" type="id">tv_time</item>
+    <item name="tv_origin" type="id">tv_origin</item>
+    <item name="tv_name" type="id">tv_name</item>
+    <item name="tv_title" type="id">tv_title</item>
+    <item name="tv_content" type="id">tv_content</item>
+    <item name="tv_ok" type="id">tv_ok</item>
+    <item name="s_space" type="id">s_space</item>
+    <item name="v_line" type="id">v_line</item>
+    <item name="iv_pic" type="id">iv_pic</item>
+    <item name="v_root" type="id">v_root</item>
+    <item name="fl_container" type="id">fl_container</item>
+    <item name="rl_container" type="id">rl_container</item>
+</resources>

@@ -32,7 +32,7 @@
 //import android.text.TextUtils;
 //
 //import com.android.base.ConstantValue;
-//import com.android.base.utils.LogUtil;
+//import com.android.base.common.utils.LogUtil;
 //import com.android.netconnect.NetConstant;
 //import com.android.netconnect.engine.NetWork.IRequest;
 //import com.android.netconnect.engine.NetWork.RequestMethod;

@@ -1,4 +1,4 @@
-package com.android.base.common.fragment;
+package com.android.base.common.base;
 
 import android.os.Bundle;
 

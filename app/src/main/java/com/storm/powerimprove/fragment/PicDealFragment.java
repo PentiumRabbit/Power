@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.android.base.common.fragment.BaseFragment;
+import com.android.base.common.base.BaseFragment;
 import com.android.base.common.value.ValueTAG;
 import com.android.base.utils.Logger;
 import com.storm.powerimprove.R;
