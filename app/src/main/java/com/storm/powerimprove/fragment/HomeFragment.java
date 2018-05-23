@@ -17,7 +17,7 @@ import android.widget.ListView;
 import com.android.base.common.base.BaseFragment;
 import com.android.base.common.handler.CommonHandler;
 import com.android.base.common.handler.IHandlerMessage;
-import com.android.base.utils.Logger;
+import com.android.base.common.utils.Logger;
 import com.storm.powerimprove.R;
 import com.storm.powerimprove.activity.SettingsActivity;
 import com.storm.powerimprove.adapter.PackageAdapter;

@@ -1,4 +1,4 @@
-package com.android.base.utils;
+package com.android.base.common.utils;
 
 import android.content.Context;
 import android.media.MediaPlayer;

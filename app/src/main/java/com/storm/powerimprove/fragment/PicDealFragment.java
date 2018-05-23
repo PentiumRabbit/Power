@@ -11,7 +11,7 @@ import android.widget.Button;
 
 import com.android.base.common.base.BaseFragment;
 import com.android.base.common.value.ValueTAG;
-import com.android.base.utils.Logger;
+import com.android.base.common.utils.Logger;
 import com.storm.powerimprove.R;
 import com.storm.powerimprove.view.CropView;
 

@@ -1,4 +1,4 @@
-package com.android.base.utils;
+package com.android.base.common.utils;
 
 /**
  * 获取路径的工具类

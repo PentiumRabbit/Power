@@ -17,8 +17,8 @@ import com.android.base.common.SharedPref.Impl.CommonSettingImpl;
 import com.android.base.common.SharedPref.SharedPref;
 import com.android.base.common.Observer.CommonObserver;
 import com.android.base.common.Observer.ObserverType;
-import com.android.base.utils.Logger;
-import com.android.base.utils.SysInfoUtil;
+import com.android.base.common.utils.Logger;
+import com.android.base.common.utils.SysInfoUtil;
 
 /**
  * 获取网络变化

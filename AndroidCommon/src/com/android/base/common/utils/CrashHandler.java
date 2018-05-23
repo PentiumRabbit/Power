@@ -2,7 +2,7 @@
  * Copyright:  Beijing BaoFeng Technology Co., Ltd. Copyright 2014-2114,  All rights reserved
  */
 
-package com.android.base.utils;
+package com.android.base.common.utils;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -91,7 +91,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 			trace.close();
 			return fileName;
 		} catch (Exception e) {
-			Logger.e(TAG, "saveCrashInfoToFile", e);
+			com.android.base.common.utils.Logger.e(TAG, "saveCrashInfoToFile", e);
 		}
 		return null;
 	}
@@ -133,7 +133,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
 				field.setAccessible(true);
 				mDeviceCrashInfo.put(field.getName(), "" + field.get(null));
 			} catch (Exception e) {
-				Logger.e(TAG, "collectCrashDeviceInfo", e);
+				com.android.base.common.utils.Logger.e(TAG, "collectCrashDeviceInfo", e);
 			}
 		}
 	}
@@ -143,10 +143,10 @@ public class CrashHandler implements UncaughtExceptionHandler {
 		StringBuilder sb = new StringBuilder();
 		sb.append(System.currentTimeMillis()).append("\n");
 
-		sb.append(SEP).append(SysInfoUtil.getIMEI(mContext));
-		sb.append(SEP).append(SysInfoUtil.getProductId());
-		sb.append(SEP).append(SysInfoUtil.getSDKVersion());
-		sb.append(SEP).append(SysInfoUtil.getSDKLevel());
+		sb.append(SEP).append(com.android.base.common.utils.SysInfoUtil.getIMEI(mContext));
+		sb.append(SEP).append(com.android.base.common.utils.SysInfoUtil.getProductId());
+		sb.append(SEP).append(com.android.base.common.utils.SysInfoUtil.getSDKVersion());
+		sb.append(SEP).append(com.android.base.common.utils.SysInfoUtil.getSDKLevel());
 		sb.append("\n");
 		return sb.toString();
 	}

@@ -12,7 +12,7 @@ import android.view.View;
 import com.android.base.common.view.stickydecoration.listener.OnGroupClickListener;
 import com.android.base.common.view.stickydecoration.listener.PowerGroupListener;
 import com.android.base.common.view.stickydecoration.util.ViewUtil;
-import com.android.base.utils.Logger;
+import com.android.base.common.utils.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;

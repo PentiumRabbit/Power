@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.base.utils;
+package com.android.base.common.utils;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;

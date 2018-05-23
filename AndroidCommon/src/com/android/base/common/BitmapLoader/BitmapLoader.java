@@ -12,8 +12,8 @@ import android.os.Looper;
 import android.widget.ImageView;
 
 import com.android.base.common.value.ValueTAG;
-import com.android.base.utils.Logger;
-import com.android.base.utils.SysInfoUtil;
+import com.android.base.common.utils.Logger;
+import com.android.base.common.utils.SysInfoUtil;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executor;

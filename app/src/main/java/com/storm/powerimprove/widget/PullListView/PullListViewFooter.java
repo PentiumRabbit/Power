@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.base.utils.FormatUtil;
+import com.android.base.common.utils.FormatUtil;
 import com.storm.powerimprove.R;
 
 public class PullListViewFooter extends LinearLayout {

@@ -1,4 +1,4 @@
-package com.android.base.utils;
+package com.android.base.common.utils;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -236,7 +236,7 @@ public class MapUtils {
      * @param source key-value pairs
      * @param ignoreSpace whether ignore space at the begging or end of key and value
      * @return
-     * @see {@link com.android.base.utils.MapUtils#parseKeyAndValueToMap(String, String, String, boolean)}, keyAndValueSeparator is
+     * @see {@link com.android.base.common.utils.MapUtils#parseKeyAndValueToMap(String, String, String, boolean)}, keyAndValueSeparator is
      * {@link #DEFAULT_KEY_AND_VALUE_SEPARATOR}, keyAndValuePairSeparator is
      * {@link #DEFAULT_KEY_AND_VALUE_PAIR_SEPARATOR}
      */
@@ -250,7 +250,7 @@ public class MapUtils {
      * 
      * @param source key-value pairs
      * @return
-     * @see {@link com.android.base.utils.MapUtils#parseKeyAndValueToMap(String, String, String, boolean)}, keyAndValueSeparator is
+     * @see {@link com.android.base.common.utils.MapUtils#parseKeyAndValueToMap(String, String, String, boolean)}, keyAndValueSeparator is
      * {@link #DEFAULT_KEY_AND_VALUE_SEPARATOR}, keyAndValuePairSeparator is
      * {@link #DEFAULT_KEY_AND_VALUE_PAIR_SEPARATOR}, ignoreSpace is true
      */

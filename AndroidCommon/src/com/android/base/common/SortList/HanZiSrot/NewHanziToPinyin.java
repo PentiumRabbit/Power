@@ -22,7 +22,7 @@ import java.util.Locale;
 
 import android.text.TextUtils;
 
-import com.android.base.utils.Logger;
+import com.android.base.common.utils.Logger;
 
 /**
  * An object to convert Chinese character to its corresponding pinyin string.

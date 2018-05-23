@@ -5,7 +5,9 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.StrictMode;
 
-import com.android.base.utils.Logger;
+import com.android.base.BaseApp;
+import com.android.base.IApplication;
+import com.android.base.common.utils.Logger;
 import com.android.netconnect.engine.NetConfig;
 import com.android.netconnect.http.HttpLoader;
 import com.facebook.stetho.Stetho;
@@ -25,28 +27,31 @@ import com.squareup.leakcanary.LeakCanary;
  * @author ----zhaoruyang----
  * @data: 2015/6/11
  */
-public class App extends Application {
+public class App  implements IApplication {
     private static final String TAG = App.class.getSimpleName();
+    private Application application ;
+
+    @Override
+    public void setApplication(Application application) {
+        this.application=application;
+    }
+
+    @Override
+    public void attachBaseContext() {
+    }
 
     @Override
     public void onCreate() {
-        super.onCreate();
-        // 初始化配置
         initConfig();
     }
 
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        System.gc();
-    }
 
     // 初始化
     private void initConfig() {
         // 率先设置Debug开关
         initDebug();
         // 初始化OOM检测
-        LeakCanary.install(this);
+        LeakCanary.install(application);
 
         initImageLoader();
         initDebugModel();
@@ -63,7 +68,7 @@ public class App extends Application {
 
     /*初始化HttpLoader*/
     private void initHttpLoader() {
-        NetConfig netConfig = new NetConfig.Builder(getApplicationContext()).setNetParams(null).build();
+        NetConfig netConfig = new NetConfig.Builder(application).setNetParams(null).build();
         HttpLoader.getInstance().init(netConfig);
     }
 
@@ -72,7 +77,7 @@ public class App extends Application {
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
                 .imageScaleType(ImageScaleType.IN_SAMPLE_INT)
                 .bitmapConfig(Bitmap.Config.RGB_565).cacheOnDisk(true).build();
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(application)
                 .threadPriority(Thread.NORM_PRIORITY - 2)
                 .diskCacheFileNameGenerator(new Md5FileNameGenerator())
                 .tasksProcessingOrder(QueueProcessingType.LIFO)
@@ -109,10 +114,11 @@ public class App extends Application {
      */
     private void initStetho() {
         Stetho.initialize(
-                Stetho.newInitializerBuilder(this)
-                        .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
-                        .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
+                Stetho.newInitializerBuilder(application)
+                        .enableDumpapp(Stetho.defaultDumperPluginsProvider(application))
+                        .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(application))
                         .build());
     }
+
 
 }

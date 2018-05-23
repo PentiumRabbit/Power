@@ -5,7 +5,7 @@
 package com.android.base.common.message;
 
 import com.android.base.common.value.ValueTAG;
-import com.android.base.utils.Logger;
+import com.android.base.common.utils.Logger;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;

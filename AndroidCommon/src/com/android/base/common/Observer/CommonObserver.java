@@ -7,7 +7,7 @@ package com.android.base.common.Observer;
 import android.support.annotation.NonNull;
 import android.util.SparseArray;
 
-import com.android.base.utils.Logger;
+import com.android.base.common.utils.Logger;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.storm.powerimprove.utils;
 
-import com.android.base.utils.Logger;
+import com.android.base.common.utils.Logger;
 
 import java.io.BufferedReader;
 import java.io.IOException;

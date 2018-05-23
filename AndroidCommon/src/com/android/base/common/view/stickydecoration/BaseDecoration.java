@@ -12,7 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.android.base.common.view.stickydecoration.listener.OnGroupClickListener;
-import com.android.base.utils.Logger;
+import com.android.base.common.utils.Logger;
 
 import java.util.List;
 

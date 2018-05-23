@@ -4,7 +4,7 @@ import android.app.Application;
 import android.test.ApplicationTestCase;
 
 import com.android.base.common.value.ValueTAG;
-import com.android.base.utils.Logger;
+import com.android.base.common.utils.Logger;
 import com.storm.powerimprove.utils.LogRecondUtil;
 
 import java.io.IOException;

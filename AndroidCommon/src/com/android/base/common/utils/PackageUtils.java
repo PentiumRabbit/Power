@@ -1,4 +1,4 @@
-package com.android.base.utils;
+package com.android.base.common.utils;
 
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningTaskInfo;
@@ -21,28 +21,28 @@ import java.util.List;
  * PackageUtils
  * <ul>
  * <strong>Install package</strong>
- * <li>{@link com.android.base.utils.PackageUtils#installNormal(Context, String)}</li>
- * <li>{@link com.android.base.utils.PackageUtils#installSilent(Context, String)}</li>
- * <li>{@link com.android.base.utils.PackageUtils#install(Context, String)}</li>
+ * <li>{@link com.android.base.common.utils.PackageUtils#installNormal(Context, String)}</li>
+ * <li>{@link com.android.base.common.utils.PackageUtils#installSilent(Context, String)}</li>
+ * <li>{@link com.android.base.common.utils.PackageUtils#install(Context, String)}</li>
  * </ul>
  * <ul>
  * <strong>Uninstall package</strong>
- * <li>{@link com.android.base.utils.PackageUtils#uninstallNormal(Context, String)}</li>
- * <li>{@link com.android.base.utils.PackageUtils#uninstallSilent(Context, String)}</li>
- * <li>{@link com.android.base.utils.PackageUtils#uninstall(Context, String)}</li>
+ * <li>{@link com.android.base.common.utils.PackageUtils#uninstallNormal(Context, String)}</li>
+ * <li>{@link com.android.base.common.utils.PackageUtils#uninstallSilent(Context, String)}</li>
+ * <li>{@link com.android.base.common.utils.PackageUtils#uninstall(Context, String)}</li>
  * </ul>
  * <ul>
  * <strong>Is system application</strong>
- * <li>{@link com.android.base.utils.PackageUtils#isSystemApplication(Context)}</li>
- * <li>{@link com.android.base.utils.PackageUtils#isSystemApplication(Context, String)}</li>
- * <li>{@link com.android.base.utils.PackageUtils#isSystemApplication(PackageManager, String)}</li>
+ * <li>{@link com.android.base.common.utils.PackageUtils#isSystemApplication(Context)}</li>
+ * <li>{@link com.android.base.common.utils.PackageUtils#isSystemApplication(Context, String)}</li>
+ * <li>{@link com.android.base.common.utils.PackageUtils#isSystemApplication(PackageManager, String)}</li>
  * </ul>
  * <ul>
  * <strong>Others</strong>
- * <li>{@link com.android.base.utils.PackageUtils#getInstallLocation()} get system install location</li>
- * <li>{@link com.android.base.utils.PackageUtils#isTopActivity(Context, String)} whether the app whost package's name is packageName is on the
+ * <li>{@link com.android.base.common.utils.PackageUtils#getInstallLocation()} get system install location</li>
+ * <li>{@link com.android.base.common.utils.PackageUtils#isTopActivity(Context, String)} whether the app whost package's name is packageName is on the
  * top of the stack</li>
- * <li>{@link com.android.base.utils.PackageUtils#startInstalledAppDetails(Context, String)} start InstalledAppDetails Activity</li>
+ * <li>{@link com.android.base.common.utils.PackageUtils#startInstalledAppDetails(Context, String)} start InstalledAppDetails Activity</li>
  * </ul>
  *
  * @author <a href="http://www.trinea.cn" target="_blank">Trinea</a> 2013-5-15
@@ -322,8 +322,8 @@ public class PackageUtils {
 	 *
 	 * @param context
 	 * @param filePath file path of package
-	 * @return {@link com.android.base.utils.PackageUtils#INSTALL_SUCCEEDED} means install success, other means failed. details see
-	 * {@link com.android.base.utils.PackageUtils}.INSTALL_FAILED_*. same to {@link PackageManager}.INSTALL_*
+	 * @return {@link com.android.base.common.utils.PackageUtils#INSTALL_SUCCEEDED} means install success, other means failed. details see
+	 * {@link com.android.base.common.utils.PackageUtils}.INSTALL_FAILED_*. same to {@link PackageManager}.INSTALL_*
 	 * @see #installSilent(Context, String, String)
 	 */
 	public static int installSilent(Context context, String filePath) {
@@ -342,8 +342,8 @@ public class PackageUtils {
 	 * @param context
 	 * @param filePath file path of package
 	 * @param pmParams pm install params
-	 * @return {@link com.android.base.utils.PackageUtils#INSTALL_SUCCEEDED} means install success, other means failed. details see
-	 * {@link com.android.base.utils.PackageUtils}.INSTALL_FAILED_*. same to {@link PackageManager}.INSTALL_*
+	 * @return {@link com.android.base.common.utils.PackageUtils#INSTALL_SUCCEEDED} means install success, other means failed. details see
+	 * {@link com.android.base.common.utils.PackageUtils}.INSTALL_FAILED_*. same to {@link PackageManager}.INSTALL_*
 	 */
 	public static int installSilent(Context context, String filePath, String pmParams) {
 		if (filePath == null || filePath.length() == 0) {

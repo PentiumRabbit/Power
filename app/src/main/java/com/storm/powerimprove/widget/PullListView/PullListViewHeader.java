@@ -11,7 +11,7 @@ import android.widget.AbsListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.base.utils.FormatUtil;
+import com.android.base.common.utils.FormatUtil;
 import com.storm.powerimprove.R;
 
 public class PullListViewHeader extends LinearLayout {

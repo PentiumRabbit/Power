@@ -19,8 +19,8 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.android.base.common.value.ValueTAG;
-import com.android.base.utils.ImageUtil;
-import com.android.base.utils.Logger;
+import com.android.base.common.utils.ImageUtil;
+import com.android.base.common.utils.Logger;
 
 import java.io.File;
 import java.io.FileOutputStream;

@@ -16,8 +16,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.android.base.utils.Logger;
-import com.android.base.utils.ScreenUtil;
+import com.android.base.common.utils.Logger;
+import com.android.base.common.utils.ScreenUtil;
 import com.storm.powerimprove.R;
 import com.storm.powerimprove.dialog.ExitDialog;
 import com.storm.powerimprove.fragment.ElasticTrayFragment;
