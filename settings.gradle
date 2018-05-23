@@ -1,1 +1,1 @@
-include ':app', ':AndroidCommon', ':NetConnect'
+include ':App', ':CommonModule', ':NetModule', ':DevModule'
