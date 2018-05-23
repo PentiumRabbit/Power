@@ -1,8 +1,8 @@
 package com.android.base;
 
 import android.app.Application;
+import android.util.Log;
 
-import com.android.base.common.utils.Logger;
 import com.android.base.common.value.ValueTAG;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class ModulesApplication extends IApplication {
     private List<IApplication> applications=new ArrayList<>();
 
     public ModulesApplication() {
-        loaderModuleApplication();
+        loadModuleApplication();
     }
 
     @Override
@@ -45,19 +45,25 @@ public class ModulesApplication extends IApplication {
     }
 
 
-    private void loaderModuleApplication() {
+    private void loadModuleApplication() {
         for (int i = 0; i < ModuleConfig.names.length; i++) {
             String name = ModuleConfig.names[i];
 
             try {
                 Class<IApplication> cls = (Class<IApplication>) Class.forName(name);
+
+                if (cls == null) {
+                    continue;
+                }
+
                 IApplication iApplication = cls.newInstance();
                 if (iApplication==null) {
                     continue;
                 }
+                Log.i("zry", "load Module : " + cls.getSimpleName());
                 applications.add(iApplication);
             } catch (Exception e) {
-                Logger.e(ValueTAG.EXCEPTION, e);
+                Log.e(ValueTAG.EXCEPTION,"loadModuleApplication", e);
             }
 
         }
