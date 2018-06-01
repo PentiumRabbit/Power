@@ -16,12 +16,11 @@
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!--自己定义actionbar,不用系统的 ,如果用了系统的,并且自己还写了actionbar 会报错,不符合主题-->
-    <style name="Theme.Power" parent="@style/Theme.AppCompat.NoActionBar">
+    <style name="BaseTheme" parent="@style/Theme.AppCompat.NoActionBar">
+
 
         <!-- 默认标题的颜色-->
         <item name="android:textColorPrimary">@color/CommonText</item>
-
         <!--默认字体颜色-->
         <item name="android:textColor">@color/Black</item>
 
@@ -31,7 +30,6 @@
         <item name="colorControlHighlight">@color/LightSalmon</item>
 
         <!--<item name="android:colorControlActivated">@color/PeachPuff</item>-->
-
 
         <item name="android:textColorSecondary">@color/CommonText</item>
         <!--actionbar颜色-->
@@ -49,21 +47,28 @@
 
         <!--这里是定义系统默认actionbar的地方,自己写的需要在actionbar中自己声明,还有PopMenu-->
         <!--<item name="android:actionBarStyle">@style/ActionBar</item>-->
+        <!-- 箭头 -->
+        <item name="drawerArrowStyle">@style/AppTheme.DrawerArrowToggle</item>
+
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
 
         <!--取除左上角背景 Home区域-->
         <item name="selectableItemBackground">@null</item>
 
 
-        <!--底部3个按键栏的颜色,5.1以上可用-->
-        <!--<item name="android:navigationBarColor">@color/Violet</item>-->
-        <!-- translucent system bars -->
+    </style>
 
+
+    <!--自己定义actionbar,不用系统的 ,如果用了系统的,并且自己还写了actionbar 会报错,不符合主题-->
+    <style name="BaseTheme.Power" >
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@android:style/Animation</item>
     </style>
 
-    <style name="Theme.Power.NavigationDrawer" parent="Theme.Power">
+    <style name="Theme.Power.NavigationDrawer" parent="BaseTheme.Power">
         <item name="colorControlHighlight">@color/CommonText</item>
     </style>
 

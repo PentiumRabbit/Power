@@ -1,38 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Power" parent="@style/Theme.AppCompat.NoActionBar">
-
-        <!-- 默认标题的颜色-->
-        <item name="android:textColorPrimary">@color/CommonText</item>
-
-        <!--默认字体颜色-->
-        <item name="android:textColor">@color/Black</item>
-
-        <!--  colorControlNormal则是应用在图标上-->
-        <item name="colorControlNormal">@color/CommonText</item>
-        <!-- 还可以设置 colorControlNormal, colorControlActivated colorControlHighlight, 和 colorSwitchThumbNormal 的值来控制控件的颜色. -->
-        <item name="colorControlHighlight">@color/LightSalmon</item>
-
-        <!--<item name="android:colorControlActivated">@color/PeachPuff</item>-->
-
-
-        <item name="android:textColorSecondary">@color/CommonText</item>
-        <!--actionbar颜色-->
-        <!--colorPrimary（原色）：它作为应用的主要色调，一般是操作栏和最近任务的背景色。-->
-        <item name="colorPrimary">@color/CommonTitle</item>
-        <!--状态栏颜色,仅在Lollipop以上机器生效-->
-        <!--color Primary Dark（色原变暗）：原色的变暗色调，应用在状态栏上。-->
-        <item name="colorPrimaryDark">@color/CommonTitle</item>
-        <!--按钮下划线颜色-->
-        <!--colorAccent（色彩突显）：它是原色的强调色彩，应用在框架控制上,CheckBox 选中等。-->
-        <item name="colorAccent">@color/CommonButton</item>
-        <!--屏幕背景色-->
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="actionBarStyle">@style/ActionBar</item>
-
-        <!--这里是定义系统默认actionbar的地方,自己写的需要在actionbar中自己声明,还有PopMenu-->
-        <!--<item name="android:actionBarStyle">@style/ActionBar</item>-->
+    <style name="BaseTheme.Power" >
 
         <!--底部3个按键栏的颜色,5.1以上可用-->
         <!--<item name="android:navigationBarColor">@color/Violet</item>-->
@@ -40,18 +9,7 @@
         <item name="android:windowTranslucentStatus">true</item>
         <!--底部状态栏,最好不要加透明,不然会覆盖在view上-->
         <!--  <item name="android:windowTranslucentNavigation">true</item>-->
-
-        <!--取除左上角背景 Home区域-->
-        <item name="selectableItemBackground">@null</item>
-
-
-        <!-- 箭头 -->
-        <item name="drawerArrowStyle">@style/AppTheme.DrawerArrowToggle</item>
-
-        <item name="android:colorBackgroundCacheHint">@null</item>
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowAnimationStyle">@android:style/Animation</item>
-    </style>
+       </style>
 
 
 </resources>
