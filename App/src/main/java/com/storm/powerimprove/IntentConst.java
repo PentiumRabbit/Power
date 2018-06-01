@@ -14,8 +14,9 @@ public class IntentConst {
 
     }
 
+    static int typeAnchor = 0;
     public interface Type {
-
+        int jump = typeAnchor++;
     }
 
 

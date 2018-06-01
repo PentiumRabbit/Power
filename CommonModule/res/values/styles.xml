@@ -1,0 +1,35 @@
+<resources>
+
+
+    <style name="ActionBar" parent="Widget.AppCompat.ActionBar">
+        <item name="indeterminateProgressStyle">@style/IndeterminateProgress</item>
+        <!--<item name="android:textColorSecondary">@color/Orange</item>-->
+        <item name="actionMenuTextColor">@color/CommonText</item>
+        <item name="android:indeterminateProgressStyle">@style/IndeterminateProgress</item>
+        <item name="actionButtonStyle">@style/ActionBarMenuBg</item>
+        <!-- 填充自定义的view是需要加上这一句 -->
+        <!--<item name="contentInsetStart">0dp</item>-->
+        <!--<item name="contentInsetEnd">0dp</item>-->
+        <!-- 加上阴影-->
+        <!--<item name="elevation">0dp</item>-->
+    </style>
+
+    <!--设置ActionBar中的Menu点击效果-->
+    <style name="ActionBarMenuBg" parent="Widget.AppCompat.ActionButton">
+        <item name="android:background">#00000000</item>
+    </style>
+
+
+    <style name="IndeterminateProgress" parent="Widget.AppCompat.ProgressBar">
+        <!--<item name="android:indeterminateDrawable">@drawable/actionbar_spinner</item>-->
+        <item name="android:minWidth">16dp</item>
+    </style>
+
+
+    <!-- 左边的箭头指示-->
+    <style name="AppTheme.DrawerArrowToggle" parent="Base.Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/Red</item>
+    </style>
+
+
+</resources>
