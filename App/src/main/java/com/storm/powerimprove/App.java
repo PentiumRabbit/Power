@@ -1,15 +1,9 @@
 package com.storm.powerimprove;
 
-import android.app.Application;
 import android.graphics.Bitmap;
-import android.os.Build;
-import android.os.StrictMode;
 
 import com.android.base.IApplication;
 import com.android.base.common.utils.Logger;
-import com.android.netconnect.engine.NetConfig;
-import com.android.netconnect.http.HttpLoader;
-import com.facebook.stetho.Stetho;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -18,7 +12,6 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.utils.L;
-import com.squareup.leakcanary.LeakCanary;
 
 /**
  * App的全局Application
@@ -41,17 +34,9 @@ public class App  extends IApplication {
 
     // 初始化
     private void initConfig() {
-
         // 率先设置Debug开关
         initDebug();
-
-        Logger.i("zry", TAG + " --- initConfig()");
-
-        // 初始化OOM检测
-        LeakCanary.install(application);
-
         initImageLoader();
-        initDebugModel();
     }
 
     /**
@@ -59,7 +44,6 @@ public class App  extends IApplication {
      */
     private void initDebug() {
         Logger.setDebug(AppArg.IS_DEBUG);
-//        initStetho();
     }
 
 
@@ -84,33 +68,9 @@ public class App  extends IApplication {
         L.writeDebugLogs(AppArg.IS_DEBUG);
     }
 
-    /*开启严苛模式*/
-    public void initDebugModel() {
-        if (!AppArg.IS_DEBUG) {
-            return;
-        }
-        // check if android:debuggable is set to true
-        StrictMode.VmPolicy.Builder     vmBuilder     = new StrictMode.VmPolicy.Builder();
-        StrictMode.ThreadPolicy.Builder threadBuilder = new StrictMode.ThreadPolicy.Builder();
-        if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
-            threadBuilder.detectAll();
-            StrictMode.setThreadPolicy(threadBuilder.build());
-            vmBuilder.detectAll();
-            StrictMode.setVmPolicy(vmBuilder.build());
 
-        }
-    }
 
-    /**
-     * 初始化
-     */
-    private void initStetho() {
-        Stetho.initialize(
-                Stetho.newInitializerBuilder(application)
-                        .enableDumpapp(Stetho.defaultDumperPluginsProvider(application))
-                        .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(application))
-                        .build());
-    }
+
 
 
 }

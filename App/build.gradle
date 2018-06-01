@@ -159,7 +159,5 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     api project(':CommonModule')
     api project(':NetModule')
-    // 添加检测OOM的jar功能包依赖
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
-    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+
 }
