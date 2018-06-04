@@ -1,4 +1,4 @@
-package com.example.devmodule;
+package com.dev.devmodule;
 
 import android.os.Build;
 import android.os.StrictMode;

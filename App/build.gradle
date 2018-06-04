@@ -75,8 +75,8 @@ android {
             versionNameSuffix '.debug.' + getGitVersion()
             // 为该类型设置属性值
             buildConfigField "boolean", "DEBUG_MODEL", "true"
+            matchingFallbacks = ['release']   // instead use this
 
-            matchingFallbacks = ['release']    // instead use this
         }
     }
     compileOptions {
@@ -93,6 +93,8 @@ android {
             dimension "color"
             // 对占位符进行替换
             manifestPlaceholders = [umeng_channel: "baidu"]
+
+
         }
 //        google {
 //            applicationId "com.storm.powerimprove.international"
@@ -156,8 +158,8 @@ android {
 //}
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    api project(':CommonModule')
-    api project(':NetModule')
-
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':CommonModule')
+    implementation project(':NetModule')
+    debugImplementation project(path: ':DevModule', configuration: 'default')
 }
