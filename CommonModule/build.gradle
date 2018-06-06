@@ -83,6 +83,7 @@ android {
     defaultConfig {
         minSdkVersion MIN_SDK_VERSION as int
         targetSdkVersion TARGET_SDK_VERSION as int
+        resourcePrefix project.name
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7

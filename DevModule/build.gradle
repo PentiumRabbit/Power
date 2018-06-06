@@ -35,6 +35,7 @@ android {
         // 增加资源文件的属性值
         resValue "string", "build_time", getDate()
 
+        resourcePrefix project.name
     }
 
 
