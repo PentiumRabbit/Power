@@ -147,5 +147,5 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':CommonModule')
     implementation project(':NetModule')
-    debugImplementation project(path: ':DevModule', configuration: 'default')
+    debugImplementation project(':DevModule')
 }

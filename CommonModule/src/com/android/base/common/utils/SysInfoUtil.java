@@ -103,6 +103,7 @@ public class SysInfoUtil {
     }
 
     public static String getIMEI(Context context) {
+        @SuppressLint({"MissingPermission", "HardwareIds"})
         String imei = ((TelephonyManager) context
                 .getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
         if (TextUtils.isEmpty(imei)) {

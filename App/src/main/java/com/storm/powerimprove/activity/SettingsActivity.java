@@ -3,27 +3,26 @@ package com.storm.powerimprove.activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.android.base.common.base.BaseActivity;
+import com.storm.powerimprove.Dev;
 import com.storm.powerimprove.R;
 
-public class SettingsActivity extends BaseActivity {
+public class SettingsActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        updateTheme();
     }
 
-    @Override
-    protected void updateTheme() {
-
-    }
 
     @Override
     protected void initView() {
-
+        View dev = findViewById(R.id.tv_dev);
+        dev.setVisibility(View.VISIBLE);
+        dev.setOnClickListener(this);
     }
 
     @Override
@@ -47,5 +46,14 @@ public class SettingsActivity extends BaseActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_dev:
+                Dev.startDevUI(this);
+                break;
+        }
     }
 }

@@ -17,7 +17,7 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
  * @author ----zhaoruyang----
  * @data: 2015/2/6
  */
-public abstract class BaseActivity extends RxAppCompatActivity implements IHandlerMessage {
+public class BaseActivity extends RxAppCompatActivity implements IHandlerMessage {
     private static final String TAG = BaseActivity.class.getSimpleName();
     protected FragmentManager supportFragmentManager;
     protected Handler         handler;
@@ -58,17 +58,21 @@ public abstract class BaseActivity extends RxAppCompatActivity implements IHandl
     /**
      * 更新主题
      */
-    protected abstract void updateTheme();
+    protected void updateTheme() {
+
+    }
 
     /**
      * 初始化View
      */
-    protected abstract void initView();
+    protected void initView() {
+    }
 
     /**
      * 初始化数据
      */
-    protected abstract void initDate();
+    protected void initDate() {
+    }
 
 
     @Override

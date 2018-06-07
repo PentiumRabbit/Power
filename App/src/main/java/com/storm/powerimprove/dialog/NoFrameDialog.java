@@ -16,6 +16,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.storm.powerimprove.R;
+import com.trello.rxlifecycle2.components.support.RxAppCompatDialogFragment;
 
 
 /**
@@ -25,7 +26,7 @@ import com.storm.powerimprove.R;
  * @author ----zhaoruyang----
  * @data: 2015/4/14
  */
-public abstract class NoFrameDialog extends AppCompatDialogFragment {
+public abstract class NoFrameDialog extends RxAppCompatDialogFragment {
     public static final String BUNDLE_MSG = "bundle_msg";
 
     public static final int DIALOG_EXIT = 1;

@@ -28,7 +28,6 @@
     <string name="button_ok">确定</string>
     <string name="title_activity_settings">SettingsActivity</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="warm_tag">输入TAG</string>
     <string name="log_type">需要过滤的TAG类型</string>
     <string name="start">start</string>

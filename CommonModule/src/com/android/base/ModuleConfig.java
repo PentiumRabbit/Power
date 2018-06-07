@@ -9,7 +9,7 @@ public class ModuleConfig {
     public static String[] names=new String[]{
             "com.storm.powerimprove.App",
             "com.android.netconnect.NetApplication",
-            "com.example.devmodule.DevApplication",
+            "com.dev.devmodule.DevApplication",
             "error test`"
     };
 
