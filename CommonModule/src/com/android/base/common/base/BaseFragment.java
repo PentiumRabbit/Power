@@ -9,7 +9,6 @@ import android.view.KeyEvent;
 import android.view.View;
 
 import com.android.base.AppConstant;
-import com.trello.rxlifecycle2.components.support.RxFragment;
 
 /**
  * 新的基类,用于替换BaseFragment
@@ -17,7 +16,7 @@ import com.trello.rxlifecycle2.components.support.RxFragment;
  * @author ----zhaoruyang----
  * @data: 2015/2/6
  */
-public class BaseFragment extends RxFragment implements IFragmentPro, IErrorViewControl {
+public class BaseFragment extends Fragment implements IFragmentPro, IErrorViewControl {
     private static final String TAG = "BaseNewFragment";
     private FragmentManager supportFragmentManager;
     private int fragmentStatus;

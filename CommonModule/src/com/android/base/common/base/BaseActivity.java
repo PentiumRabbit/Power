@@ -7,17 +7,17 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.android.base.common.handler.CommonHandler;
 import com.android.base.common.handler.IHandlerMessage;
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 /**
  * @author ----zhaoruyang----
  * @data: 2015/2/6
  */
-public class BaseActivity extends RxAppCompatActivity implements IHandlerMessage {
+public class BaseActivity extends AppCompatActivity implements IHandlerMessage {
     private static final String TAG = BaseActivity.class.getSimpleName();
     protected FragmentManager supportFragmentManager;
     protected Handler         handler;

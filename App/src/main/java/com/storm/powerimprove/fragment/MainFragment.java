@@ -1,6 +1,7 @@
 package com.storm.powerimprove.fragment;
 
 import android.app.Activity;
+import android.arch.lifecycle.Lifecycle;
 import android.content.pm.PackageInfo;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -25,8 +26,12 @@ import android.widget.Toast;
 import com.storm.powerimprove.R;
 import com.storm.powerimprove.activity.MainActivity;
 import com.storm.powerimprove.widget.MaterialProgress;
+import com.uber.autodispose.AutoDispose;
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 
 import java.util.List;
+
+import io.reactivex.Observable;
 
 
 /**
@@ -145,6 +150,13 @@ public class MainFragment extends Fragment {
                         .show();
             }
         });
+
+        Observable
+                .just(1, 2, 3)
+                .as(AutoDispose.<Integer>autoDisposable(AndroidLifecycleScopeProvider.from(this)))
+                .subscribe();
+
+        AndroidLifecycleScopeProvider from = AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY);
 
     }
 
