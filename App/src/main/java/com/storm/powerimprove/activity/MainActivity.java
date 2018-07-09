@@ -48,6 +48,8 @@ public class MainActivity extends LocalDialogActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initView();
+        initDate();
     }
 
     @Override
@@ -55,7 +57,6 @@ public class MainActivity extends LocalDialogActivity
 
     }
 
-    @Override
     protected void initView() {
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -69,9 +70,11 @@ public class MainActivity extends LocalDialogActivity
 
         ScreenUtil.setImmerseLayout(findViewById(R.id.toolbar));
         Logger.d("开始");
+
+        contentView.setRootRect(R.layout.view_loading,R.id.container);
+        contentView.show(R.layout.view_loading);
     }
 
-    @Override
     protected void initDate() {
 
     }

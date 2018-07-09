@@ -12,7 +12,8 @@ public class ExampleActivity extends BaseActivity implements FragmentCallback {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        initView();
+        initDate();
     }
 
     @Override
@@ -20,14 +21,12 @@ public class ExampleActivity extends BaseActivity implements FragmentCallback {
 
     }
 
-    @Override
     protected void initView() {
             /*替换新的fragment*/
         replaceFragment(11, ExampleFragment.newInstance(new Bundle()), true);
 
     }
 
-    @Override
     protected void initDate() {
 
     }

@@ -15,17 +15,17 @@ public class SettingsActivity extends BaseActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        initView();
+        initDate();
     }
 
 
-    @Override
     protected void initView() {
         View dev = findViewById(R.id.tv_dev);
         dev.setVisibility(View.VISIBLE);
         dev.setOnClickListener(this);
     }
 
-    @Override
     protected void initDate() {
 
     }

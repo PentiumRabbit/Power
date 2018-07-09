@@ -8,10 +8,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.android.base.common.handler.CommonHandler;
 import com.android.base.common.handler.IHandlerMessage;
+import com.android.base.common.view.ContentView;
+import com.android.common.R;
 
 /**
  * @author ----zhaoruyang----
@@ -21,6 +24,20 @@ public class BaseActivity extends AppCompatActivity implements IHandlerMessage {
     private static final String TAG = BaseActivity.class.getSimpleName();
     protected FragmentManager supportFragmentManager;
     protected Handler         handler;
+    protected ContentView contentView;
+
+
+    @Override
+    public void setContentView(int layoutResID) {
+        // TODO: ZRY: 2018/7/9 拦截添加自定义view `
+        contentView = new ContentView(this);
+        LayoutInflater.from(this).inflate(layoutResID, contentView, true);
+        //contentView.add(layoutResID);
+        super.setContentView(contentView);
+        contentView.add(R.layout.view_loading);
+
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,22 +45,20 @@ public class BaseActivity extends AppCompatActivity implements IHandlerMessage {
         supportFragmentManager = getSupportFragmentManager();
         handler = new CommonHandler<BaseActivity>(this);
         // 优化的DelayLoad
-        getWindow().getDecorView().post(new Runnable() {
-            @Override
-            public void run() {
-                handler.post(loadDate);
-            }
-        });
+        //getWindow().getDecorView().post(new Runnable() {
+        //    @Override
+        //    public void run() {
+        //        handler.post(loadDate);
+        //    }
+        //});
 
     }
 
-    private Runnable loadDate = new Runnable() {
-        @Override
-        public void run() {
-            initView();
-            initDate();
-        }
-    };
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
 
     /**
      * 空实现，避免子类有些不需要的实现
@@ -60,18 +75,6 @@ public class BaseActivity extends AppCompatActivity implements IHandlerMessage {
      */
     protected void updateTheme() {
 
-    }
-
-    /**
-     * 初始化View
-     */
-    protected void initView() {
-    }
-
-    /**
-     * 初始化数据
-     */
-    protected void initDate() {
     }
 
 
