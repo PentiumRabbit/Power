@@ -8,6 +8,18 @@ public class GroupInfo {
     private int type;
     private String color;
 
+    public GroupInfo() {
+    }
+
+    public GroupInfo(int type) {
+        this.type = type;
+    }
+
+    public GroupInfo(int type, String color) {
+        this.type = type;
+        this.color = color;
+    }
+
     public int getType() {
         return type;
     }

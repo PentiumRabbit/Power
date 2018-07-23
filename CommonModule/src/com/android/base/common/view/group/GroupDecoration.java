@@ -13,7 +13,6 @@ import android.util.SparseArray;
 import android.view.View;
 
 
-
 /**
  * 设置背景
  *
@@ -25,10 +24,10 @@ public class GroupDecoration extends RecyclerView.ItemDecoration {
     private Paint fillPaint;
     private Path cornerShadowPath;
     private float cornerRadius;
-    private float shadowSize = 15;
+    private float shadowSize = 10;
     private Paint cornerShadowPaint;
 
-    private int shadowStartColor = Color.parseColor("#345678");
+    private int shadowStartColor = Color.parseColor("#0D000000");
     private int shadowEndColor = Color.parseColor("#00000000");
     private Paint edgeShadowPaint;
 
@@ -39,7 +38,7 @@ public class GroupDecoration extends RecyclerView.ItemDecoration {
 
         cornerShadowPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
         cornerShadowPaint.setStyle(Paint.Style.FILL);
-        cornerRadius = (int) (20 + .5f);
+        cornerRadius = 10;
         edgeShadowPaint = new Paint(cornerShadowPaint);
         edgeShadowPaint.setAntiAlias(false);
         fillPaint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
@@ -49,6 +48,41 @@ public class GroupDecoration extends RecyclerView.ItemDecoration {
 
     public void setGroupInfos(SparseArray<GroupInfo> infos) {
         groupInfos = infos;
+    }
+
+
+    public void setGroupInfo(SparseArray<GroupInfo> groupInfo,int start, int end, String backGroundColor) {
+
+        if (start == end) {
+            return;
+        }
+
+        if (end - start == 1) {
+            GroupInfo info = new GroupInfo(GroupInfo.Type.all, backGroundColor);
+            groupInfo.put(start, info);
+            return;
+        }
+
+        for (int i = start; i < end; i++) {
+            int type;
+            if (i == start) {
+                type = GroupInfo.Type.top;
+            } else if (i == end - 1) {
+                type = GroupInfo.Type.bottom;
+            } else {
+                type = GroupInfo.Type.mid;
+            }
+            GroupInfo info = new GroupInfo(type, backGroundColor);
+            groupInfo.put(i, info);
+        }
+
+
+    }
+
+
+    @Override
+    public void onDrawOver(Canvas canvas, RecyclerView parent, RecyclerView.State state) {
+
     }
 
     @Override
@@ -62,10 +96,9 @@ public class GroupDecoration extends RecyclerView.ItemDecoration {
             int bottom = childView.getBottom();
             int left = childView.getLeft();
             RectF bounds = new RectF(left, top, right, bottom);
-            updateBackground(i, canvas, bounds);
+            int childAdapterPosition = parent.getChildAdapterPosition(childView);
+            updateBackground(childAdapterPosition, canvas, bounds);
         }
-
-
     }
 
 
@@ -88,6 +121,7 @@ public class GroupDecoration extends RecyclerView.ItemDecoration {
         try {
             String color = groupInfo.getColor();
             colorInt = Color.parseColor(color);
+            //colorInt = Color.RED;
         } catch (Exception e) {
         }
 
@@ -105,26 +139,21 @@ public class GroupDecoration extends RecyclerView.ItemDecoration {
 
     }
 
-    @Override
-    public void onDrawOver(Canvas canvas, RecyclerView parent, RecyclerView.State state) {
-
-
-    }
 
 
     private void drawAll(Canvas canvas, RectF bounds) {
         RectF newR = new RectF(bounds);
-        newR.inset(shadowSize, shadowSize);
-        drawRoundRectShadow(canvas, bounds);
-        drawRoundRect(canvas, newR);
+        newR.inset(-shadowSize, -shadowSize);
+        drawRoundRectShadow(canvas, newR);
+        drawRoundRect(canvas, bounds);
     }
 
     private void drawMid(Canvas canvas, RectF bounds) {
         RectF newR = new RectF(bounds);
-        newR.left += shadowSize;
-        newR.right -= shadowSize;
-        drawRectangleShadow(canvas, bounds);
-        drawRectangle(canvas, newR);
+        newR.left -= shadowSize;
+        newR.right += shadowSize;
+        drawRectangleShadow(canvas, newR);
+        drawRectangle(canvas, bounds);
     }
 
 
@@ -167,10 +196,12 @@ public class GroupDecoration extends RecyclerView.ItemDecoration {
         }
 
         RectF newR = new RectF(bounds);
-        newR.inset(shadowSize, shadowSize);
-        newR.bottom += shadowSize;
-        drawHalfTop(canvas, newR);
-        drawHalfTopShadow(canvas, bounds);
+        newR.top -= shadowSize;
+        newR.left -= shadowSize;
+        newR.right += shadowSize;
+        drawHalfTopShadow(canvas, newR);
+        drawHalfTop(canvas, bounds);
+
 
         canvas.restoreToCount(allSave);
 
@@ -219,16 +250,16 @@ public class GroupDecoration extends RecyclerView.ItemDecoration {
 
     private void drawHalfTop(Canvas canvas, RectF bounds) {
         final float twoRadius = cornerRadius * 2;
-        final float innerWidth = bounds.width() - twoRadius - 1;
+        final float innerWidth = bounds.width() - twoRadius;
         // center
         canvas.drawRect(bounds.left, bounds.top + cornerRadius,
                 bounds.right, bounds.bottom, fillPaint);
 
         if (cornerRadius >= 1f) {
 
-            float roundedCornerRadius = cornerRadius + .5f;
-            canvas.drawRect(bounds.left + roundedCornerRadius - 1f, bounds.top,
-                    bounds.right - roundedCornerRadius + 1f,
+            float roundedCornerRadius = cornerRadius;
+            canvas.drawRect(bounds.left + roundedCornerRadius, bounds.top,
+                    bounds.right - roundedCornerRadius,
                     bounds.top + roundedCornerRadius, fillPaint);
 
             RectF mCornerRect = new RectF();
@@ -250,10 +281,10 @@ public class GroupDecoration extends RecyclerView.ItemDecoration {
 
     private void drawRoundRect(Canvas canvas, RectF bounds) {
         final float twoRadius = cornerRadius * 2;
-        final float innerWidth = bounds.width() - twoRadius - 1;
-        final float innerHeight = bounds.height() - twoRadius - 1;
+        final float innerWidth = bounds.width() - twoRadius;
+        final float innerHeight = bounds.height() - twoRadius;
         if (cornerRadius >= 1f) {
-            float roundedCornerRadius = cornerRadius + .5f;
+            float roundedCornerRadius = cornerRadius;
             RectF mCornerRect = new RectF();
             mCornerRect.set(-roundedCornerRadius, -roundedCornerRadius, roundedCornerRadius,
                     roundedCornerRadius);
@@ -271,14 +302,13 @@ public class GroupDecoration extends RecyclerView.ItemDecoration {
             canvas.rotate(90);
             canvas.drawArc(mCornerRect, 180, 90, true, fillPaint);
             canvas.restoreToCount(saved);
-            //draw top and bottom pieces
-            canvas.drawRect(bounds.left + roundedCornerRadius - 1f, bounds.top,
-                    bounds.right - roundedCornerRadius + 1f,
+            canvas.drawRect(bounds.left + roundedCornerRadius, bounds.top,
+                    bounds.right - roundedCornerRadius,
                     bounds.top + roundedCornerRadius, fillPaint);
 
-            canvas.drawRect(bounds.left + roundedCornerRadius - 1f,
+            canvas.drawRect(bounds.left + roundedCornerRadius,
                     bounds.bottom - roundedCornerRadius,
-                    bounds.right - roundedCornerRadius + 1f, bounds.bottom, fillPaint);
+                    bounds.right - roundedCornerRadius, bounds.bottom, fillPaint);
         }
         // center
         canvas.drawRect(bounds.left, bounds.top + cornerRadius,
