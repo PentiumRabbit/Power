@@ -95,7 +95,7 @@ android {
             manifestPlaceholders = [umeng_channel: "baidu"]
         }
 //        google {
-//            applicationId "com.storm.powerimprove.international"
+//            applicationId "com.zry.power.international"
 //            manifestPlaceholders = [umeng_channel: "google"]
 //        }
         productFlavors.all {

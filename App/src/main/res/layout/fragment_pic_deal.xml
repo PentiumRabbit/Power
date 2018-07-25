@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:text="保存图片" />
 
-    <com.storm.powerimprove.view.CropView
+    <com.zry.power.view.CropView
         android:id="@+id/cv_pic"
         android:layout_width="match_parent"
         android:layout_height="400dp"

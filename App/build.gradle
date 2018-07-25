@@ -83,7 +83,7 @@ android {
 
         }
 //        google {
-//            applicationId "com.storm.powerimprove.international"
+//            applicationId "com.zry.power.international"
 //            manifestPlaceholders = [umeng_channel: "google"]
 //        }
         productFlavors.all {
@@ -145,7 +145,7 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    implementation project(':CommonModule')
-    implementation project(':NetModule')
-    debugImplementation project(':DevModule')
+    implementation project(':Common')
+    implementation project(':Net')
+    debugImplementation project(':Dev')
 }

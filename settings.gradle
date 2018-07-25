@@ -1,1 +1,1 @@
-include ':App', ':CommonModule', ':NetModule', ':DevModule'
+include ':App', ':Common', ':Net', ':Dev', ':Router'
